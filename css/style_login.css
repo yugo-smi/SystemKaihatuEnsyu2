@@ -1,5 +1,5 @@
 input[type="submit"] {
-    background-color: #0000ff;
+    background-color: #00ff00;
     border: none;
     color: white;
     cursor: pointer;
@@ -8,5 +8,31 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #0100ff88;
+    background-color: #aaffaa;
+}
+
+input[type="reset"] {
+    background-color: #bbbbbb;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+input[type="reset"]:hover {
+    background-color: #dddddd;
+}
+
+input[type="button"] {
+    background-color: #ff00dd;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+input[type="button"]:hover {
+    background-color: #ff99ff;
 }
