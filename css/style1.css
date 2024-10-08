@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+#logo{
+    float: right;
+}
+
+.main_img {
+    width: 900px;
+    height: 450px;
+}
+
+.akasi_img {
+    width: 900px;
+    height: 450px;
+}
+
+a{
+    color: #0800ff;
+}
+
+a:visited{
+    color: #a8a8a8;
+}
+
+a:hover{
+    color: #1f1e33;
+}
+
+#header_items ul {
+    display: flex;
+    list-style: none;
+    float: right;
+    padding-right: 0;
+    margin-top: 0;
+}
+
+#header_items li{
+    margin-right: 20px;
+}
+
+
+h1 {
+    margin-top: 0;
+}
+
+#global_navi {
+    width: 800px;
+    clear: both;
+    overflow: hidden;
+    margin: 16px auto;
+}
+
+#global_navi ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#footer_items ul{
+    display: flex;
+    list-style: none;
+    float: right;
+    padding-right: 0;
+    margin-top: 0;
+}
+
+#footer_items ul li{
+    margin-right: 20px;
+}
