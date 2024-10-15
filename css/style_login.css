@@ -1,3 +1,7 @@
+body{
+    background-image: url('./image/背景.png');
+}
+
 input[type="submit"] {
     background-color: #00ff00;
     border: none;
@@ -36,3 +40,4 @@ input[type="button"] {
 input[type="button"]:hover {
     background-color: #ff99ff;
 }
+

@@ -6,7 +6,6 @@
         <html lang="ja">
         <title>NEW LINK</title>  
         <link rel="stylesheet" href="css/style_index.css">
-        <link rel="shortcut icon" href="image/logo.png">
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -19,7 +18,7 @@
         <!-- ヘッダー-->
         <header>
             <nav id = "header">
-                <h1><img class = "logo" href="index.html" src="image/logo.png" alt="ロゴ"></h1>
+                <h1><img class = "logo" href="index.html" src="image/logoo.png" alt="ロゴ"></h1>
                 <h1><img src="image/connect.png" alt="お問い合わせ"></h1> 
             </nav>
             
@@ -31,13 +30,11 @@
                     <li><a href="message.html">メッセージ</a></li>
                     <li><a href="news.html">新着情報</a></li>
                     <li><a href="profile.html">プロフィール</a></li>
-                    
                 </ul>
             </nav>
             
         </header>
         <!--/ヘッダー-->
-
         
         <!-- メイン画像-->
         <div>

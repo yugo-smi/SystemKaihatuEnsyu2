@@ -10,6 +10,11 @@ body {
     float: right;
 }
 
+.logo{
+    width: 100px;
+    height: 100px;
+}
+
 .main_img {
     width: 900px;
     height: 450px;
