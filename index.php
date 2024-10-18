@@ -18,7 +18,7 @@
         <!-- ヘッダー-->
         <header>
             <nav id = "header">
-                <h1><img class = "logo" href="index.php" src="image/logoo.png" alt="ロゴ"></h1>
+                <h1><img class = "logo" href="index.php" src="image/logo.png" alt="ロゴ"></h1>
                 <h1><img class = "contact" href = "contact.php"src="image/contact.png" alt="お問い合わせ"></h1> 
             </nav>
             
