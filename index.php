@@ -18,18 +18,18 @@
         <!-- ヘッダー-->
         <header>
             <nav id = "header">
-                <h1><img class = "logo" href="index.html" src="image/logoo.png" alt="ロゴ"></h1>
-                <h1><img src="image/connect.png" alt="お問い合わせ"></h1> 
+                <h1><img class = "logo" href="index.php" src="image/logoo.png" alt="ロゴ"></h1>
+                <h1><img class = "contact" href = "contact.php"src="image/contact.png" alt="お問い合わせ"></h1> 
             </nav>
             
             <nav id = "header_items">
                 <ul>
-                    <li><a href="index.html">ホーム</a></li>
-                    <li><a href="search.html">お相手を検索</a></li>
-                    <li><a href="like.html">イイね</a></li>
-                    <li><a href="message.html">メッセージ</a></li>
-                    <li><a href="news.html">新着情報</a></li>
-                    <li><a href="profile.html">プロフィール</a></li>
+                    <li><a href="index.php">ホーム</a></li>
+                    <li><a href="search.php">お相手を検索</a></li>
+                    <li><a href="like.php">イイね</a></li>
+                    <li><a href="message.php">メッセージ</a></li>
+                    <li><a href="news.php">新着情報</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
                 </ul>
             </nav>
             
@@ -68,11 +68,11 @@
         <footer>
             <nav id="footer_items">
                 <ul>
-                    <li><a href="search.html">お相手を検索</a></li>
-                    <li><a href="like.html">イイね</a></li>
-                    <li><a href="message.html">メッセージ</a></li>
-                    <li><a href="news.html">新着情報</a></li>
-                    <li><a href="profile.html">プロフィール</a></li>
+                    <li><a href="search.php">お相手を検索</a></li>
+                    <li><a href="like.php">イイね</a></li>
+                    <li><a href="message.php">メッセージ</a></li>
+                    <li><a href="news.php">新着情報</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
                 </ul>
             </nav>
         </footer>
