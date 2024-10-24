@@ -1,4 +1,7 @@
 @charset "utf-8";
+#header{
+    background-color: #ff99dd;
+}
 
 body {
     margin: 0;
@@ -6,23 +9,34 @@ body {
     color: #333;
 }
 
-#logo{
-    float: right;
+h1{
+    padding-top: 25px;
+    text-align: center;
+    padding-bottom: 19px;
 }
 
 .logo{
+    float: left;
     width: 80px;
     height: 80px;
 }
 
+.hamburger{
+    float: right;
+    margin-top:25px;
+    margin-right:25px;
+    width: 30px;
+    height: 30px;
+}
+
 .main_img {
-    width: 900px;
-    height: 450px;
+    width: 200px;
+    height: 100px;
 }
 
 .akasi_img {
-    width: 900px;
-    height: 450px;
+    width: 200px;
+    height: 100px;
 }
 
 a{
