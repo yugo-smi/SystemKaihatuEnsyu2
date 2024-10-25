@@ -10,3 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+    // バリデーションやAPIリクエストなどの処理をここに追加
+
+    // 成功した場合にページ遷移
+    window.location.href = 'index.php'; // 遷移先ページ
+});
