@@ -1,43 +1,123 @@
-body{
-    background-image: url('./image/背景.png');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-input[type="submit"] {
-    background-color: #00ff00;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #b3d9ff;  /* 背景を水色に設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #f5f9ff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.logo img {
+    width: 60px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button.login-button {
+    background-color: #ccc;
+    color: #000;
+    padding: 10px 20px;
     border: none;
-    color: white;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    width: 100%;
 }
 
-input[type="submit"]:hover {
-    background-color: #aaffaa;
+button.login-button:hover {
+    background-color: #bbb;
 }
 
-input[type="reset"] {
-    background-color: #bbbbbb;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+.forgot-password {
+    margin-top: 10px;
+    font-size: 12px;
 }
 
-input[type="reset"]:hover {
-    background-color: #dddddd;
+.forgot-password a {
+    text-decoration: none;
+    color: #0073e6;
 }
 
-input[type="button"] {
-    background-color: #ff00dd;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+.register-link {
+    margin-top: 20px;
+    font-size: 12px;
 }
 
-input[type="button"]:hover {
-    background-color: #ff99ff;
+.register-link a {
+    text-decoration: none;
+    color: #0073e6;
+}
+
+/* メディアクエリを使ってスマホ用のスタイルを適用 */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .login-container {
+        width: 100%;
+        max-width: 350px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button.login-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .forgot-password a,
+    .register-link a {
+        font-size: 10px;
+    }
 }
 

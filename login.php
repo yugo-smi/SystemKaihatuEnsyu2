@@ -1,19 +1,34 @@
 <!DOCTYPE html>
+<html lang="ja">
 <head>
-    <html lang="ja">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEW LINK-ログイン</title>  
     <link rel="stylesheet" href="css/style_login.css">
     <link rel="shortcut icon" href="image/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-    <h2>ログイン</h2 >
-    <ul>
-        <li><label>メールアドレス：<input type="text" name="mailaddres"></label></li>
-        <li><label>パスワード：<input type="password" name="password"></label></li>
-        <li><input type="submit" value="ログイン"></li>
-        <li><input type="reset" value="リセット"></li>
-        <li><input type="button" value="トップに戻る"></li>
-    </ul>
+    <div class="login-container">
+        <div class="logo">
+            <img src="image/logo.PNG" alt="New Link ロゴ">
+        </div>
+        <h2>ログイン</h2>
+        <form>
+            <label for="email">OICメールアドレス</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">パスワード</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" class="login-button">ログインする</button>
+
+            <div class="forgot-password">
+                <a href="#">パスワードを忘れた方はこちら</a>
+            </div>
+        </form>
+        <div class="register-link">
+            <a href="#">アカウント新規登録</a>
+        </div>
+    </div>
 </body>
+</html>
