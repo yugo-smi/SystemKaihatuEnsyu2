@@ -47,10 +47,41 @@ input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* 適切な間隔を確保 */
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+}
+
+/* パスワード入力欄の右端にアイコンを表示 */
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;  /* ログインボタンとの間隔を確保 */
+}
+
+input[type="password"], 
+input[type="text"] {
+    width: 100%; /* 幅を固定 */
+    padding: 10px;
+    padding-right: 40px; /* アイコンの分だけ右にスペースを確保 */
+    margin-bottom: 15px; /* 下の間隔を設定 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.toggle-password img {
+    width: 20px;  /* アイコンのサイズを適切に調整 */
+    height: auto;
 }
 
 button.login-button {
@@ -120,4 +151,7 @@ button.login-button:hover {
         font-size: 10px;
     }
 }
+
+
+
 

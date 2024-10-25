@@ -18,7 +18,12 @@
             <input type="email" id="email" name="email" required>
 
             <label for="password">パスワード</label>
-            <input type="password" id="password" name="password" required>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <span id="toggle-password" class="toggle-password">
+                    <img src="image/eye-icon.png" alt="目のアイコン">
+                </span>
+            </div>
 
             <button type="submit" class="login-button">ログインする</button>
 
@@ -30,5 +35,7 @@
             <a href="#">アカウント新規登録</a>
         </div>
     </div>
+
+    <script src="js/main.js"></script> <!-- JavaScriptファイルの読み込み -->
 </body>
 </html>
