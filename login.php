@@ -13,7 +13,9 @@
             <img src="image/logo.PNG" alt="New Link ロゴ">
         </div>
         <h2>ログイン</h2>
-        <form>
+
+        <!-- ログインフォーム -->
+        <form id="loginForm" action="index.php" method="POST"> <!-- actionで送信先を指定 -->
             <label for="email">OICメールアドレス</label>
             <input type="email" id="email" name="email" required>
 
@@ -31,6 +33,7 @@
                 <a href="#">パスワードを忘れた方はこちら</a>
             </div>
         </form>
+
         <div class="register-link">
             <a href="#">アカウント新規登録</a>
         </div>
@@ -39,3 +42,4 @@
     <script src="js/main.js"></script> <!-- JavaScriptファイルの読み込み -->
 </body>
 </html>
+
