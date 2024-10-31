@@ -1,18 +1,14 @@
 @charset "utf-8";
-#header{
-    background-color: #b3d9ff;
-}
-
 body {
     margin: 0px;
     padding: 0px;
     color: #333;
 }
 
-h1{
-    padding-top: 17px;
-    text-align: center;
-    padding-bottom: 17px;
+.logotitle{
+    display: flex;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
 }
 
 .logo{
@@ -33,6 +29,7 @@ h1{
     display: flex;
     justify-content: center; /* 水平方向に中央揃え */
     align-items: center; /* 垂直方向に中央揃え */
+    
 }
 
 a{
