@@ -29,9 +29,7 @@
 
             <button type="submit" class="login-button">ログインする</button>
 
-            <div class="forgot-password">
-                <a href="#">パスワードを忘れた方はこちら</a>
-            </div>
+            
         </form>
 
         <div class="register-link">
