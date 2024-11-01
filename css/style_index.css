@@ -1,18 +1,14 @@
 @charset "utf-8";
-#header{
-    background-color: #ff99dd;
-}
-
 body {
-    margin: 0;
-    padding: 0;
-    color: #333;
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
 }
 
-h1{
-    padding-top: 25px;
-    text-align: center;
-    padding-bottom: 19px;
+.logotitle{
+    display: flex;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
 }
 
 .logo{
@@ -21,7 +17,7 @@ h1{
     height: 80px;
 }
 
-.hamburger{
+.hamburger_bar{
     float: right;
     margin-top:25px;
     margin-right:25px;
@@ -29,14 +25,11 @@ h1{
     height: 30px;
 }
 
-.main_img {
-    width: 200px;
-    height: 100px;
-}
-
-.akasi_img {
-    width: 200px;
-    height: 100px;
+.main_illust {
+    display: flex;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
+    
 }
 
 a{
@@ -51,17 +44,17 @@ a:hover{
     color: #1f1e33;
 }
 
-#header_items ul {
-    display: flex;
+#hamburger_items ul {
+    display: none;
     list-style: none;
-    float: right;
     padding-right: 0;
     margin-top: 0;
 }
 
-#header_items li{
+#hamburger_items li{
     margin-right: 20px;
 }
+
 
 
 h1 {
@@ -81,14 +74,3 @@ h1 {
     padding: 0;
 }
 
-#footer_items ul{
-    display: flex;
-    list-style: none;
-    float: right;
-    padding-right: 0;
-    margin-top: 0;
-}
-
-#footer_items ul li{
-    margin-right: 20px;
-}
