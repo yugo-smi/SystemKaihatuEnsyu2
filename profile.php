@@ -12,6 +12,7 @@
             <a href="index.php">
                 <img class = "logo"  src="image/logo.png" alt="ロゴ">
             </a>
+                <img class = "hamburger_bar" src="image/hamburger.png" alt="メニュー"> 
             <div class = "logotitle">
                 <img src="image/logotitle.png" alt="タイトル">
             </div>

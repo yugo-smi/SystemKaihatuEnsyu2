@@ -42,6 +42,14 @@
     align-items: center; /* 垂直方向に中央揃え */
 }
 
+.hamburger_bar{
+    float: right;
+    margin-top:25px;
+    margin-right:25px;
+    width: 30px;
+    height: 30px;
+}
+
 h1 {
     color: #333;
     font-size: 1.6em;
