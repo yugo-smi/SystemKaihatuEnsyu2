@@ -78,7 +78,27 @@ input[type="text"] {
   height: auto;
 }
 
-button.register-button {
+.register-button {
+  background-color: #ccc;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 20px; /* 戻るボタンとの間に余白を設定 */
+}
+
+.register-button:hover {
+  background-color: #bbb;
+}
+
+.back-button {
+  text-align: center;
+}
+
+.back-button button {
   background-color: #ccc;
   color: #000;
   padding: 10px 20px;
@@ -89,16 +109,7 @@ button.register-button {
   width: 100%;
 }
 
-button.register-button:hover {
+.back-button button:hover {
   background-color: #bbb;
 }
 
-.login-link {
-  margin-top: 20px;
-  font-size: 12px;
-}
-
-.login-link a {
-  text-decoration: none;
-  color: #0073e6;
-}
