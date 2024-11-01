@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEW LINK-ログイン</title>
-    <link rel="stylesheet" href="css/style_login.css">
+    <title>NEW LINK-アカウント新規登録</title>
+    <link rel="stylesheet" href="css/style_register.css">
 </head>
 <body>
-    <div class="login-container">
+    <div class="register-container">
         <div class="logo">
             <img src="image/logo.PNG" alt="New Link ロゴ">
         </div>
-        <h2>ログイン</h2>
+        <h2>アカウント新規登録</h2>
 
-        <!-- ログインフォーム -->
-        <form id="loginForm" action="index.php" method="POST">
+        <!-- 新規登録フォーム -->
+        <form id="registerForm" action="register_complete.php" method="POST">
+            <label for="username">ユーザー名</label>
+            <input type="text" id="username" name="username" required>
+
             <label for="email">OICメールアドレス</label>
             <input type="email" id="email" name="email" required>
 
@@ -28,17 +31,11 @@
                 </span>
             </div>
 
-            <button type="submit" class="login-button">ログインする</button>
-           
+            <button type="submit" class="register-button">登録する</button>
         </form>
-
-        <div class="register-link">
-            <a href="register.html">アカウント新規登録</a>
-        </div>
     </div>
 
     <script src="js/main.js"></script>
 </body>
 </html>
-
 
