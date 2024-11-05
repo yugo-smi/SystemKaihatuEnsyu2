@@ -8,10 +8,16 @@
 </head>
 <body>
     <div class="profile-container">
-        <div class="header">
-            <img src="image/logo.PNG" alt="ロゴ" class="logo">
-            <h1>プロフィール</h1>
+        <div id = "header">
+            <a href="index.php">
+                <img class = "logo"  src="image/logo.png" alt="ロゴ">
+            </a>
+                <img class = "hamburger_bar" src="image/hamburger.png" alt="メニュー"> 
+            <div class = "logotitle">
+                <img src="image/logotitle.png" alt="タイトル">
+            </div>
         </div>
+
         <div class="profile-section">
             <div class="buttons">
                 <button class="btn">プロフィール</button>
@@ -21,7 +27,7 @@
             <!-- 画像選択機能を追加 -->
             <div class="profile-info">
                 <div class="profile-pic-container">
-                    <img src="image/default-pic.jpg" alt="プロフィール画像" id="profile-pic" class="profile-pic">
+                    <img src="image/default-pic.png" alt="プロフィール画像" id="profile-pic" class="profile-pic">
                     <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
                     <input type="file" id="profile-pic-input" accept="image/*" aria-label="プロフィール画像を選択">
                 </div>
@@ -58,7 +64,9 @@
                 <h3>自己紹介</h3>
                 <textarea placeholder="自己紹介を入力してください"></textarea>
             </div>
-            <button class="submit-btn">確定</button>
+            <div class = "submit">
+                <button class="submit-btn">確定</button>
+            </div>
         </div>
     </div>
 
