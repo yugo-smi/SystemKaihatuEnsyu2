@@ -30,10 +30,10 @@
                 <!-- メニュー -->
                 <nav class="menu" id="menu">
                     <ul>
-                    <li><a href="#">ホーム</a></li>
-                    <li><a href="#">サービス</a></li>
-                    <li><a href="#">お問い合わせ</a></li>
-                    <li><a href="#">アクセス</a></li>
+                    <li><a href="index.php">ホーム</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
+                    <li><a href="">PayPay</a></li>
+                    <li><a href="">QuickPay</a></li>
                     </ul>
                 </nav>
 

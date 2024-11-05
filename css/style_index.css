@@ -68,7 +68,7 @@ body {
     background-color: #333;
     color: white;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     transition: right 0.3s;
   }
