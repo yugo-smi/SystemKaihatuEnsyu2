@@ -23,18 +23,11 @@ body {
     align-items: center; /* 垂直方向に中央揃え */
 }
 
-/* .hamburger_bar{
-    float: right;
-    margin-top:25px;
-    margin-right:25px;
-    width: 30px;
-    height: 30px;
-} */
 
 .main_illust {
     display: flex;
     justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
+    margin: 50px;
     
 }
 
@@ -60,12 +53,13 @@ body {
   
   /* メニューのスタイル */
   .menu {
+    z-index: calc(infinity);
     position: fixed;
     top: 0;
     right: -100%;
     width: 200px;
     height: 100%;
-    background-color: #333;
+    background-color: #79f4ff;
     color: white;
     display: flex;
     align-items: start;
@@ -84,7 +78,7 @@ body {
   }
   
   .menu ul li a {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 18px;
   }

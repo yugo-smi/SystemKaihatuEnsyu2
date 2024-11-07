@@ -21,8 +21,6 @@
                     <img class = "logo"  src="image/logo.png" alt="ロゴ">
                 </a>
 
-                <!-- <img class = "hamburger_bar" src="image/hamburger.png" alt="メニュー"> -->
-
                 <div class="hamburger" id="hamburger">
                     <img src="image/hamburger.png" alt="ハンバーガーバー">
                 </div>
@@ -30,10 +28,10 @@
                 <!-- メニュー -->
                 <nav class="menu" id="menu">
                     <ul>
-                    <li><a href="index.php">ホーム</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
-                    <li><a href="">PayPay</a></li>
-                    <li><a href="">QuickPay</a></li>
+                        <li><a href="index.php">ホーム</a></li>
+                        <li><a href="profile.php">プロフィール</a></li>
+                        <li><a href="">PayPay</a></li>
+                        <li><a href="">QuickPay</a></li>
                     </ul>
                 </nav>
 
