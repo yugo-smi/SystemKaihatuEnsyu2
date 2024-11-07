@@ -6,7 +6,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #b3d9ff; /* 背景を水色に設定 */
+  background-color: #b3d9ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,7 +87,7 @@ input[type="text"] {
   font-size: 16px;
   cursor: pointer;
   width: 100%;
-  margin-bottom: 20px; /* 戻るボタンとの間に余白を設定 */
+  margin-bottom: 20px;
 }
 
 .register-button:hover {
@@ -112,4 +112,17 @@ input[type="text"] {
 .back-button button:hover {
   background-color: #bbb;
 }
+
+/* タグ選択エリアのスタイル */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tag-container label {
+  font-size: 14px;
+}
+
 

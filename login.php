@@ -33,7 +33,7 @@
         </form>
 
         <div class="register-link">
-            <a href="register.html">アカウント新規登録</a>
+            <a href="register.php">アカウント新規登録</a>
         </div>
     </div>
 
