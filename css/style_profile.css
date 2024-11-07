@@ -42,13 +42,63 @@
     align-items: center; /* 垂直方向に中央揃え */
 }
 
-.hamburger_bar{
+.hamburger{
     float: right;
     margin-top:25px;
     margin-right:25px;
     width: 30px;
     height: 30px;
 }
+
+.hamburger span {
+display: block;
+height: 3px;
+background-color: #333;
+border-radius: 3px;
+transition: 0.3s;
+}
+
+/* メニューのスタイル */
+.menu {
+z-index: calc(infinity);
+position: fixed;
+top: 0;
+right: -100%;
+width: 200px;
+height: 100%;
+background-color: #79f4ff;
+color: white;
+display: flex;
+align-items: start;
+justify-content: center;
+transition: right 0.3s;
+}
+
+.menu ul {
+list-style: none;
+padding: 0;
+text-align: center;
+}
+
+.menu ul li {
+margin: 15px 0;
+}
+
+.menu ul li a {
+color: rgb(0, 0, 0);
+text-decoration: none;
+font-size: 18px;
+}
+
+/* メニューの表示 */
+.menu{
+margin-top: 80px;
+}
+.menu.open {
+right: 0;
+}
+  
+
 
 h1 {
     color: #333;
@@ -71,17 +121,16 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-.btn.heart {
+/* .btn.heart {
     background-color: #ffc0cb;
 }
 
 .btn.heart:hover {
-    background-color: #ffc0cdb7; /* 追加されたホバー時の色 */
+    background-color: #ffc0cdb7;  追加されたホバー時の色 
 }
-
 .btn:hover {
-    background-color: #c0e4ffda; /* 追加されたホバー時の色 */
-}
+    background-color: #c0e4ffda;  追加されたホバー時の色 
+}*/
 
 .profile-info {
     display: flex;

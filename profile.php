@@ -7,21 +7,33 @@
     <link rel="stylesheet" href="css/style_profile.css">
 </head>
 <body>
-    <div class="profile-container">
-        <div id = "header">
-            <a href="index.php">
-                <img class = "logo"  src="image/logo.png" alt="ロゴ">
-            </a>
-                <img class = "hamburger_bar" src="image/hamburger.png" alt="メニュー"> 
-            <div class = "logotitle">
-                <img src="image/logotitle.png" alt="タイトル">
-            </div>
-        </div>
+    <div id = "header">
+                <a href="index.php">
+                    <img class = "logo"  src="image/logo.png" alt="ロゴ">
+                </a>
 
+                <div class="hamburger" id="hamburger">
+                    <img src="image/hamburger.png" alt="ハンバーガーバー">
+                </div>
+
+                <!-- メニュー -->
+                <nav class="menu" id="menu">
+                    <ul>
+                        <li><a href="index.php">ホーム</a></li>
+                        <li><a href="profile.php">プロフィール</a></li>
+                        <li><a href="">PayPay</a></li>
+                        <li><a href="">QuickPay</a></li>
+                    </ul>
+                </nav>
+
+                <div class = "logotitle">
+                    <img src="image/logotitle.png" alt="タイトル">
+                </div>
+            </div>
+            <script src="js/index_hamburger.js"></script>
         <div class="profile-section">
             <div class="buttons">
                 <button class="btn">プロフィール</button>
-                <button class="btn heart">💖</button>
             </div>
 
             <!-- 画像選択機能を追加 -->
@@ -70,6 +82,8 @@
         </div>
     </div>
 
+
+    
     <!-- JavaScriptで画像プレビュー機能を追加 -->
     <script>
         const fileInput = document.getElementById("profile-pic-input");
