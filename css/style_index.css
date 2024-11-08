@@ -24,11 +24,52 @@ body {
 }
 
 
-.main_illust {
+/* .main_illust {
     display: flex;
-    justify-content: center; /* 水平方向に中央揃え */
-    margin: 50px;
-    
+    justify-content: center; 
+} */
+
+.slideshow-container {
+  max-width: 250px;
+  position: relative;
+  margin: auto;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+}
+
+.slide img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+/* 前後ボタンのスタイル */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  padding: 20px;
+  color: rgb(162, 236, 255);
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.prev {
+  left: 0px;
+}
+
+.next {
+  right: 0;
+}
+
+/* ボタンホバー時の効果 */
+.prev:hover, .next:hover {
+  background-color: rgba(0, 162, 255, 0.8);
 }
 
 .hamburger {
