@@ -61,12 +61,16 @@
             <div class="slide">
                 <img src="./image/仮アイコン.png" alt="Slide 3">
             </div>
-
             <!-- 前後ボタン -->
             <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next" onclick="changeSlide(1)">&#10095;</a>
         </div>
-        <script src="./js/index_slideshow.js"></script>        
+
+        <button class = "random_matching">
+            <a href="./profile.php">ランダムマッチングボタン</a>
+        </button>     
+
+        <script src="./js/index_slideshow.js"></script>   
         <!--/メイン -->
 
         <!-- フッター -->
