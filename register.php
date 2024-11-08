@@ -16,8 +16,8 @@
 
         <!-- 新規登録フォーム -->
         <form id="registerForm" action="register_complete.php" method="POST">
-            <label for="name">名前</label>
-            <input type="text" id="name" name="name" required>
+            <label for="nickname">ニックネーム</label>
+            <input type="text" id="nickname" name="nickname" required>
 
             <label for="email">メールアドレス</label>
             <input type="email" id="email" name="email" required>
@@ -42,6 +42,16 @@
                 </span>
             </div>
 
+            <!-- タグを選択するセクション -->
+            <label>タグを選んで</label>
+            <div class="tag-container">
+                <label><input type="checkbox" name="tags[]" value="アウトドア"> アウトドア</label>
+                <label><input type="checkbox" name="tags[]" value="インドア"> インドア</label>
+                <label><input type="checkbox" name="tags[]" value="旅行"> 旅行</label>
+                <label><input type="checkbox" name="tags[]" value="読書"> 読書</label>
+                <label><input type="checkbox" name="tags[]" value="音楽"> 音楽</label>
+            </div>
+
             <button type="submit" class="register-button">登録する</button>
         </form>
 
@@ -54,4 +64,5 @@
     <script src="js/register.js"></script> <!-- JavaScriptファイルの読み込み -->
 </body>
 </html>
+
 
