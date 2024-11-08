@@ -20,7 +20,9 @@
             <input type="text" id="nickname" name="nickname" required>
 
             <label for="email">メールアドレス</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required
+                   pattern="^[A-Za-z]{1}\d{4}@oic\.jp$"
+                   title="メールアドレスは英単語1文字+4桁の数字@oic.jpの形式で入力してください">
 
             <label for="password">パスワード</label>
             <div class="password-container">
@@ -61,8 +63,22 @@
         </div>
     </div>
 
+    <!-- JavaScriptでタグの選択を確認 -->
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            // タグが1つ以上選択されているかを確認
+            const tags = document.querySelectorAll('input[name="tags[]"]:checked');
+            if (tags.length === 0) {
+                alert("少なくとも1つのタグを選択してください。");
+                event.preventDefault(); // フォーム送信をキャンセル
+            }
+        });
+    </script>
+
     <script src="js/register.js"></script> <!-- JavaScriptファイルの読み込み -->
 </body>
 </html>
+
+
 
 
