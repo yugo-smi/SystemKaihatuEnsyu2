@@ -60,7 +60,7 @@
                    <img src="./image/akasi.png" alt="Slide 2">
                 </div>
                 <div class="slide">
-                   <img src="./image/仮アイコン.png" alt="Slide 3">
+                   <img src="./image/default-pic.png" alt="Slide 3">
                 </div>
             <!-- 前後ボタン -->
             <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
