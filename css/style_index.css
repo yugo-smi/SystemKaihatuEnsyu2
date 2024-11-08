@@ -41,8 +41,9 @@ body {
 }
 
 .slide img {
-  width: 100%;
-  vertical-align: middle;
+  width: 100%;      /* スライドショーの幅に合わせる */
+  height: 240px;    /* 高さを固定（任意の値に変更可能） */
+  object-fit: cover; /* 画像の中央を基準にトリミングしてフィット */
 }
 
 /* 前後ボタンのスタイル */
@@ -135,3 +136,60 @@ body {
 .random_matching{
   text-align: center;
 }
+
+/* 追加のスタイル */
+.slideshow-container {
+  max-width: 250px;
+  position: relative;
+  margin: auto;
+  margin-bottom: 30px; /* スライドショーとボタンの間隔 */
+}
+
+/* メインコンテナの設定 */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px; /* 余白を50pxに統一 */
+  margin-bottom: 100px; /* 下部余白も同じにして一貫性を確保 */
+}
+
+/* ランダムマッチングボタンの固定位置 */
+.random_matching_button {
+  padding: 15px 30px;
+  background-color: #ccc;
+  color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 60px; /* ボタンの上にスペースを追加 */
+}
+
+/* 携帯画面向けの調整 */
+@media (max-width: 480px) {
+  .random_matching_button {
+    padding: 10px 20px;
+    font-size: 14px;
+    bottom: 15px;
+  }
+  .main-container {
+    margin-top: 60px;
+    margin-bottom: 150px; /* 携帯画面でも同じ間隔を設定 */
+  }
+  .slide img {
+    height: 200px; /* 画像の高さを調整してボタンに重ならないように */
+    object-fit: cover;
+  }
+}
+
+/* ランダムマッチングボタンを中央に配置 */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px; /* ボタンの上にスペースを追加 */
+}
+

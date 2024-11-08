@@ -51,24 +51,26 @@
             <img src="./image/deai.png" alt="メイン画像">
         </div> -->
 
-        <div class="slideshow-container">
-            <div class="slide">
-                <img src="./image/deai.png" alt="Slide 1">
-            </div>
-            <div class="slide">
-                <img src="./image/akasi.png" alt="Slide 2">
-            </div>
-            <div class="slide">
-                <img src="./image/仮アイコン.png" alt="Slide 3">
-            </div>
+        <div class="main-container">
+            <div class="slideshow-container">
+                <div class="slide">
+                   <img src="./image/deai.png" alt="Slide 1">
+                </div>
+                <div class="slide">
+                   <img src="./image/akasi.png" alt="Slide 2">
+                </div>
+                <div class="slide">
+                   <img src="./image/仮アイコン.png" alt="Slide 3">
+                </div>
             <!-- 前後ボタン -->
             <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next" onclick="changeSlide(1)">&#10095;</a>
-        </div>
+             </div>
+        
 
-        <button class = "random_matching">
-            <a href="./profile.php">ランダムマッチングボタン</a>
-        </button>     
+           <!-- ランダムマッチングボタン -->
+        <a href="./profile.php" class="random_matching_button">ランダムマッチングボタン</a>
+    </div>
 
         <script src="./js/index_slideshow.js"></script>   
         <!--/メイン -->
