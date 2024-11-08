@@ -33,7 +33,8 @@
             <script src="js/index_hamburger.js"></script>
         <div class="profile-section">
             <div class="buttons">
-                <button class="btn">プロフィール</button>
+                <!-- <button class="btn">プロフィール</button>
+                <button class="btn heart">💖</button> -->
             </div>
 
             <!-- 画像選択機能を追加 -->
