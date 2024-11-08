@@ -17,13 +17,6 @@ body {
     height: 80px;
 }
 
-.logotitle{
-    display: flex;
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
-}
-
-
 /* .main_illust {
     display: flex;
     justify-content: center; 
@@ -183,13 +176,3 @@ body {
     object-fit: cover;
   }
 }
-
-/* ランダムマッチングボタンを中央に配置 */
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px; /* ボタンの上にスペースを追加 */
-}
-
