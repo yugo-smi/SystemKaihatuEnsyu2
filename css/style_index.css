@@ -144,6 +144,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   margin-top: 50px; /* 余白を50pxに統一 */
   margin-bottom: 100px; /* 下部余白も同じにして一貫性を確保 */
 }
@@ -151,20 +152,21 @@ body {
 /* ランダムマッチングボタンの固定位置 */
 .random_matching_button {
   display: inline-block;
+  padding: 15px 30px;
   background-color: #ccc;
   color: #000;
   text-decoration: none;
   border-radius: 5px;
-  text-align: center;
   white-space: nowrap;
-  margin-top: 30px; /* ボタンの上にスペースを追加 */
   cursor: pointer;
+  margin: 0 510px auto;
 }
 
 /* 携帯画面向けの調整 */
 @media (max-width: 480px) {
   .random_matching_button {
-    padding: 30px 130px;
+    padding: 30px 60px;
+    margin: 0 65px;
     font-size: 14px;
     margin-top: 20px;
     
