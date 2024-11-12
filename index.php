@@ -66,10 +66,11 @@
             <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next" onclick="changeSlide(1)">&#10095;</a>
              </div>
-        
+    </div>
 
-           <!-- ランダムマッチングボタン -->
-        <a href="./profile.php" class="random_matching_button">ランダムマッチングボタン</a>
+    <!-- ランダムマッチングボタン -->
+    <div class="random_matching_button">
+    <a href="./profile.php" class="random_matching_button">ランダムマッチングボタン</a>
     </div>
 
         <script src="./js/index_slideshow.js"></script>   
