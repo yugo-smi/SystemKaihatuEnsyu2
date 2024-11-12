@@ -1,3 +1,42 @@
+<?php
+session_start();
+
+// データベース接続設定
+$servername = "localhost:3306";
+$dbname = "newlink";
+$username = "root";
+$password = "root";
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("データベース接続エラー: " . $e->getMessage());
+}
+
+// ログイン処理
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // ユーザー情報の照合
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // パスワード検証
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION["loggedin"] = true;
+        $_SESSION["email"] = $email;
+        header("Location: index.php"); // ログイン後のページへリダイレクト
+        exit;
+    } else {
+        $error = "メールアドレスまたはパスワードが間違っています。";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,8 +52,9 @@
         </div>
         <h2>ログイン</h2>
 
-        <!-- ログインフォーム -->
-        <form id="loginForm" action="index.php" method="POST">
+        <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+
+        <form id="loginForm" action="login.php" method="POST">
             <label for="email">OICメールアドレス</label>
             <input type="email" id="email" name="email" required>
 
@@ -29,7 +69,6 @@
             </div>
 
             <button type="submit" class="login-button">ログインする</button>
-           
         </form>
 
         <div class="register-link">
@@ -40,5 +79,7 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
 
 

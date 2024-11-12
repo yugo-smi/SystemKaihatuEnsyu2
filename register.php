@@ -1,3 +1,49 @@
+<?php
+// データベース接続設定
+$servername = "localhost:3306";
+$dbname = "newlink";
+$username = "root";
+$password = "root";
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("データベース接続エラー: " . $e->getMessage());
+}
+
+// 新規登録処理
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nickname = $_POST['nickname'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // パスワードをハッシュ化
+    $tags = implode(",", $_POST['tags']); // 選択されたタグをカンマ区切りで保存
+
+    // メールアドレスの重複確認
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $error = "このメールアドレスは既に登録されています。";
+    } else {
+        // 新規ユーザーの登録
+        $stmt = $pdo->prepare("INSERT INTO users (nickname, email, password, tags) VALUES (:nickname, :email, :password, :tags)");
+        $stmt->bindParam(':nickname', $nickname);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':tags', $tags);
+
+        if ($stmt->execute()) {
+            header("Location: login.php"); // ログインページにリダイレクト
+            exit;
+        } else {
+            $error = "登録に失敗しました。";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,7 +51,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEW LINK - アカウント新規登録</title>
     <link rel="stylesheet" href="css/style_register.css">
-    <link rel="shortcut icon" href="image/logo.png">
 </head>
 <body>
     <div class="register-container">
@@ -14,7 +59,8 @@
         </div>
         <h2>アカウント新規登録</h2>
 
-        <!-- 新規登録フォーム -->
+        <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+
         <form id="registerForm" action="register_complete.php" method="POST">
             <label for="nickname">ニックネーム</label>
             <input type="text" id="nickname" name="nickname" required>
@@ -44,7 +90,6 @@
                 </span>
             </div>
 
-            <!-- タグを選択するセクション -->
             <label>タグを選んで</label>
             <div class="tag-container">
                 <label><input type="checkbox" name="tags[]" value="アウトドア"> アウトドア</label>
@@ -57,27 +102,14 @@
             <button type="submit" class="register-button">登録する</button>
         </form>
 
-        <!-- 戻るボタン -->
         <div class="back-button">
             <button onclick="history.back()">戻る</button>
         </div>
     </div>
-
-    <!-- JavaScriptでタグの選択を確認 -->
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            // タグが1つ以上選択されているかを確認
-            const tags = document.querySelectorAll('input[name="tags[]"]:checked');
-            if (tags.length === 0) {
-                alert("少なくとも1つのタグを選択してください。");
-                event.preventDefault(); // フォーム送信をキャンセル
-            }
-        });
-    </script>
-
-    <script src="js/register.js"></script> <!-- JavaScriptファイルの読み込み -->
 </body>
 </html>
+
+
 
 
 
