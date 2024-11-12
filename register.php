@@ -5,22 +5,23 @@ $dbname = "newlink";
 $username = "root";
 $password = "root";
 
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("データベース接続エラー: " . $e->getMessage());
-}
+
 
 // 新規登録処理
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    try {
+        $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("データベース接続エラー: " . $e->getMessage());
+    }
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // パスワードをハッシュ化
+    $password = $_POST['password']; // パスワードをハッシュ化
     $tags = implode(",", $_POST['tags']); // 選択されたタグをカンマ区切りで保存
 
     // メールアドレスの重複確認
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "このメールアドレスは既に登録されています。";
     } else {
         // 新規ユーザーの登録
-        $stmt = $pdo->prepare("INSERT INTO users (nickname, email, password, tags) VALUES (:nickname, :email, :password, :tags)");
+        $stmt = $pdo->prepare("INSERT INTO user_table(nickname, email, password, tags) VALUES (:nickname, :email, :password, :tags)");
         $stmt->bindParam(':nickname', $nickname);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
@@ -61,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
 
-        <form id="registerForm" action="register_complete.php" method="POST">
+        <form id="registerForm" action="register.php" method="POST">
             <label for="nickname">ニックネーム</label>
             <input type="text" id="nickname" name="nickname" required>
 
@@ -105,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="back-button">
             <button onclick="history.back()">戻る</button>
         </div>
+        <script src="js/register.js"></script>
     </div>
 </body>
 </html>
