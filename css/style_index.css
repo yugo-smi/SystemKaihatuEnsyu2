@@ -17,60 +17,168 @@ body {
     height: 80px;
 }
 
-.hamburger_bar{
-    float: right;
-    margin-top:25px;
-    margin-right:25px;
-    width: 30px;
-    height: 30px;
-}
-
-.main_illust {
+/* .main_illust {
     display: flex;
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
+    justify-content: center; 
+} */
+
+.slideshow-container {
+  max-width: 250px;
+  position: relative;
+  margin: auto;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+}
+
+.slide img {
+  width: 100%;      /* スライドショーの幅に合わせる */
+  height: 240px;    /* 高さを固定（任意の値に変更可能） */
+  object-fit: cover; /* 画像の中央を基準にトリミングしてフィット */
+}
+
+/* 前後ボタンのスタイル */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  padding: 20px;
+  color: rgb(162, 236, 255);
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.prev {
+  left: 0px;
+}
+
+.next {
+  right: 0;
+}
+
+/* ボタンホバー時の効果 */
+.prev:hover, .next:hover {
+  background-color: rgba(0, 162, 255, 0.8);
+}
+
+.hamburger {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+  margin: 20px;
+  z-index: 10;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* メニューのスタイル */
+.menu {
+  z-index: calc(infinity);
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 200px;
+  height: 100%;
+  background-color: #79f4ff;
+  color: white;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  transition: right 0.3s;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.menu ul li {
+  margin: 15px 0;
+}
+
+.menu ul li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* メニューの表示 */
+.menu{
+  margin-top: 80px;
+}
+.menu.open {
+  right: 0;
+}
+
+.random_matching{
+  text-align: center;
+}
+
+/* 追加のスタイル */
+.slideshow-container {
+  max-width: 250px;
+  position: relative;
+  margin: auto;
+  margin-bottom: 30px; /* スライドショーとボタンの間隔 */
+}
+
+/* メインコンテナの設定 */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px; /* 余白を50pxに統一 */
+  margin-bottom: 100px; /* 下部余白も同じにして一貫性を確保 */
+}
+
+/* ランダムマッチングボタンの固定位置 */
+.random_matching_button {
+  display: flex;
+  padding: 15px 30px;
+  background-color: #ccc;
+  color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+  white-space: nowrap;
+  cursor: pointer;
+  margin: 0 510px auto;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 携帯画面向けの調整 */
+@media (max-width: 480px) {
+  .random_matching_button {
+    padding: 30px 60px;
+    margin: 0 65px;
+    font-size: 14px;
+    margin-top: 20px;
     
+  }
+  .main-container {
+    margin-top: 110px;
+    margin-bottom: 150px; /* 携帯画面でも同じ間隔を設定 */
+  }
+  .slide img {
+    height: 200px; /* 画像の高さを調整してボタンに重ならないように */
+    object-fit: cover;
+  }
 }
-
-a{
-    color: #0800ff;
-}
-
-a:visited{
-    color: #a8a8a8;
-}
-
-a:hover{
-    color: #1f1e33;
-}
-
-#hamburger_items ul {
-    display: none;
-    list-style: none;
-    padding-right: 0;
-    margin-top: 0;
-}
-
-#hamburger_items li{
-    margin-right: 20px;
-}
-
-
-
-h1 {
-    margin-top: 0;
-}
-
-#global_navi {
-    width: 800px;
-    clear: both;
-    overflow: hidden;
-    margin: 16px auto;
-}
-
-#global_navi ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-

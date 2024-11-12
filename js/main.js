@@ -10,10 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // デフォルトのフォーム送信を防ぐ
-    // バリデーションやAPIリクエストなどの処理をここに追加
 
-    // 成功した場合にページ遷移
-    window.location.href = 'index.php'; // 遷移先ページ
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    const password = document.getElementById('password').value;
+    const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    if (!pattern.test(password)) {
+        alert("パスワードは英数字を組み合わせた8文字以上で入力してください。");
+        event.preventDefault(); // フォーム送信をキャンセル
+    }
 });
+

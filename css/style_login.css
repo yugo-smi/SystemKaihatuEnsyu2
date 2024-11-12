@@ -75,14 +75,17 @@ input[type="text"] {
     position: absolute;
     right: 10px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-75%); /* 垂直方向中央に配置 */
     cursor: pointer;
+    display: flex;
+    align-items: center; /* アイコンを垂直方向の中央に揃える */
 }
 
 .toggle-password img {
     width: 20px;  /* アイコンのサイズを適切に調整 */
-    height: auto;
+    height: 20px;
 }
+
 
 button.login-button {
     background-color: #ccc;

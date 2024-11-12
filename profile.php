@@ -7,21 +7,40 @@
     <link rel="stylesheet" href="css/style_profile.css">
 </head>
 <body>
-    <div class="profile-container">
-        <div class="header">
-            <img src="image/logo.PNG" alt="ロゴ" class="logo">
-            <h1>プロフィール</h1>
-        </div>
+    <div id = "header">
+                <a href="index.php">
+                    <img class = "logo"  src="image/logo.png" alt="ロゴ">
+                </a>
+
+                <div class="hamburger" id="hamburger">
+                    <img src="image/hamburger.png" alt="ハンバーガーバー">
+                </div>
+
+                <!-- メニュー -->
+                <nav class="menu" id="menu">
+                    <ul>
+                        <li><a href="index.php">ホーム</a></li>
+                        <li><a href="profile.php">プロフィール</a></li>
+                        <li><a href="">PayPay</a></li>
+                        <li><a href="">QuickPay</a></li>
+                    </ul>
+                </nav>
+
+                <div class = "logotitle">
+                    <img src="image/logotitle.png" alt="タイトル">
+                </div>
+            </div>
+            <script src="js/index_hamburger.js"></script>
         <div class="profile-section">
             <div class="buttons">
-                <button class="btn">プロフィール</button>
-                <button class="btn heart">💖</button>
+                <!-- <button class="btn">プロフィール</button>
+                <button class="btn heart">💖</button> -->
             </div>
 
             <!-- 画像選択機能を追加 -->
             <div class="profile-info">
                 <div class="profile-pic-container">
-                    <img src="image/default-pic.jpg" alt="プロフィール画像" id="profile-pic" class="profile-pic">
+                    <img src="image/default-pic.png" alt="プロフィール画像" id="profile-pic" class="profile-pic">
                     <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
                     <input type="file" id="profile-pic-input" accept="image/*" aria-label="プロフィール画像を選択">
                 </div>
@@ -58,10 +77,14 @@
                 <h3>自己紹介</h3>
                 <textarea placeholder="自己紹介を入力してください"></textarea>
             </div>
-            <button class="submit-btn">確定</button>
+            <div class = "submit">
+                <button class="submit-btn">確定</button>
+            </div>
         </div>
     </div>
 
+
+    
     <!-- JavaScriptで画像プレビュー機能を追加 -->
     <script>
         const fileInput = document.getElementById("profile-pic-input");
