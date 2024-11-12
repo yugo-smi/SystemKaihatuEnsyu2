@@ -69,9 +69,8 @@
     </div>
 
     <!-- ランダムマッチングボタン -->
-    <div class="random_matching_button">
     <a href="./profile.php" class="random_matching_button">ランダムマッチングボタン</a>
-    </div>
+
 
         <script src="./js/index_slideshow.js"></script>   
         <!--/メイン -->
