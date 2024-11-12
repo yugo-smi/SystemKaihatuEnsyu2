@@ -7,26 +7,31 @@ $dbname = "newlink";
 $username = "root";
 $password = "root";
 
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("データベース接続エラー: " . $e->getMessage());
-}
-
+$method = $_SERVER["REQUEST_METHOD"];
+echo $method;
 // ログイン処理
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    try {
+        $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "ad";
+    } catch (PDOException $e) {
+        die("データベース接続エラー: " . $e->getMessage());
+    }
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     // ユーザー情報の照合
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    print_r($user);
+
 
     // パスワード検証
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && $password == $user['password']) {
         $_SESSION["loggedin"] = true;
         $_SESSION["email"] = $email;
         header("Location: index.php"); // ログイン後のページへリダイレクト
