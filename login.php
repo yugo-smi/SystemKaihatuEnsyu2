@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // ユーザーの存在を確認
+    // ユーザー情報の照合
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
@@ -27,13 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // パスワード検証
     if ($user && password_verify($password, $user['password'])) {
-        // 認証成功
         $_SESSION["loggedin"] = true;
         $_SESSION["email"] = $email;
-        header("Location: index.php");
+        header("Location: index.php"); // ログイン後のページへリダイレクト
         exit;
     } else {
-        // 認証失敗
         $error = "メールアドレスまたはパスワードが間違っています。";
     }
 }
@@ -44,26 +42,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEW LINK - ログイン</title>
+    <title>NEW LINK-ログイン</title>
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
     <div class="login-container">
+        <div class="logo">
+            <img src="image/logo.PNG" alt="New Link ロゴ">
+        </div>
         <h2>ログイン</h2>
+
         <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-        <form action="login.php" method="POST">
+
+        <form id="loginForm" action="login.php" method="POST">
             <label for="email">OICメールアドレス</label>
             <input type="email" id="email" name="email" required>
+
             <label for="password">パスワード</label>
-            <input type="password" id="password" name="password" required>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required
+                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                       title="英数字を組み合わせた8文字以上で入力してください">
+                <span id="toggle-password" class="toggle-password">
+                    <img src="image/eye-icon.png" alt="目のアイコン">
+                </span>
+            </div>
+
             <button type="submit" class="login-button">ログインする</button>
         </form>
+
         <div class="register-link">
             <a href="register.php">アカウント新規登録</a>
         </div>
     </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
+
 
 
 
