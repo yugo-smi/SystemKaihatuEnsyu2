@@ -151,7 +151,7 @@ body {
 
 /* ランダムマッチングボタンの固定位置 */
 .random_matching_button {
-  display: inline-block;
+  display: flex;
   padding: 15px 30px;
   background-color: #ccc;
   color: #000;
@@ -160,6 +160,8 @@ body {
   white-space: nowrap;
   cursor: pointer;
   margin: 0 510px auto;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 携帯画面向けの調整 */
