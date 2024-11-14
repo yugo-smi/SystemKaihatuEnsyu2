@@ -144,31 +144,37 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   margin-top: 50px; /* 余白を50pxに統一 */
   margin-bottom: 100px; /* 下部余白も同じにして一貫性を確保 */
 }
 
 /* ランダムマッチングボタンの固定位置 */
 .random_matching_button {
+  display: flex;
   padding: 15px 30px;
   background-color: #ccc;
   color: #000;
   text-decoration: none;
   border-radius: 5px;
-  text-align: center;
   white-space: nowrap;
-  margin-top: 60px; /* ボタンの上にスペースを追加 */
+  cursor: pointer;
+  margin: 0 510px auto;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 携帯画面向けの調整 */
 @media (max-width: 480px) {
   .random_matching_button {
-    padding: 10px 20px;
+    padding: 30px 60px;
+    margin: 0 65px;
     font-size: 14px;
-    bottom: 15px;
+    margin-top: 20px;
+    
   }
   .main-container {
-    margin-top: 60px;
+    margin-top: 110px;
     margin-bottom: 150px; /* 携帯画面でも同じ間隔を設定 */
   }
   .slide img {
