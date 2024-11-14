@@ -35,3 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 });
+document.getElementById("registerForm").addEventListener("submit", function (event) {
+    const tags = document.querySelectorAll("input[name='tags[]']:checked");
+    if (tags.length === 0) {
+        alert("少なくとも1つのタグを選択してください。");
+        event.preventDefault();
+    }
+});
+
