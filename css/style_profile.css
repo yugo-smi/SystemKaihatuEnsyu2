@@ -200,14 +200,6 @@ input[type="file"] {
     text-align: center;
 }
 
-.details {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 textarea {
     margin-bottom: 30px;
     width: 100%;
