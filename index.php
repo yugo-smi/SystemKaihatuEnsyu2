@@ -62,10 +62,12 @@
                 <div class="slide">
                    <img src="./image/default-pic.png" alt="Slide 3">
                 </div>
-            <!-- 前後ボタン -->
-            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-            <a class="next" onclick="changeSlide(1)">&#10095;</a>
-             </div>
+             <!-- インジケーターのドットを追加 -->
+            <div class="dots-container">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
     </div>
 
     <!-- ランダムマッチングボタン -->

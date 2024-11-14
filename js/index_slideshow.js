@@ -1,47 +1,38 @@
 let slideIndex = 0;
+showSlide(slideIndex);
+autoSlide();
 
-// 自動スライドショーを開始
-showSlides();
-
-// スライドの表示を更新する関数
-function showSlides() {
-  let slides = document.getElementsByClassName("slide");
-
-  // すべてのスライドを非表示にする
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-
-  // 次のスライドに進む
-  slideIndex++;
-  if (slideIndex > slides.length) {
-    slideIndex = 1; // 最初のスライドに戻る
-  }
-
-  // 現在のスライドを表示
-  slides[slideIndex - 1].style.display = "block";
-
-  // 3秒ごとにshowSlides()を呼び出してスライドを切り替える
-  setTimeout(showSlides, 3000);
+function changeSlide(n) {
+  showSlide(slideIndex += n);
 }
 
-// 次・前ボタンでスライドを切り替える関数
-function changeSlide(n) {
+function currentSlide(n) {
+  showSlide(slideIndex = n);
+}
+
+function showSlide(n) {
   let slides = document.getElementsByClassName("slide");
+  let dots = document.getElementsByClassName("dot");
 
-  // スライドインデックスを更新
-  slideIndex += n;
-
-  // インデックスの範囲をチェック
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  } else if (slideIndex < 1) {
-    slideIndex = slides.length;
-  }
-
-  // スライドを表示
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
+  
+  // 全てのスライドを非表示にする
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
+
+  // 全てのドットを非アクティブ化する
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+
+  // 現在のスライドとドットをアクティブにする
   slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+}
+function autoSlide() {
+  slideIndex++;
+  showSlide(slideIndex);
+  setTimeout(autoSlide, 3000); // Change slide every 3 seconds
 }
