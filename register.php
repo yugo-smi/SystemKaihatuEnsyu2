@@ -15,34 +15,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         die("データベース接続エラー: " . $e->getMessage());
     }
+    
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
-    $password = $_POST['password']; // パスワードをハッシュ化
-    $tags = implode(",", $_POST['tags']); // 選択されたタグをカンマ区切りで保存
+    $password = $_POST['password'];
 
-    // メールアドレスの重複確認
-    $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-        $error = "このメールアドレスは既に登録されています。";
+    // タグが選択されているかチェック
+    if (empty($_POST['tags'])) {
+        $error = "少なくとも1つのタグを選択してください。";
     } else {
-        // 新規ユーザーの登録
-        $stmt = $pdo->prepare("INSERT INTO user_table(nickname, email, password, tags) VALUES (:nickname, :email, :password, :tags)");
-        $stmt->bindParam(':nickname', $nickname);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':tags', $tags);
+        $tags = implode(",", $_POST['tags']);
 
-        if ($stmt->execute()) {
-            header("Location: login.php"); // ログインページにリダイレクト
-            exit;
+        // メールアドレスの重複確認
+        $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $error = "このメールアドレスは既に登録されています。";
         } else {
-            $error = "登録に失敗しました。";
+            // 新規ユーザーの登録
+            $stmt = $pdo->prepare("INSERT INTO user_table(nickname, email, password, tags) VALUES (:nickname, :email, :password, :tags)");
+            $stmt->bindParam(':nickname', $nickname);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':tags', $tags);
+
+            if ($stmt->execute()) {
+                header("Location: login.php");
+                exit;
+            } else {
+                $error = "登録に失敗しました。";
+            }
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
