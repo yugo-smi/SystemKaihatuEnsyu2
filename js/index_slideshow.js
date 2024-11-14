@@ -1,38 +1,69 @@
 let slideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+// スライド表示用の関数
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.style.display = i === index ? 'block' : 'none';
+        dots[i].classList.toggle('active', i === index);
+    });
+}
+
+// 自動スライドの設定
+function autoSlide() {
+    slideIndex = (slideIndex + 1) % slides.length;
+    showSlide(slideIndex);
+    setTimeout(autoSlide, 3000); // 3秒ごとにスライドを切り替える
+}
+
+// 初期表示
 showSlide(slideIndex);
 autoSlide();
 
-function changeSlide(n) {
-  showSlide(slideIndex += n);
+// ドットクリックでスライド変更
+dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+        slideIndex = i;
+        showSlide(slideIndex);
+    });
+});
+
+// タッチスワイプの設定
+let startX;
+
+function touchStart(e) {
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
 }
 
-function currentSlide(n) {
-  showSlide(slideIndex = n);
+function touchMove(e) {
+    if (!startX) return;
+    const endX = e.touches ? e.touches[0].clientX : e.clientX;
+    const diffX = startX - endX;
+
+    if (diffX > 50) { // 左スワイプ
+        nextSlide();
+        startX = null;
+    } else if (diffX < -50) { // 右スワイプ
+        prevSlide();
+        startX = null;
+    }
 }
 
-function showSlide(n) {
-  let slides = document.getElementsByClassName("slide");
-  let dots = document.getElementsByClassName("dot");
-
-  if (n > slides.length) { slideIndex = 1 }
-  if (n < 1) { slideIndex = slides.length }
-  
-  // 全てのスライドを非表示にする
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-
-  // 全てのドットを非アクティブ化する
-  for (let i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-
-  // 現在のスライドとドットをアクティブにする
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
+function nextSlide() {
+    slideIndex = (slideIndex + 1) % slides.length;
+    showSlide(slideIndex);
 }
-function autoSlide() {
-  slideIndex++;
-  showSlide(slideIndex);
-  setTimeout(autoSlide, 3000); // Change slide every 3 seconds
+
+function prevSlide() {
+    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+    showSlide(slideIndex);
 }
+
+// スワイプイベントの設定（PCとモバイル両対応）
+slides.forEach(slide => {
+    slide.addEventListener('touchstart', touchStart);
+    slide.addEventListener('touchmove', touchMove);
+    slide.addEventListener('mousedown', touchStart);
+    slide.addEventListener('mouseup', touchMove);
+});
