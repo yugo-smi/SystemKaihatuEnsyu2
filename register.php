@@ -105,6 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="back-button">
             <button onclick="history.back()">戻る</button>
         </div>
+        <script src="js/register.js"></script>
     </div>
 </body>
 </html>
