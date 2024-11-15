@@ -13,3 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => console.error("セッション確認エラー:", error));
 });
+
+
+
