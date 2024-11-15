@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
     // パスワードをハッシュ化して保存
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // タグが選択されているかチェック
     if (empty($_POST['tags'])) {
