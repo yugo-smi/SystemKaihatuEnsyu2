@@ -54,11 +54,29 @@ try {
     <link rel="stylesheet" href="css/style_kensaku.css">
 </head>
 <body>
-    <div class="profile-container">
-        <!-- Header with Logo and Title -->
-        <div class="header">
-            <img src="image/logo.PNG" alt="New Link Logo" class="logo">
-            <h1>New Link</h1>
+    <div id = "header">
+            <a href="index.php">
+                <img class = "logo"  src="image/logo.png" alt="ロゴ">
+            </a>
+
+            <div class="hamburger" id="hamburger">
+                <img src="image/hamburger.png" alt="ハンバーガーバー">
+            </div>
+
+            <!-- メニュー -->
+            <nav class="menu" id="menu">
+                <ul>
+                    <li><a href="index.php">ホーム</a></li>
+                    <li><a href="kensaku.php">お相手を検索</a></li>
+                    <li><a href="message.php">スレッド</a></li>
+                    <li><a href="chat.php">メッセージ</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
+                </ul>
+            </nav>
+
+            <div class = "logotitle">
+                <img src="image/logotitle.png" alt="タイトル">
+            </div>
         </div>
 
         <!-- Search Section -->

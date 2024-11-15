@@ -29,13 +29,11 @@
         
         <nav id = "header_items">
             <ul>
-                <li><a href="index.html">ホーム</a></li>
-                <li><a href="search.html">お相手を検索</a></li>
-                <li><a href="like.html">イイね</a></li>
-                <li><a href="message.html">メッセージ</a></li>
-                <li><a href="news.html">新着情報</a></li>
-                <li><a href="profile.html">プロフィール</a></li>
-                
+                <li><a href="index.php">ホーム</a></li>
+                <li><a href="kensaku.php">お相手を検索</a></li>
+                <li><a href="message.php">スレッド</a></li>
+                <li><a href="chat.php">メッセージ</a></li>
+                <li><a href="profile.php">プロフィール</a></li>
             </ul>
         </nav>
         

@@ -24,7 +24,7 @@ function showSlide(n) {
 
   // 全てのドットを非アクティブ化する
   for (let i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
+    dots[i].className = dots[i].className.replace("active", "");
   }
 
   // 現在のスライドとドットをアクティブにする

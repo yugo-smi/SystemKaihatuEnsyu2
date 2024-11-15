@@ -8,80 +8,80 @@
 </head>
 <body>
     <div id = "header">
-                <a href="index.php">
-                    <img class = "logo"  src="image/logo.png" alt="ロゴ">
-                </a>
+        <a href="index.php">
+            <img class = "logo"  src="image/logo.png" alt="ロゴ">
+        </a>
 
-                <div class="hamburger" id="hamburger">
-                    <img src="image/hamburger.png" alt="ハンバーガーバー">
-                </div>
+        <div class="hamburger" id="hamburger">
+            <img src="image/hamburger.png" alt="ハンバーガーバー">
+        </div>
 
-                <!-- メニュー -->
-                <nav class="menu" id="menu">
-                    <ul>
-                        <li><a href="index.php">ホーム</a></li>
-                        <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="">PayPay</a></li>
-                        <li><a href="">QuickPay</a></li>
-                    </ul>
-                </nav>
+        <!-- メニュー -->
+        <nav class="menu" id="menu">
+            <ul>
+                <li><a href="index.php">ホーム</a></li>
+                <li><a href="kensaku.php">お相手を検索</a></li>
+                <li><a href="message.php">スレッド</a></li>
+                <li><a href="chat.php">メッセージ</a></li>
+                <li><a href="profile.php">プロフィール</a></li>
+            </ul>
+        </nav>
 
-                <div class = "logotitle">
-                    <img src="image/logotitle.png" alt="タイトル">
-                </div>
-            </div>
-            <script src="js/index_hamburger.js"></script>
-        <div class="profile-section">
-            <div class="buttons">
-                <!-- <button class="btn">プロフィール</button>
-                <button class="btn heart">💖</button> -->
-            </div>
-
-            <!-- 画像選択機能を追加 -->
-            <div class="profile-info">
-                <div class="profile-pic-container">
-                    <img src="image/default-pic.png" alt="プロフィール画像" id="profile-pic" class="profile-pic">
-                    <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
-                    <input type="file" id="profile-pic-input" accept="image/*" aria-label="プロフィール画像を選択">
-                </div>
-
-                <!-- 名前入力欄 -->
-                <div class="name-box">
-                    <input type="text" class="name-input" placeholder="名前を入力してください">
-                </div>
-
-                <!-- 性別、誕生日、血液型を名前の下に配置 -->
-                <div class="details">
-                    <label>性別:
-                        <select aria-label="性別を選択">
-                            <option value="" disabled selected>選択してください</option>
-                            <option value="male">男性</option>
-                            <option value="female">女性</option>
-                            <option value="other">その他</option>
-                        </select>
-                    </label>
-                    <label>誕生日: <input type="date" aria-label="誕生日を選択"></label>
-                    <label>血液型:
-                        <select aria-label="血液型を選択">
-                            <option value="" disabled selected>選択してください</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="AB">AB</option>
-                            <option value="O">O</option>
-                        </select>
-                    </label>
-                </div>
-            </div>
-
-            <div class="bio">
-                <h3>自己紹介</h3>
-                <textarea placeholder="自己紹介を入力してください"></textarea>
-            </div>
-            <div class = "submit">
-                <button class="submit-btn">確定</button>
-            </div>
+        <div class = "logotitle">
+            <img src="image/logotitle.png" alt="タイトル">
         </div>
     </div>
+    <script src="js/index_hamburger.js"></script>    <div class="profile-section">
+        <div class="buttons">
+            <!-- <button class="btn">プロフィール</button>
+            <button class="btn heart">💖</button> -->
+        </div>
+
+        <!-- 画像選択機能を追加 -->
+        <div class="profile-info">
+            <div class="profile-pic-container">
+                <img src="image/default-pic.png" alt="プロフィール画像" id="profile-pic" class="profile-pic">
+                <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
+                <input type="file" id="profile-pic-input" accept="image/*" aria-label="プロフィール画像を選択">
+            </div>
+
+            <!-- 名前入力欄 -->
+            <div class="name-box">
+                <input type="text" class="name-input" placeholder="名前を入力してください">
+            </div>
+
+            <!-- 性別、誕生日、血液型を名前の下に配置 -->
+            <div class="details">
+                <label>性別:
+                    <select aria-label="性別を選択">
+                        <option value="" disabled selected>選択してください</option>
+                        <option value="male">男性</option>
+                        <option value="female">女性</option>
+                        <option value="other">その他</option>
+                    </select>
+                </label>
+                <label>誕生日: <input type="date" aria-label="誕生日を選択"></label>
+                <label>血液型:
+                    <select aria-label="血液型を選択">
+                        <option value="" disabled selected>選択してください</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="AB">AB</option>
+                        <option value="O">O</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="bio">
+            <h3>自己紹介</h3>
+            <textarea placeholder="自己紹介を入力してください"></textarea>
+        </div>
+        <div class = "submit">
+            <button class="submit-btn">確定</button>
+        </div>
+    </div>
+</div>
 
 
     
