@@ -1,4 +1,14 @@
 <?php
+// セッション開始
+session_start();
+
+// ログインしているか確認し、していない場合はログインページにリダイレクト
+if (!isset($_SESSION['user_id']) || !isset($_SERVER['HTTP_REFERER'])) {
+    // ログインしていない、またはリファラーが不正な場合
+    header("Location: login.php");
+    exit();
+}
+
 // データベース接続設定
 $servername = "localhost:3306";
 $dbname = "newlink";
@@ -6,20 +16,14 @@ $username = "root";
 $password = "root";
 
 try {
-    // データベースに接続
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "データベース接続に失敗しました: " . $e->getMessage();
+    echo "データベース接続エラー: " . $e->getMessage();
     exit();
 }
 
-// ユーザーID（ログインしているユーザーのIDがセッションから取得される前提）
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    echo "ログインが必要です。";
-    exit();
-}
+// ログインしているユーザーのIDを取得
 $user_id = $_SESSION['user_id'];
 
 // ユーザー情報の取得
@@ -29,10 +33,10 @@ $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// プロフィール更新処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // フォームから送信されたデータを取得
     $nickname = $_POST['nickname'];
-    $tags = $_POST['tags'];
+    $tags = implode(",", $_POST['tags']);  // 選択されたタグをカンマ区切りに
     $bio = $_POST['bio'];
 
     // ユーザー情報の更新
@@ -44,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
     $update_stmt->execute();
 
-    echo "プロフィールが更新されました。";
-    // ページを再読み込みして変更を反映
-    header("Location: profile.php");
+    // 更新メッセージ表示とリロード
+    echo "<p style='color:green;'>プロフィールが更新されました。</p>";
+    header("Refresh:0"); // ページをリロードして更新内容を反映
     exit();
 }
 ?>
@@ -65,7 +69,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="nickname" value="<?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
         <label>タグ:</label>
-        <input type="text" name="tags" value="<?= htmlspecialchars($user['tags'], ENT_QUOTES, 'UTF-8') ?>"><br>
+        <div class="tag-container">
+            <?php 
+            // チェックボックス形式でタグを表示
+            $tags = ["アウトドア", "インドア", "旅行", "読書", "音楽"];
+            $selected_tags = explode(",", $user['tags']);
+            foreach ($tags as $tag) {
+                $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                echo "<label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label> ";
+            }
+            ?>
+        </div>
 
         <label>自己紹介文:</label>
         <textarea name="bio"><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea><br>

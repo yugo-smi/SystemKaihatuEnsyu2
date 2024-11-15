@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':tags', $tags);
 
             if ($stmt->execute()) {
-                // 成功時、ログインページにリダイレクト
-                header("Location: login.php");
+                $_SESSION["user_id"] = $pdo->lastInsertId();  // 新しく作成されたユーザーIDをセッションに保存
+                header("Location: index.php"); // 登録完了後、index.phpにリダイレクト
                 exit;
             } else {
                 $error = "登録に失敗しました。";

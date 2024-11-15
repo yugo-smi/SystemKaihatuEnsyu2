@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user['password'])) {
         // パスワードが一致した場合
         $_SESSION["loggedin"] = true;
-        $_SESSION["email"] = $email;
+        $_SESSION["user_id"] = $user['id'];  // ユーザーIDをセッションに保存
         header("Location: index.php"); // ログイン後のページへリダイレクト
         exit;
     } else {
@@ -84,6 +84,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 </html>
 
+<?php
+session_start();
+if (isset($_GET['error']) && $_GET['error'] === 'not_logged_in') {
+    echo "<p style='color:red;'>ログインが必要です。</p>";
+}
+?>
 
 
 

@@ -88,3 +88,20 @@
 
 </html>
 <!--/html -->
+
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+<nav class="menu" id="menu">
+    <ul>
+        <li><a href="index.php">ホーム</a></li>
+        <?php if ($isLoggedIn): ?>
+            <li><a href="profile.php">プロフィール</a></li>
+        <?php else: ?>
+            <li><a href="login.php">ログインが必要です</a></li>
+        <?php endif; ?>
+        <li><a href="">PayPay</a></li>
+        <li><a href="">QuickPay</a></li>
+    </ul>
+</nav>
