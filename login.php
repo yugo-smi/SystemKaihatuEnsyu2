@@ -8,13 +8,12 @@ $username = "root";
 $password = "root";
 
 $method = $_SERVER["REQUEST_METHOD"];
-echo $method;
+
 // ログイン処理
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "ad";
     } catch (PDOException $e) {
         die("データベース接続エラー: " . $e->getMessage());
     }
@@ -27,16 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':email', $email);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    print_r($user);
-
 
     // パスワード検証
-    if ($user && $password == $user['password']) {
+    if ($user && password_verify($password, $user['password'])) {
+        // パスワードが一致した場合
         $_SESSION["loggedin"] = true;
-        $_SESSION["email"] = $email;
+        $_SESSION["user_id"] = $user['id'];  // ユーザーIDをセッションに保存
         header("Location: index.php"); // ログイン後のページへリダイレクト
         exit;
     } else {
+        // パスワードが一致しない場合
         $error = "メールアドレスまたはパスワードが間違っています。";
     }
 }
@@ -84,6 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="js/main.js"></script>
 </body>
 </html>
+
+<?php
+session_start();
+if (isset($_GET['error']) && $_GET['error'] === 'not_logged_in') {
+    echo "<p style='color:red;'>ログインが必要です。</p>";
+}
+?>
 
 
 

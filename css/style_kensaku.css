@@ -93,12 +93,12 @@ h1 {
 }
 
 .profile-name {
-    width: 40px;
-    padding: 5px;
+    width: 120px;
+    padding: 20px;
     background-color: #d0e8f2;
     text-align: center;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 15px;
 }
 
 .profile-button {
@@ -115,3 +115,4 @@ h1 {
 .profile-button:hover {
     background-color: #c0e4ffda;
 }
+

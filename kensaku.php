@@ -11,38 +11,46 @@ try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 検索のタグとキーワードがフォームから送信されているかを確認
-    $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
-    $searchKeyword = isset($_POST['search']) ? $_POST['search'] : '';
+    $results = [];
 
-    // SQLクエリでタグや検索キーワードに一致するユーザーを取得
-    $query = "SELECT * FROM user_table WHERE 1";
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
+        $searchKeyword = isset($_POST['search']) ? $_POST['search'] : '';
 
-    // タグフィルタリング
-    if (!empty($tags)) {
-        $tagsPlaceholders = implode(',', array_fill(0, count($tags), '?'));
-        $query .= " AND tags LIKE '%" . implode("%' OR tags LIKE '%", $tags) . "%'";
+        if (empty($tags) && empty($searchKeyword)) {
+            $results = [];
+        } else {
+            $query = "SELECT  nickname FROM user_table WHERE 1";
+
+            if (!empty($tags)) {
+                foreach ($tags as $index => $tag) {
+                    $query .= " AND tags LIKE :tag$index";
+                }
+            }
+
+            if (!empty($searchKeyword)) {
+                $query .= " AND nickname LIKE :search";
+            }
+
+            $stmt = $pdo->prepare($query);
+
+            foreach ($tags as $index => $tag) {
+                $stmt->bindValue(":tag$index", '%' . $tag . '%');
+            }
+
+            if (!empty($searchKeyword)) {
+                $stmt->bindValue(':search', '%' . $searchKeyword . '%');
+            }
+
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
-
-    // 検索キーワードでフィルタリング
-    if (!empty($searchKeyword)) {
-        $query .= " AND username LIKE :search";
-    }
-
-    $stmt = $pdo->prepare($query);
-    if (!empty($searchKeyword)) {
-        $stmt->bindValue(':search', '%' . $searchKeyword . '%');
-    }
-
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     echo "データベース接続エラー: " . $e->getMessage();
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -102,15 +110,20 @@ try {
 
         <!-- Results Container for Displaying Search Results -->
         <div class="results-container">
-            <?php if (!empty($results)): ?>
+            <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($results)): ?>
+                <p>検索結果はありません。</p>
+            <?php elseif (!empty($results)): ?>
                 <?php foreach ($results as $user): ?>
                     <div class="profile-card">
-                        <div class="profile-name"><?php echo htmlspecialchars($user['username']); ?></div>
+                        <!-- プロフィール画像の表示 -->
+                        <div class="profile-image">
+                            <img src="<?php echo htmlspecialchars($user['profile_image']); ?>" alt="プロフィール画像">
+                        </div>
+                        <!-- ニックネームの表示 -->
+                        <div class="profile-name"><?php echo htmlspecialchars($user['nickname']); ?></div>
                         <div class="profile-button btn">プロフィール</div>
                     </div>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <p>検索結果はありません。</p>
             <?php endif; ?>
         </div>
     </div>

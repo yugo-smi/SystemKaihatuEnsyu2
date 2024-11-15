@@ -1,11 +1,17 @@
 <?php
+// エラー表示を有効にする
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // データベース接続設定
 $servername = "localhost:3306";
 $dbname = "newlink";
 $username = "root";
 $password = "root";
 
-
+// バッファリングを開始
+ob_start();
 
 // 新規登録処理
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,16 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         die("データベース接続エラー: " . $e->getMessage());
     }
-    
+
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    // パスワードをハッシュ化して保存
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // タグが選択されているかチェック
     if (empty($_POST['tags'])) {
         $error = "少なくとも1つのタグを選択してください。";
     } else {
-        $tags = implode(",", $_POST['tags']);
+        $tags = implode(",", $_POST['tags']); // 選択されたタグをカンマ区切りで保存
 
         // メールアドレスの重複確認
         $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
@@ -42,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':tags', $tags);
 
             if ($stmt->execute()) {
-                header("Location: login.php");
+                $_SESSION["user_id"] = $pdo->lastInsertId();  // 新しく作成されたユーザーIDをセッションに保存
+                header("Location: index.php"); // 登録完了後、index.phpにリダイレクト
                 exit;
             } else {
                 $error = "登録に失敗しました。";
@@ -50,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -118,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+
 
 
 
