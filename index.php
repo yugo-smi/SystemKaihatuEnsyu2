@@ -13,7 +13,6 @@
 
     <!-- body（本文） -->
     <body>
-
         <!-- ヘッダー-->
         <header>
             <div id = "header">
@@ -29,9 +28,10 @@
                 <nav class="menu" id="menu">
                     <ul>
                         <li><a href="index.php">ホーム</a></li>
+                        <li><a href="kensaku.php">お相手を検索</a></li>
+                        <li><a href="message.php">スレッド</a></li>
+                        <li><a href="chat.php">メッセージ</a></li>
                         <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="">PayPay</a></li>
-                        <li><a href="">QuickPay</a></li>
                     </ul>
                 </nav>
 
@@ -39,7 +39,6 @@
                     <img src="image/logotitle.png" alt="タイトル">
                 </div>
             </div>
-            <script src="js/index_hamburger.js"></script>
         </header>
         
         <!--/ヘッダー-->
@@ -69,9 +68,9 @@
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
     </div>
-
+    <script src="js/index_hamburger.js"></script>
     <!-- ランダムマッチングボタン -->
-    <a href="./profile.php" class="random_matching_button">ランダムマッチングボタン</a>
+    <a href="./partner_profile.php" class="random_matching_button">ランダムマッチングボタン</a>
 
 
         <script src="./js/index_slideshow.js"></script>   
