@@ -1,3 +1,8 @@
+document.getElementById("hamburger").addEventListener("click", function () {
+    this.classList.toggle("active");
+    document.getElementById("menu").classList.toggle("open");
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const profileLink = document.querySelector("a[href='profile.php']");
 
