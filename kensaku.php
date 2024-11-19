@@ -72,7 +72,7 @@ try {
     <!-- ヘッダー -->
     <header>
         <div id="header">
-            <a href="kensaku.php">
+            <a href="index.php">
                 <img class="logo" src="image/logo.png" alt="ロゴ">
             </a>
 
@@ -142,7 +142,7 @@ try {
             <?php endif; ?>
         </div>
     </div>
-
+    <script src="js/hamburger.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
