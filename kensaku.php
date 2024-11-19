@@ -1,6 +1,13 @@
 <?php
+// セッション開始
 session_start();
 
+// ログインしているか確認し、していない場合はログインページにリダイレクト
+if (!isset($_SESSION['user_id']) || !isset($_SERVER['HTTP_REFERER'])) {
+    // ログインしていない、またはリファラーが不正な場合
+    header("Location: login.php");
+    exit();
+}
 // データベース接続設定
 $servername = "localhost:3306";
 $dbname = "newlink";
@@ -65,7 +72,7 @@ try {
     <!-- ヘッダー -->
     <header>
         <div id="header">
-            <a href="kensaku.php">
+            <a href="index.php">
                 <img class="logo" src="image/logo.png" alt="ロゴ">
             </a>
 
@@ -135,7 +142,7 @@ try {
             <?php endif; ?>
         </div>
     </div>
-
+    <script src="js/hamburger.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
