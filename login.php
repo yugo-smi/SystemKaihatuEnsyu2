@@ -1,4 +1,6 @@
 <?php
+session_start();
+if (isset($_GET['error']) && $_GET['error'] === 'not_logged_in')
 
 // データベース接続設定
 $servername = "localhost:3306";
