@@ -59,12 +59,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/style_partner_profile.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プロフィール編集</title>
 </head>
 <body>
     <h2>プロフィール編集</h2>
     <form method="POST" action="profile.php">
+        <!-- 画像選択機能を追加 -->
+        <div class="profile-info">
+                <div class="profile-pic-container">
+                    <img src="image/default-pic.png" alt="プロフィール画像" id="profile-pic" class="profile-pic">
+                    <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
+                    <input type="file" id="profile-pic-input" accept="image/*" aria-label="プロフィール画像を選択">
+                </div>
+
         <label>ニックネーム:</label>
         <input type="text" name="nickname" value="<?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
@@ -86,5 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit">更新</button>
     </form>
+    <script src="js/profile.js"></script>
 </body>
 </html>
+
