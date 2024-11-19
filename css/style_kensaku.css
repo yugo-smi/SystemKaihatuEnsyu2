@@ -116,3 +116,68 @@ h1 {
     background-color: #c0e4ffda;
 }
 
+/* ロゴ */
+.logo {
+    width: 80px;
+    height: auto;
+    float: left;
+}
+
+/* ハンバーガーメニュー */
+.hamburger {
+    float: right;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 20px;
+}
+
+.hamburger img {
+    width: 100%;
+    height: auto;
+}
+
+/* メニュー */
+.menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 200px;
+    height: 100%;
+    background-color: #79f4ff;
+    transition: right 0.3s ease-in-out;
+    z-index: 10;
+}
+
+.menu.open {
+    right: 0;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.menu ul li {
+    margin: 20px 0;
+}
+
+.menu ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* タイトル */
+.logotitle {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.logotitle img {
+    max-width: 150px;
+    height: auto;
+}
+

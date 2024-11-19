@@ -20,7 +20,7 @@ try {
         if (empty($tags) && empty($searchKeyword)) {
             $results = [];
         } else {
-            $query = "SELECT  nickname FROM user_table WHERE 1";
+            $query = "SELECT  nickname, bio FROM user_table WHERE 1";
 
             if (!empty($tags)) {
                 foreach ($tags as $index => $tag) {
@@ -62,13 +62,15 @@ try {
     <link rel="stylesheet" href="css/style_kensaku.css">
 </head>
 <body>
-    <div id = "header">
-            <a href="index.php">
-                <img class = "logo"  src="image/logo.png" alt="ロゴ">
+    <!-- ヘッダー -->
+    <header>
+        <div id="header">
+            <a href="kensaku.php">
+                <img class="logo" src="image/logo.png" alt="ロゴ">
             </a>
 
             <div class="hamburger" id="hamburger">
-                <img src="image/hamburger.png" alt="ハンバーガーバー">
+                <img src="image/hamburger.png" alt="ハンバーガーメニュー">
             </div>
 
             <!-- メニュー -->
@@ -82,10 +84,16 @@ try {
                 </ul>
             </nav>
 
-            <div class = "logotitle">
+            <div class="logotitle">
                 <img src="image/logotitle.png" alt="タイトル">
             </div>
         </div>
+    </header>
+    <script src="js/kensaku_hamburger.js"></script>
+
+    <!-- メインコンテンツ -->
+    <main>
+
 
         <!-- Search Section -->
         <form method="POST" action="">
@@ -121,7 +129,7 @@ try {
                         </div>
                         <!-- ニックネームの表示 -->
                         <div class="profile-name"><?php echo htmlspecialchars($user['nickname']); ?></div>
-                        <div class="profile-button btn">プロフィール</div>
+                        <div class="profile-bio"><?php echo htmlspecialchars($user['bio']); ?></div> <!-- 自己紹介文を表示 -->
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
