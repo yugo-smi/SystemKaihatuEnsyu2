@@ -5,7 +5,7 @@ session_start();
 // ログインしているか確認し、していない場合はログインページにリダイレクト
 if (!isset($_SESSION['user_id']) || !isset($_SERVER['HTTP_REFERER'])) {
     // ログインしていない、またはリファラーが不正な場合
-    header("Location: login.php");
+    header("Location: login.php?error=not_logged_in");
     exit();
 }
 

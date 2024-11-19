@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // データベース接続設定
 $servername = "localhost:3306";
@@ -83,14 +82,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="js/main.js"></script>
 </body>
 </html>
-
-<?php
-session_start();
-if (isset($_GET['error']) && $_GET['error'] === 'not_logged_in') {
-    echo "<p style='color:red;'>ログインが必要です。</p>";
-}
-?>
-
-
-
-
