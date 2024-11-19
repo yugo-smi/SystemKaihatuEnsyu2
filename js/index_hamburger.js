@@ -14,3 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch((error) => console.error("セッション確認エラー:", error));
   });
   
+  document.getElementById("hamburger").addEventListener("click", function() {
+    this.classList.toggle("active");
+    document.getElementById("menu").classList.toggle("open");
+  });
