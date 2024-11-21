@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// ログイン状態を確認
+if (!isset($_SESSION['user_id'])) {
+    // ログインしていない場合、login.php へリダイレクト
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!-- html -->
 <!DOCTYPE html>
  
