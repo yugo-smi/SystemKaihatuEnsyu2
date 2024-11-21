@@ -61,24 +61,26 @@ if (!isset($_SESSION['user_id'])) {
          <img src="./image/deai.png" alt="メイン画像">
      </div> -->
 
-     <div class="main-container">
-         <div class="slideshow-container">
-             <div class="slide">
-                <img src="./image/deai.png" alt="Slide 1">
-             </div>
-             <div class="slide">
-                <img src="./image/akasi.png" alt="Slide 2">
-             </div>
-             <div class="slide">
-                <img src="./image/default-pic.png" alt="Slide 3">
-             </div>
+    <div class="main-container">
+        <div class="slideshow-container">
+            <div class="slide">
+            <img src="./image/deai.png" alt="Slide 1">
+            </div>
+            <div class="slide">
+            <img src="./image/akasi.png" alt="Slide 2">
+            </div>
+            <div class="slide">
+            <img src="./image/default-pic.png" alt="Slide 3">
+            </div>
+        </div>
+        <div class="dots-container">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
           <!-- インジケーターのドットを追加 -->
-         <div class="dots-container">
-             <span class="dot" onclick="currentSlide(1)"></span>
-             <span class="dot" onclick="currentSlide(2)"></span>
-             <span class="dot" onclick="currentSlide(3)"></span>
-         </div>
- </div>
+
  <script src="js/index_hamburger.js"></script>
  <!-- ランダムマッチングボタン -->
  <a href="./partner_profile.php" class="random_matching_button">ランダムマッチングボタン</a>
