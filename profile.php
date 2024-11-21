@@ -27,11 +27,12 @@ try {
 $user_id = $_SESSION['user_id'];
 
 // ユーザー情報の取得
-$sql = "SELECT nickname, tags, bio FROM user_table WHERE id = :id";
+$sql = "SELECT nickname, tags, bio,image_path FROM user_table WHERE id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 // プロフィール更新処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -47,19 +48,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($_FILES['image']['tmp_name'], 'profile-image/' . $image);//imagesディレクトリにファイル保存
         if (exif_imagetype($file)) {//画像ファイルかのチェック
             $imagepath = $file;
+            $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio ,image_path = :image_path WHERE id = :id";
+            $update_stmt = $pdo->prepare($update_sql);
+            $update_stmt->bindParam(':nickname', $nickname);
+            $update_stmt->bindParam(':tags', $tags);
+            $update_stmt->bindParam(':bio', $bio);
+            $update_stmt->bindParam(':image_path', $imagepath, PDO::PARAM_STR);
+            $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+            $update_stmt->execute();
         } else {
-            $imagepath = null;
+            $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio  WHERE id = :id";
+            $update_stmt = $pdo->prepare($update_sql);
+            $update_stmt->bindParam(':nickname', $nickname);
+            $update_stmt->bindParam(':tags', $tags);
+            $update_stmt->bindParam(':bio', $bio);           
+            $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+            $update_stmt->execute();
         }
     }
     // ユーザー情報の更新
-    $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio ,image_path = :image_path WHERE id = :id";
-    $update_stmt = $pdo->prepare($update_sql);
-    $update_stmt->bindParam(':nickname', $nickname);
-    $update_stmt->bindParam(':tags', $tags);
-    $update_stmt->bindParam(':bio', $bio);
-    $update_stmt->bindParam(':image_path', $imagepath, PDO::PARAM_STR);
-    $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
-    $update_stmt->execute();
+    
 
     // 更新メッセージ表示とリロード
     echo "<p style='color:green;'>プロフィールが更新されました。</p>";
@@ -83,7 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- 画像選択機能を追加 -->
         <div class="profile-info">
                 <div class="profile-pic-container">
-                    <img src="image/default-pic.png" alt="プロフィール画像" id="profile-pic" class="profile-pic">
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
+     alt="プロフィール画像" id="profile-pic" class="profile-pic">
+
                     <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
                     <input type="file" name="image" id="profile-pic-input" aria-label="プロフィール画像を選択">
                 </div>

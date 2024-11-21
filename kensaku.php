@@ -27,7 +27,7 @@ try {
         if (empty($tags) && empty($searchKeyword)) {
             $results = [];
         } else {
-            $query = "SELECT  nickname, bio FROM user_table WHERE 1";
+            $query = "SELECT  nickname, bio,image_path FROM user_table WHERE 1";
 
             if (!empty($tags)) {
                 foreach ($tags as $index => $tag) {
@@ -132,7 +132,8 @@ try {
                     <div class="profile-card">
                         <!-- プロフィール画像の表示 -->
                         <div class="profile-image">
-                            <img src="<?php echo htmlspecialchars($user['profile_image']); ?>" alt="プロフィール画像">
+                        <img src="<?= htmlspecialchars($user['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+
                         </div>
                         <!-- ニックネームの表示 -->
                         <div class="profile-name"><?php echo htmlspecialchars($user['nickname']); ?></div>
