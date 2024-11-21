@@ -246,3 +246,11 @@ textarea {
     align-items: center;
     justify-content: center;
 }
+
+.matching_chat{
+    margin: 5px;
+}
+
+.matching_change{
+    margin: 5px;
+}
