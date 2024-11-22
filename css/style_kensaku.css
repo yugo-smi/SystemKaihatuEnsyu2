@@ -91,6 +91,15 @@ h1 {
     margin-bottom: 8px;
     border-radius: 5px;
 }
+.profile-image img {
+    width: 100px; /* 画像の幅 */
+    height: 100px; /* 画像の高さ */
+    border-radius: 50%; /* 丸くする */
+    object-fit: cover; /* 枠内に収める */
+    border: 2px solid #ccc; /* 外枠 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ホバー時のアニメーション */
+}
 
 .profile-name {
     width: 120px;
@@ -111,6 +120,18 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.profile-bio {
+    background-color: #e2eff5;
+    
+    width: 120px;
+    padding: 20px;
+    background-color: #d0e8f2;
+    
+    font-weight: bold;
+        
+    }
+    
+
 
 .profile-button:hover {
     background-color: #c0e4ffda;
