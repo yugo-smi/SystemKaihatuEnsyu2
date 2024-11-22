@@ -132,12 +132,13 @@ try {
                     <div class="profile-card">
                         <!-- プロフィール画像の表示 -->
                         <div class="profile-image">
-                        <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
-
+                        <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>"  alt="プロフィール画像">
                         </div>
-                        <!-- ニックネームの表示 -->
-                        <div class="profile-name"><?php echo htmlspecialchars($user['nickname']); ?></div>
-                        <div class="profile-bio"><?php echo htmlspecialchars($user['bio']); ?></div> <!-- 自己紹介文を表示 -->
+                        <!-- 名前と自己紹介をまとめたコンテンツ -->
+                        <div class="profle-content">
+                            <div class="profile-name"><?php echo htmlspecialchars($user['nickname']); ?></div>
+                            <div class="profile-bio"><?php echo htmlspecialchars($user['bio']); ?></div> <!-- 自己紹介文を表示 -->
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
