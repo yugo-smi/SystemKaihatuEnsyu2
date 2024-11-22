@@ -132,7 +132,7 @@ try {
                     <div class="profile-card">
                         <!-- プロフィール画像の表示 -->
                         <div class="profile-image">
-                        <img src="<?= htmlspecialchars($user['image_path'], ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                        <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
 
                         </div>
                         <!-- ニックネームの表示 -->

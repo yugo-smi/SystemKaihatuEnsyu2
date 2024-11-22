@@ -36,44 +36,41 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // プロフィール更新処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nickname = $_POST['nickname'];
-    $tags = implode(",", $_POST['tags']);  // 選択されたタグをカンマ区切りに
-    $bio = $_POST['bio'];
+    // 入力データを取得
+    $nickname = !empty($_POST['nickname']) ? $_POST['nickname'] : $user['nickname'];
+    $tags = !empty($_POST['tags']) ? implode(",", $_POST['tags']) : $user['tags']; // 選択されたタグをカンマ区切りに
+    $bio = !empty($_POST['bio']) ? $_POST['bio'] : $user['bio'];
 
     //画像投稿の処理
-    $image = $_SESSION['user_id'];//ファイル名を設定
-    $image .= '.' . substr(strrchr($_FILES['image']['name'], '.'), 1);//アップロードされたファイルの拡張子を取得
-    $file = "profile-image/$image";
-    if (!empty($_FILES['image']['name'])&&exif_imagetype($file)) {//ファイルが選択されていれば$imageにファイル名を代入
-        move_uploaded_file($_FILES['image']['tmp_name'], 'profile-image/' . $image);//imagesディレクトリにファイル保存
+    $image = $_SESSION['user_id']; // ファイル名を設定
+    $extension = substr(strrchr($_FILES['image']['name'], '.'), 1); // 拡張子取得
+    $file = "profile-image/$image.$extension";
 
+    if (!empty($_FILES['image']['tmp_name']) && exif_imagetype($_FILES['image']['tmp_name'])) { 
+        // ファイルが選択されていれば$imageにファイル名を代入
+        move_uploaded_file($_FILES['image']['tmp_name'], $file); // ディレクトリにファイル保存
         $imagepath = $file;
-            $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio ,image_path = :image_path WHERE id = :id";
-            $update_stmt = $pdo->prepare($update_sql);
-            $update_stmt->bindParam(':nickname', $nickname);
-            $update_stmt->bindParam(':tags', $tags);
-            $update_stmt->bindParam(':bio', $bio);
-            $update_stmt->bindParam(':image_path', $imagepath, PDO::PARAM_STR);
-            $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
-            $update_stmt->execute();
+    } else {
+        // 画像がアップロードされていない場合は既存の画像パスを使用
+        $imagepath = $user['image_path'];
     }
-    else{
-        $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio  WHERE id = :id";
-            $update_stmt = $pdo->prepare($update_sql);
-            $update_stmt->bindParam(':nickname', $nickname);
-            $update_stmt->bindParam(':tags', $tags);
-            $update_stmt->bindParam(':bio', $bio);           
-            $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
-            $update_stmt->execute();
-    }
-    // ユーザー情報の更新
-    
+
+    // データベース更新
+    $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio, image_path = :image_path WHERE id = :id";
+    $update_stmt = $pdo->prepare($update_sql);
+    $update_stmt->bindParam(':nickname', $nickname);
+    $update_stmt->bindParam(':tags', $tags);
+    $update_stmt->bindParam(':bio', $bio);
+    $update_stmt->bindParam(':image_path', $imagepath, PDO::PARAM_STR);
+    $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+    $update_stmt->execute();
 
     // 更新メッセージ表示とリロード
     echo "<p style='color:green;'>プロフィールが更新されました。</p>";
     header("Refresh:0"); // ページをリロードして更新内容を反映
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
