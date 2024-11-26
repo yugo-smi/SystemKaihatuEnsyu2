@@ -24,11 +24,32 @@ try {
 }
 
 // ログインしているユーザーのIDを取得
-$user_id = $_SESSION['user_id'];
-
+$senduser_id = $_SESSION['user_id'];
+$recuser_id =  2;
 $sql = "SELECT nickname FROM user_table WHERE id = :id";
-$sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_flag FROM user_table WHERE id = :id";
+$sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_flag FROM user_table WHERE id = :id ORDER BY sent_time DESC" ;
 
+// メッセージ送信処理
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
+    //$recipient_user_id = $_POST['recipient_user_id'] ?? null;
+    $recipient_user_id = 1;
+    $message_text = $_POST['message_text'] ?? '';
+
+    if ($recipient_user_id && !empty(trim($message_text))) {
+        $sql = "INSERT INTO  private_table(send_user_id, recipient_user_id, message_text) VALUES (:send_user_id, :recipient_user_id, :message_text)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':send_user_id', $senduser_id, PDO::PARAM_INT);
+        $stmt->bindParam(':recipient_user_id', $recipient_user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
+        $stmt->execute();
+        echo json_encode(['status' => 'success', 'message' => 'メッセージが送信されました']);
+        
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'メッセージを入力してください']);
+        
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="jp">
@@ -65,12 +86,14 @@ $sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_fla
             </div>
         
         </header>
+
         <div id="chat-box" class="chat-box"></div>
         <div class="input-area">
-            
-            <input type="text" id="message-input" placeholder="">
-            <button id="send-button">送信</button>
-        </div>
+            <form method="POST" action="http://localhost/SystemKaihatuEnsyu2/chat.php">
+                <input type="text" id="message-input" name="message_text"placeholder="">           
+                <button id="send-button">送信</button>          
+            </form>
+         </div>
     </div>
 
     <script src="script.js"></script>
