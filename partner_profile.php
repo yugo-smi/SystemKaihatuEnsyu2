@@ -7,6 +7,36 @@
     </head>
     <!-- body（本文） -->
     <body>
+    <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+// データベース接続
+$host = 'localhost'; 
+$dbname = 'newlink'; 
+$username = 'root'; 
+$password = 'root'; 
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // ランダムで1人のユーザーを取得
+    $stmt = $pdo->query("SELECT * FROM user_table ORDER BY RAND() LIMIT 1");
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        echo "データベースにユーザーが存在しません。";
+        exit;
+    }
+} catch (PDOException $e) {
+    echo "データベース接続エラー: " . $e->getMessage();
+    exit;
+}
+?>
         <!-- ヘッダー -->
         <div id="header">
             <a href="index.php">
@@ -34,7 +64,6 @@
         </div>
         <script src="js/index_hamburger.js"></script>
 
-        <h2>プロフィール</h2>
         <div class="profile-info">
             <div class="profile-pic-container">
                 <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
@@ -64,7 +93,13 @@
             </div>
             <div class="chat-or-change">
                 <button class="matching_chat">チャットする</button>
-                <button class="matching_change">チェンジする</button>
+                <button class="matching_change" onclick="reloadPage()">チェンジする</button>
+                <script>
+                    function reloadPage() {
+                        // 現在のページをリロード
+                        location.reload();
+                    }
+                </script>
             </div>
         </div>
     </body>
