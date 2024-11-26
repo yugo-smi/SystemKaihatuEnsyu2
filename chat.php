@@ -1,3 +1,35 @@
+<?php
+//// セッション開始
+session_start();
+
+// ログインしているか確認し、していない場合はログインページにリダイレクト
+if (!isset($_SESSION['user_id']) || !isset($_SERVER['HTTP_REFERER'])) {
+    // ログインしていない、またはリファラーが不正な場合
+    header("Location: login.php");
+    exit();
+}
+
+// データベース接続設定
+$servername = "localhost:3306";
+$dbname = "newlink";
+$username = "root";
+$password = "root";
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "データベース接続エラー: " . $e->getMessage();
+    exit();
+}
+
+// ログインしているユーザーのIDを取得
+$user_id = $_SESSION['user_id'];
+
+$sql = "SELECT nickname FROM user_table WHERE id = :id";
+$sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_flag FROM user_table WHERE id = :id";
+
+?>
 <!DOCTYPE html>
 <html lang="jp">
 <head>
