@@ -95,7 +95,9 @@ try {
                 <textarea readonly><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
             <div class="chat-or-change">
-                <button class="matching_chat">チャットする</button>
+                <!-- チャットボタン: 抽選されたユーザーのIDをクエリパラメータに含める -->
+                <button><a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="matching_chat">チャットする</a></button>
+
                 
                 <script>
                     function reloadPage() {
