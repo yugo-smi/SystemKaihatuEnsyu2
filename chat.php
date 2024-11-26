@@ -9,6 +9,11 @@ if (!isset($_SESSION['user_id']) || !isset($_SERVER['HTTP_REFERER'])) {
     exit();
 }
 
+if ( !empty($_GET["partner_id"])){
+    $partner_id = $_GET["partner_id"];
+    //
+}
+
 // データベース接続設定
 $servername = "localhost:3306";
 $dbname = "newlink";
@@ -24,8 +29,9 @@ try {
 }
 
 // ログインしているユーザーのIDを取得
+$partner_id = $_GET["partner_id"];
 $senduser_id = $_SESSION['user_id'];
-$recuser_id =  2;
+$recuser_id = $partner_id;
 $sql = "SELECT nickname FROM user_table WHERE id = :id";
 $sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_flag FROM user_table WHERE id = :id ORDER BY sent_time DESC" ;
 
@@ -33,7 +39,7 @@ $sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_fla
 if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 {
     //$recipient_user_id = $_POST['recipient_user_id'] ?? null;
-    $recipient_user_id = 1;
+    $recipient_user_id = $partner_id;
     $message_text = $_POST['message_text'] ?? '';
 
     if ($recipient_user_id && !empty(trim($message_text))) {
@@ -43,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         $stmt->bindParam(':recipient_user_id', $recipient_user_id, PDO::PARAM_INT);
         $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
         $stmt->execute();
-        echo json_encode(['status' => 'success', 'message' => 'メッセージが送信されました']);
+        //echo json_encode(['status' => 'success', 'message' => 'メッセージが送信されました']);
         
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'メッセージを入力してください']);
+        //echo json_encode(['status' => 'error', 'message' => 'メッセージを入力してください']);
         
     }
 }
@@ -89,9 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
         <div id="chat-box" class="chat-box"></div>
         <div class="input-area">
-            <form method="POST" action="http://localhost/SystemKaihatuEnsyu2/chat.php">
+            <form method="POST" action="http://localhost/SystemKaihatuEnsyu2/chat.php?partner_id=<?=$partner_id?>">
                 <input type="text" id="message-input" name="message_text"placeholder="">           
-                <button id="send-button">送信</button>          
+                <button id="send-button">送信</button>  
+                        
             </form>
          </div>
     </div>
