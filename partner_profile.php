@@ -14,6 +14,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+
 // データベース接続
 $host = 'localhost'; 
 $dbname = 'newlink'; 
@@ -25,8 +26,10 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // ランダムで1人のユーザーを取得
-    $stmt = $pdo->query("SELECT * FROM user_table ORDER BY RAND() LIMIT 1");
+    $current_user_id = $_SESSION['user_id'];
+    $stmt = $pdo->query("SELECT * FROM user_table Where id != $current_user_id ORDER BY RAND() LIMIT 1");
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $id = $user['id'];
 
     if (!$user) {
         echo "データベースにユーザーが存在しません。";
@@ -92,15 +95,18 @@ try {
                 <textarea readonly><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
             <div class="chat-or-change">
-                <button class="matching_chat">チャットする</button>
+                <!-- チャットボタン: 抽選されたユーザーのIDをクエリパラメータに含める -->
+                <button><a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="matching_chat">チャットする</a></button>
+
+                <!-- チェンジボタン -->
                 <button class="matching_change" onclick="reloadPage()">チェンジする</button>
                 <script>
                     function reloadPage() {
-                        // 現在のページをリロード
-                        location.reload();
+                        // URLに現在の時刻を追加してキャッシュを回避
+                        location.href = location.pathname + "?t=" + new Date().getTime();
                     }
                 </script>
-            </div>
+            </div>  
         </div>
     </body>
 </html>
