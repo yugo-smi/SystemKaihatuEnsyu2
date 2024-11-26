@@ -34,25 +34,30 @@ $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-// プロフィール更新処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 入力データを取得
     $nickname = !empty($_POST['nickname']) ? $_POST['nickname'] : $user['nickname'];
     $tags = !empty($_POST['tags']) ? implode(",", $_POST['tags']) : $user['tags']; // 選択されたタグをカンマ区切りに
     $bio = !empty($_POST['bio']) ? $_POST['bio'] : $user['bio'];
 
-    //画像投稿の処理
-    $image = $_SESSION['user_id']; // ファイル名を設定
-    $extension = substr(strrchr($_FILES['image']['name'], '.'), 1); // 拡張子取得
-    $file = "profile-image/$image.$extension";
+    // 古い画像の削除用パス
+    $current_image_path = $user['image_path'];
 
+    // 画像投稿の処理
+    $imagepath = $current_image_path; // 既存画像を初期値に設定
     if (!empty($_FILES['image']['tmp_name']) && exif_imagetype($_FILES['image']['tmp_name'])) { 
-        // ファイルが選択されていれば$imageにファイル名を代入
-        move_uploaded_file($_FILES['image']['tmp_name'], $file); // ディレクトリにファイル保存
+        // ファイル名を user_id に基づいて作成
+        $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION); // 拡張子取得
+        $file = "profile-image/$user_id.$extension";
+
+        // 古い画像が存在すれば削除
+        if (file_exists($current_image_path)) {
+            unlink($current_image_path);
+        }
+
+        // 新しい画像を保存
+        move_uploaded_file($_FILES['image']['tmp_name'], $file);
         $imagepath = $file;
-    } else {
-        // 画像がアップロードされていない場合は既存の画像パスを使用
-        $imagepath = $user['image_path'];
     }
 
     // データベース更新
@@ -70,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Refresh:0"); // ページをリロードして更新内容を反映
     exit();
 }
+
 
 ?>
 
