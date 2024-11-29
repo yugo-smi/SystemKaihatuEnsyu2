@@ -1,108 +1,176 @@
 <?php
-//// セッション開始
+// セッション開始
 session_start();
-
-// ログインしているか確認し、していない場合はログインページにリダイレクト
-if (!isset($_SESSION['user_id']) || !isset($_SERVER['HTTP_REFERER'])) {
-    // ログインしていない、またはリファラーが不正な場合
-    header("Location: login.php");
-    exit();
-}
-
-if ( !empty($_GET["partner_id"])){
-    $partner_id = $_GET["partner_id"];
-    //
-}
-
-// データベース接続設定
-$servername = "localhost:3306";
+$servername = "localhost";
 $dbname = "newlink";
 $username = "root";
 $password = "root";
 
 try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "データベース接続エラー: " . $e->getMessage();
-    exit();
-}
+    // データベース接続
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// ログインしているユーザーのIDを取得
-$partner_id = $_GET["partner_id"];
-$senduser_id = $_SESSION['user_id'];
-$recuser_id = $partner_id;
-$sql = "SELECT nickname FROM user_table WHERE id = :id";
-$sql = "SELECT sent_time, send_user_id,recipient_user_id,message_text,delete_flag FROM user_table WHERE id = :id ORDER BY sent_time DESC" ;
+    $current_user_id = $_SESSION['user_id']; // ログイン中のユーザーID
+    $partner_id = $_GET['partner_id']; // 相手のユーザーID
 
-// メッセージ送信処理
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-{
-    //$recipient_user_id = $_POST['recipient_user_id'] ?? null;
-    $recipient_user_id = $partner_id;
-    $message_text = $_POST['message_text'] ?? '';
+    // リクエスト処理
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $message_text = $_POST['message_text'];
 
-    if ($recipient_user_id && !empty(trim($message_text))) {
-        $sql = "INSERT INTO  private_table(send_user_id, recipient_user_id, message_text) VALUES (:send_user_id, :recipient_user_id, :message_text)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':send_user_id', $senduser_id, PDO::PARAM_INT);
-        $stmt->bindParam(':recipient_user_id', $recipient_user_id, PDO::PARAM_INT);
+        // メッセージ送信処理
+        $stmt = $conn->prepare("
+            INSERT INTO private_table (send_user_id, recipient_user_id, message_text, delete_flag)
+            VALUES (:send_user_id, :recipient_user_id, :message_text, 0)
+        ");
+        $stmt->bindParam(':send_user_id', $current_user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':recipient_user_id', $partner_id, PDO::PARAM_INT);
         $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
         $stmt->execute();
-        //echo json_encode(['status' => 'success', 'message' => 'メッセージが送信されました']);
-        
-    } else {
-        //echo json_encode(['status' => 'error', 'message' => 'メッセージを入力してください']);
-        
+
+        echo json_encode(['success' => true]);
+        exit;
+    } elseif (isset($_GET['action']) && $_GET['action'] === 'fetch') {
+        // メッセージ取得処理
+        $stmt = $conn->prepare("
+            SELECT 
+                private_table.message_text,
+                private_table.sent_time,
+                sender.nickname AS sender_name,
+                recipient.nickname AS recipient_name,
+                private_table.send_user_id
+            FROM 
+                private_table
+            INNER JOIN 
+                user_table AS sender ON private_table.send_user_id = sender.id
+            INNER JOIN 
+                user_table AS recipient ON private_table.recipient_user_id = recipient.id
+            WHERE 
+                (private_table.send_user_id = :current_user_id AND private_table.recipient_user_id = :partner_id)
+                OR
+                (private_table.send_user_id = :partner_id AND private_table.recipient_user_id = :current_user_id)
+            ORDER BY 
+                private_table.sent_time ASC
+        ");
+        $stmt->bindParam(':current_user_id', $current_user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':partner_id', $partner_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        exit;
     }
+} catch (PDOException $e) {
+    echo json_encode(['error' => $e->getMessage()]);
+    exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/chat.css">
+    <title>チャット</title>
+    <script>
+        const currentUserId = <?= json_encode($current_user_id) ?>;
+        const partnerId = <?= json_encode($partner_id) ?>;
+
+        // メッセージ送信
+        async function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageText = messageInput.value.trim();
+            if (!messageText) return;
+
+            try {
+                const response = await fetch('chat.php?partner_id=' + partnerId, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `message_text=${encodeURIComponent(messageText)}`
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    messageInput.value = '';
+                    fetchMessages(); // メッセージ更新
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+
+        // メッセージ取得
+        async function fetchMessages() {
+            try {
+                const response = await fetch('chat.php?action=fetch&partner_id=' + partnerId);
+                const messages = await response.json();
+
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML = ''; // チャットボックスをリセット
+
+                messages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `chat-message ${msg.send_user_id == currentUserId ? 'sent' : 'received'}`;
+                    messageDiv.innerHTML = `
+                        <p class="chat-sender">${msg.send_user_id == currentUserId ? 'あなた' : msg.sender_name}:</p>
+                        <p class="chat-text">${msg.message_text}</p>
+                        <span class="chat-time">${msg.sent_time}</span>
+                    `;
+                    chatBox.appendChild(messageDiv);
+                });
+
+                // スクロールを最新メッセージに移動
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
+        }
+
+        // 初期化とイベントリスナーの追加
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMessages(); // 初回メッセージ取得
+            document.getElementById('send-button').addEventListener('click', event => {
+                event.preventDefault();
+                sendMessage();
+            });
+            setInterval(fetchMessages, 2000); // メッセージを2秒ごとに更新
+        });
+    </script>
 </head>
+<header>
+         <div id = "header">
+             <a href="index.php">
+                 <img class = "logo"  src="image/logo.png" alt="ロゴ">
+             </a>
+
+             <div class="hamburger" id="hamburger">
+                 <img src="image/hamburger.png" alt="ハンバーガーバー">
+                 <script src="js/index_hamburger.js"></script>
+             </div>
+
+             <!-- メニュー -->
+             <nav class="menu" id="menu">
+                 <ul>
+                     <li><a href="index.php">ホーム</a></li>
+                     <li><a href="kensaku.php">お相手を検索</a></li>
+                     <li><a href="message.php">スレッド</a></li>
+                     <li><a href="chat.php">メッセージ</a></li>
+                     <li><a href="profile.php">プロフィール</a></li>
+                 </ul>
+             </nav>
+
+             <div class = "logotitle">
+                 <img src="image/logotitle.png" alt="タイトル">
+             </div>
+         </div>
+     </header>
 <body>
     <div class="chat-container">
-        <header>
-            <div id = "header">
-                <a href="index.php">
-                    <img class = "logo"  src="image/logo.png" alt="ロゴ">
-                </a>
-        
-                <div class="hamburger" id="hamburger">
-                    <img src="image/hamburger.png" alt="ハンバーガーバー">
-                </div>
-        
-                <!-- メニュー -->
-                <nav class="menu" id="menu">
-                    <ul>
-                        <li><a href="index.php">ホーム</a></li>
-                        <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="">PayPay</a></li>
-                        <li><a href="">QuickPay</a></li>
-                    </ul>
-                </nav>
-        
-                <div class = "logotitle">
-                    <img src="image/logotitle.png" alt="タイトル">
-                </div>
-            </div>
-        
-        </header>
-
         <div id="chat-box" class="chat-box"></div>
         <div class="input-area">
-            <form method="POST" action="http://localhost/SystemKaihatuEnsyu2/chat.php?partner_id=<?=$partner_id?>">
-                <input type="text" id="message-input" name="message_text"placeholder="">           
-                <button id="send-button">送信</button>  
-                        
-            </form>
-         </div>
+            <input type="text" id="message-input" placeholder="メッセージを入力してください">
+            <button id="send-button">送信</button>
+        </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>

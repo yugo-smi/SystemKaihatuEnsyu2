@@ -1,4 +1,4 @@
-/* 全体設定 */
+/* 全体リセット */
 * {
     margin: 0;
     padding: 0;
@@ -10,104 +10,101 @@ body, html {
     width: 100%;
     font-family: Arial, sans-serif;
     display: flex;
-    background-color: #f4f4f9;
+    flex-direction: column; /* 縦方向にレイアウト */
+    background-color: #ffffff;
 }
 
-/* チャット全体のレイアウト */
+/* チャットコンテナ */
 .chat-container {
     width: 100%;
     max-width: 100%;
     height: 100%;
-    max-height: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     overflow: hidden;
     background-color: #fff;
 }
 
 /* ヘッダーエリア */
-.logotitle{
+.logotitle {
     display: flex;
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center; /* 垂直方向に中央揃え */
+    justify-content: center;
+    align-items: center;
+    height: 80px; /* 固定の高さ */
+    background-color: #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
-.logo{
-    float: left;
+.logo {
     width: 80px;
     height: 80px;
 }
 
-.hamburger{
-    float: right;
-    margin-top:25px;
-    margin-right:25px;
-    width: 30px;
-    height: 30px;
-  }
-  
-.hamburger span {
-    display: block;
-    height: 3px;
-    background-color: #333;
-    border-radius: 3px;
-    transition: 0.3s;
-}
-
-/* メニューのスタイル */
-.menu {
-    z-index: calc(infinity);
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 200px;
-    height: 100%;
-    background-color: #79f4ff;
-    color: white;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    transition: right 0.3s;
-}
-
-.menu ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-    .menu ul li {
-    margin: 15px 0;
-}
-
-.menu ul li a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* メニューの表示 */
-.menu{
-    margin-top: 80px;
-}
-.menu.open {
-    right: 0;
-}
 
 
 /* チャットボックス */
 .chat-box {
-    flex: 1;
     padding: 10px;
-    max-height: 100%;
+    background-color: #ffffff;
+    flex: 1; /* ヘッダー以外の全てを埋める */
     overflow-y: auto;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #ccc;
+    
 }
 
-/* 入力エリアの固定 */
+/* メッセージスタイル */
+.chat-message {
+    margin: 10px 0;
+    display: flex;
+}
+
+.chat-message.sent {
+    justify-content: flex-end;
+}
+
+.chat-message.received {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+.chat-message.sent .message-bubble {
+    background-color: #dcf8c6;
+    border-color: #b2eab3;
+}
+
+.chat-message.received .message-bubble {
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.chat-sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.chat-text {
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.chat-time {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    display: block;
+    margin-top: 5px;
+}
+
+/* 入力エリア */
 .input-area {
     display: flex;
     padding: 5%;
@@ -131,8 +128,96 @@ body, html {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #send-button:hover {
     background-color: #2e477a;
 }
+
+/* スクロールバーのカスタマイズ */
+.chat-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+.header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.logo {
+    float: left;
+    width: 80px;
+    height: 80px;
+}
+
+.logotitle{
+    display: flex;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
+}
+.hamburger{
+    float: right;
+    margin-top:25px;
+    margin-right:25px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .hamburger span {
+  display: block;
+  height: 3px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: 0.3s;
+  }
+  
+  /* メニューのスタイル */
+  .menu {
+  z-index: calc(infinity);
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 200px;
+  height: 100%;
+  background-color: #79f4ff;
+  color: white;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  transition: right 0.3s;
+  }
+  
+  .menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  }
+  
+  .menu ul li {
+  margin: 15px 0;
+  }
+  
+  .menu ul li a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 18px;
+  }
+  
+  /* メニューの表示 */
+  .menu{
+  margin-top: 80px;
+  }
+  .menu.open {
+  right: 0;
+  }
