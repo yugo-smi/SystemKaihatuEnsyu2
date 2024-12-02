@@ -153,6 +153,12 @@ button.login-button:hover {
     .register-link a {
         font-size: 10px;
     }
+    #countdown {
+        font-size: 18px;
+        color: red;
+        font-weight: bold;
+    }
+    
 }
 
 
