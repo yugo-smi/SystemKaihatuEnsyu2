@@ -94,9 +94,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" id="password" name="password" required
                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
                        title="英数字を組み合わせた8文字以上で入力してください">
-                <span id="toggle-password" class="toggle-password">
+                <span src="js/main.js" id="toggle-password" class="toggle-password">
                     <img src="image/eye-icon.png" alt="目のアイコン">
                 </span>
+                
             </div>
 
             <button type="submit" class="login-button">ログインする</button>
@@ -106,7 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="register.php">アカウント新規登録</a>
         </div>
     </div>
-
+    
+    <script src="js/main.js"></script>
     <script>
         // PHPから残り秒数を受け取る
         let remainingTime = <?php echo isset($remaining_time) ? $remaining_time : 0; ?>;

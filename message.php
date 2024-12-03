@@ -1,4 +1,18 @@
 <!-- html -->
+<?php
+session_start();
+
+// ログイン状態を確認
+if (!isset($_SESSION['user_id'])) {
+    // ログインしていない場合、login.php へリダイレクト
+    header("Location: login.php");
+    exit;
+}
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+
+
+
 <!DOCTYPE html>
 
 <!-- head（ページ概要） -->
@@ -73,11 +87,16 @@
     <footer>
         <nav id="footer_items">
             <ul>
-                <li><a href="search.html">お相手を検索</a></li>
-                <li><a href="like.html">イイね</a></li>
-                <li><a href="message.html">メッセージ</a></li>
-                <li><a href="news.html">新着情報</a></li>
-                <li><a href="profile.html">プロフィール</a></li>
+                <li><a href="index.php">ホーム</a></li>
+                <li><a href="kensaku.php">お相手を検索</a></li>
+                <li><a href="message.php">スレッド</a></li>
+                <li><a href="chat.php">メッセージ</a></li>
+                <?php if ($isLoggedIn): ?>
+                    <li><a href="profile.php">プロフィール</a></li>
+                    <li><a href="logout.php">ログアウト</a></li>
+                <?php else: ?>
+                    <li><a href="login.php">ログイン</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </footer>
