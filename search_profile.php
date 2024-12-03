@@ -35,6 +35,13 @@ try {
         echo "データベースにユーザーが存在しません。";
         exit;
     }
+
+    // お気に入り状態を確認
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM favorite_users WHERE user_id = :current_user_id AND favorite_user_id = :profile_user_id");
+    $stmt->bindValue(':current_user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+    $stmt->bindValue(':profile_user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $isFavorite = $stmt->fetchColumn() > 0;
 } catch (PDOException $e) {
     echo "データベース接続エラー: " . $e->getMessage();
     exit;
@@ -94,18 +101,54 @@ try {
                 <h3>自己紹介</h3>
                 <textarea readonly><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
+            
+            <!-- チャットボタン -->
             <div class="chat-or-change">
-                <!-- チャットボタン: 抽選されたユーザーのIDをクエリパラメータに含める -->
                 <button><a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="matching_chat">チャットする</a></button>
+            </div>
 
-                
-                <script>
-                    function reloadPage() {
-                        // 現在のページをリロード
-                        location.reload();
-                    }
-                </script>
+            <!-- お気に入りボタン -->
+            <div class="favorite-container">
+                <form method="POST" action="search_profile.php?id=<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
+                    <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
+                    <?php if ($isFavorite): ?>
+                        <button type="submit" name="action" value="remove" class="favorite-button remove">お気に入り解除</button>
+                    <?php else: ?>
+                        <button type="submit" name="action" value="add" class="favorite-button add">お気に入り追加</button>
+                    <?php endif; ?>
+                </form>
             </div>
         </div>
+
+        <?php
+        // お気に入り追加/解除処理
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['favorite_user_id'])) {
+            $favoriteUserId = $_POST['favorite_user_id'];
+            $action = $_POST['action'];
+
+            try {
+                if ($action === 'add') {
+                    // お気に入り追加
+                    $stmt = $pdo->prepare("INSERT INTO favorite_users (user_id, favorite_user_id) VALUES (:user_id, :favorite_user_id)");
+                    $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+                    $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
+                    $stmt->execute();
+                } elseif ($action === 'remove') {
+                    // お気に入り解除
+                    $stmt = $pdo->prepare("DELETE FROM favorite_users WHERE user_id = :user_id AND favorite_user_id = :favorite_user_id");
+                    $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+                    $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
+                    $stmt->execute();
+                }
+            } catch (PDOException $e) {
+                echo "エラー: " . $e->getMessage();
+                exit;
+            }
+
+            // ページをリロードしてフォーム再送信を防止
+            header("Location: search_profile.php?id=" . htmlspecialchars($userId, ENT_QUOTES, 'UTF-8'));
+            exit();
+        }
+        ?>
     </body>
 </html>
