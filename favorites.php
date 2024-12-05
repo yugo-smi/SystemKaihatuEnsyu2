@@ -124,6 +124,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style_favorites.css">
     <title>お気に入り一覧</title>
     <style>
         .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -135,6 +136,38 @@ try {
     </style>
 </head>
 <body>
+<div id="header">
+            <a href="index.php">
+                <img class="logo" src="image/logo.png" alt="ロゴ">
+            </a>
+
+            <div class="hamburger" id="hamburger">
+                <img src="image/hamburger.png" alt="ハンバーガーバー">
+            </div>
+
+            <!-- メニュー -->
+            <nav class="menu" id="menu">
+                <ul>
+                <li><a href="index.php">ホーム</a></li>
+                    <li><a href="kensaku.php">お相手を検索</a></li>
+                    <li><a href="message.php">スレッド</a></li>
+                    <li><a href="chat.php">メッセージ</a></li>
+                    <li><a href="favorites.php">お気に入り</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
+                    <?php if ($isLoggedIn): ?>
+                        
+                    <?php else: ?>
+                        <li><a href="logout.php">ログアウト</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+
+            <div class="logotitle">
+                <img src="image/logotitle.png" alt="タイトル">
+            </div>
+        </div>
+        <script src="js/index_hamburger.js"></script>
+
     <h1>お気に入り一覧</h1>
 
     <!-- チェーンセクション -->
