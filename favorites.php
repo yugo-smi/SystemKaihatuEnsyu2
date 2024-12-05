@@ -41,6 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
                 $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
                 $stmt->execute();
+            } elseif ($action === 'remove_chain') {
+                // チェーン解除（相互お気に入り解除）
+                $stmt = $pdo->prepare("
+                    DELETE FROM favorite_users
+                    WHERE (user_id = :user_id AND favorite_user_id = :favorite_user_id)
+                       OR (user_id = :favorite_user_id AND favorite_user_id = :user_id)
+                ");
+                $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+                $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
+                $stmt->execute();
             }
         } catch (PDOException $e) {
             echo "エラー: " . $e->getMessage();
@@ -142,6 +152,12 @@ try {
                         <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
                         <div class="actions">
                             <a href="search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">プロフィールを見る</a>
+                            <!-- チェーン解除フォーム -->
+                            <form method="POST" style="display:inline;">
+                                <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
+                                <input type="hidden" name="action" value="remove_chain">
+                                <button type="submit">チェーン解除</button>
+                            </form>
                         </div>
                     </div>
                 </div>
