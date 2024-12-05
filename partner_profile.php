@@ -21,6 +21,13 @@ $dbname = 'newlink';
 $username = 'root'; 
 $password = 'root'; 
 
+if (!isset($_SESSION['user_id'])) {
+    // ログインしていない場合、login.php へリダイレクト
+    header("Location: login.php");
+    exit;
+}
+$isLoggedIn = isset($_SESSION['user_id']);
+
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -57,7 +64,13 @@ try {
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     <li><a href="message.php">スレッド</a></li>
                     <li><a href="chat.php">メッセージ</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
+                    <li><a href="favorites.php">お気に入り</a></li>
+                    <?php if ($isLoggedIn): ?>
+                        <li><a href="profile.php">プロフィール</a></li>
+                        <li><a href="logout.php">ログアウト</a></li>
+                    <?php else: ?>
+                        <li><a href="login.php">ログイン</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
 

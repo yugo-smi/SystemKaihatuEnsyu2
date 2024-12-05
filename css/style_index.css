@@ -117,7 +117,6 @@ right: 0;
   max-width: 250px;
   position: relative;
   margin: auto;
-  margin-bottom: 30px; /* スライドショーとボタンの間隔 */
 }
 
 /* メインコンテナの設定 */
@@ -127,24 +126,27 @@ right: 0;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-top: 50px; /* 余白を50pxに統一 */
-  margin-bottom: 100px; /* 下部余白も同じにして一貫性を確保 */
 }
 
 /* ランダムマッチングボタンの固定位置 */
 .random_matching_button {
   display: flex;
-  padding: 15px 30px;
   background-color: #ccc;
   color: #000;
   text-decoration: none;
   border-radius: 5px;
   white-space: nowrap;
   cursor: pointer;
-  margin: 0 510px auto;
   align-items: center;
   justify-content: center;
+  padding: 30px 60px;
+  margin: 0 65px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #52a1aa;
 }
+
+
 
 /* 携帯画面向けの調整 */
 @media (max-width: 480px) {
@@ -152,12 +154,8 @@ right: 0;
     padding: 30px 60px;
     margin: 0 65px;
     font-size: 14px;
-    margin-top: 20px;
-    
-  }
-  .main-container {
-    margin-top: 110px;
-    margin-bottom: 150px; /* 携帯画面でも同じ間隔を設定 */
+    color: #ffffff;
+    background-color: #52a1aa;
   }
   .slide img {
     height: 200px; /* 画像の高さを調整してボタンに重ならないように */
@@ -185,4 +183,29 @@ right: 0;
 /* アクティブなドットのスタイル */
 .dots-container .active {
   background-color: #333;
+}
+
+.favorites-title{
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.favorites-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorites-profile{
+  width: 100%;
+  height: 50px;
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+.favorites-button{
+  width: 100px;
+  height: 50px;
+  margin-top: 5px;
+  font-size: 10px;
 }

@@ -6,6 +6,13 @@ $dbname = "newlink";
 $username = "root";
 $password = "root";
 
+if (!isset($_SESSION['user_id'])) {
+    // ログインしていない場合、login.php へリダイレクト
+    header("Location: login.php");
+    exit;
+}
+$isLoggedIn = isset($_SESSION['user_id']);
+
 try {
     // データベース接続
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -59,10 +66,14 @@ try {
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         exit;
     }
+    
 } catch (PDOException $e) {
     echo json_encode(['error' => $e->getMessage()]);
     exit;
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -118,9 +129,18 @@ try {
                     `;
                     chatBox.appendChild(messageDiv);
                 });
-
+                console.log(document.cookie);
                 // スクロールを最新メッセージに移動
-                chatBox.scrollTop = chatBox.scrollHeight;
+                if(document.cookie.split(";").some((item)=>item.includes("scrollTop="))){
+                    const scrollTop =document.cookie.split("; ").find((row)=>row.startsWith("scrollTop=")).split("=")[1];
+                                    
+                    chatBox.scrollTop = scrollTop;
+                    console.log(scrollTop);
+                }
+                else {
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+        
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
@@ -136,6 +156,21 @@ try {
             setInterval(fetchMessages, 2000); // メッセージを2秒ごとに更新
         });
     </script>
+    <script>
+	    document.addEventListener('DOMContentLoaded', function(){
+
+			document.getElementById('chat-box').addEventListener('scroll', function(){
+				console.log("横スクロール量:"+ document.getElementById('chat-box').scrollX);
+				console.log("縦スクロール量：" + document.getElementById('chat-box').scrollY);
+                console.log("横スクロール位置：" + document.getElementById('chat-box').scrollTop);
+				console.log("縦スクロール位置：" + document.getElementById('chat-box').scrollLeft);
+                document.cookie = "scrollTop="+document.getElementById('chat-box').scrollTop;
+			});
+
+		});
+
+
+	</script>
 </head>
 <header>
          <div id = "header">
@@ -145,17 +180,24 @@ try {
 
              <div class="hamburger" id="hamburger">
                  <img src="image/hamburger.png" alt="ハンバーガーバー">
-                 <script src="js/index_hamburger.js"></script>
+                 
              </div>
 
              <!-- メニュー -->
              <nav class="menu" id="menu">
                  <ul>
-                     <li><a href="index.php">ホーム</a></li>
-                     <li><a href="kensaku.php">お相手を検索</a></li>
-                     <li><a href="message.php">スレッド</a></li>
-                     <li><a href="chat.php">メッセージ</a></li>
-                     <li><a href="profile.php">プロフィール</a></li>
+                 <li><a href="index.php">ホーム</a></li>
+                    <li><a href="kensaku.php">お相手を検索</a></li>
+                    <li><a href="message.php">スレッド</a></li>
+                    <li><a href="chat.php">メッセージ</a></li>
+                    <li><a href="favorites.php">お気に入り</a></li>
+                    <?php if ($isLoggedIn): ?>
+                        <li><a href="profile.php">プロフィール</a></li>
+                        <li><a href="logout.php">ログアウト</a></li>
+                    <?php else: ?>
+                        <li><a href="login.php">ログイン</a></li>
+                    <?php endif; ?>
+                     
                  </ul>
              </nav>
 
@@ -172,5 +214,11 @@ try {
             <button id="send-button">送信</button>
         </div>
     </div>
-</body>
+</body><div class="chat-box">
+  <div id="box" class="xhat-box">BOX</div>
+</div>
+<script type="text/javascript" src="js/test.js"></script>
+
+
+
 </html>
