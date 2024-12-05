@@ -74,6 +74,7 @@ try {
 
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +82,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/chat.css">
+    <link rel="stylesheet" href="./css/style_chat.css">
     <title>チャット</title>
     <script>
         const currentUserId = <?= json_encode($current_user_id) ?>;
@@ -155,7 +156,33 @@ try {
             });
             setInterval(fetchMessages, 2000); // メッセージを2秒ごとに更新
         });
+
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const chatBox = document.getElementById('chat-box');
+    const scrollToBottomButton = document.getElementById('scroll-to-bottom');
+
+    // チャットボックスのスクロール監視
+    chatBox.addEventListener('scroll', () => {
+        const isAtBottom = chatBox.scrollHeight - chatBox.scrollTop === chatBox.clientHeight;
+        scrollToBottomButton.style.display = isAtBottom ? 'none' : 'block';
+    });
+
+    // ボタンのクリックイベント
+    scrollToBottomButton.addEventListener('click', () => {
+        chatBox.scrollTo({
+            top: chatBox.scrollHeight,
+            behavior: 'smooth',
+        });
+    });
+});
+
     </script>
+    
     <script>
 	    document.addEventListener('DOMContentLoaded', function(){
 
@@ -172,6 +199,8 @@ try {
 
 	</script>
 </head>
+
+
 <header>
          <div id = "header">
              <a href="index.php">
@@ -196,21 +225,28 @@ try {
                     <?php else: ?>
                         <li><a href="login.php">ログイン</a></li>
                     <?php endif; ?>
-                     
+               
                  </ul>
              </nav>
-
+                <head>
+                    <title></title>
+                </head>
              <div class = "logotitle">
                  <img src="image/logotitle.png" alt="タイトル">
              </div>
          </div>
      </header>
+     <!-- スクリプト -->
+    <script src="js/index_hamburger.js"></script>
+
 <body>
     <div class="chat-container">
         <div id="chat-box" class="chat-box"></div>
         <div class="input-area">
             <input type="text" id="message-input" placeholder="メッセージを入力してください">
             <button id="send-button">送信</button>
+            <button id="scroll-to-bottom" class="scroll-to-bottom">下へスクロール</button>
+
         </div>
     </div>
 </body><div class="chat-box">

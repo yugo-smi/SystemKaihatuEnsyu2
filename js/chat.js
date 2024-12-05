@@ -69,7 +69,6 @@ document.getElementById('send-button').addEventListener('click', sendMessage);
 // メッセージを定期的に取得
 setInterval(fetchMessages, 2000);
 
-//座標の取得
-var rect = box.getBoundingClientRect(box);
-console.log(rect);
-$sesson
+
+
+
