@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // リダイレクトしてフォーム再送信防止
-        header("Location: index.php");
+        header("Location: favorites.php");
         exit();
     }
 }
@@ -70,105 +70,34 @@ try {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEW LINK</title>
-    <link rel="stylesheet" href="css/style_index.css">
+    <title>お気に入り一覧</title>
     <style>
         /* 簡易スタイル */
         .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
-        .favorite-card { border: 1px solid #ddd; padding: 10px; width: 100px; text-align: center; }
-        .favorite-card img { width: 50px; height: 50px; border-radius: 50%; }
+        .favorite-card { border: 1px solid #ddd; padding: 10px; width: 300px; text-align: center; }
+        .favorite-card img { width: 80px; height: 80px; border-radius: 50%; }
         .user-info { margin-top: 10px; }
         .actions { margin-top: 10px; }
         .actions button { margin-right: 5px; }
     </style>
 </head>
-
 <body>
-    <!-- ヘッダー -->
-    <header>
-        <div id="header">
-            <a href="index.php">
-                <img class="logo" src="image/logo.png" alt="ロゴ">
-            </a>
-
-            <div class="hamburger" id="hamburger">
-                <img src="image/hamburger.png" alt="ハンバーガーメニュー">
-            </div>
-
-            <!-- メニュー -->
-            <nav class="menu" id="menu">
-                <ul>
-                    <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
-                    <li><a href="chat.php">メッセージ</a></li>
-                    <?php if ($isLoggedIn): ?>
-                        <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="logout.php">ログアウト</a></li>
-                    <?php else: ?>
-                        <li class="logout"><a href="login.php">Logout</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-
-            <div class="logotitle">
-                <img src="image/logotitle.png" alt="タイトル">
-            </div>
-        </div>
-    </header>
-    <!--/ヘッダー-->
-
-    <!-- メイン -->
-    <div class="main-container">
-        <div class="slideshow-container">
-            <div class="slide">
-                <img src="./image/deai.png" alt="Slide 1">
-            </div>
-            <div class="slide">
-                <img src="./image/akasi.png" alt="Slide 2">
-            </div>
-            <div class="slide">
-                <img src="./image/default-pic.png" alt="Slide 3">
-            </div>
-        </div>
-        <div class="dots-container">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-        </div>
-    </div>
-
-    <!-- ランダムマッチングボタン -->
-    <a href="./partner_profile.php" class="random_matching_button">ランダムマッチングボタン</a>
-
-    <!-- スクリプト -->
-    <script src="js/index_hamburger.js"></script>
-    <script src="./js/index_slideshow.js"></script>
-    <!--/メイン -->
-
-    <!-- フッター -->
-    <footer>
-        <!-- フッター内容 -->
-    </footer>
-    <!--/フッター -->
-    <h2 class="favorites-title">お気に入り一覧</h2>
+    <h1>お気に入り一覧</h1>
     <div class="favorites-container">
         <?php if (empty($favorites)): ?>
-            <p class="nofavorite">お気に入りに登録されたユーザーはいません。</p>
+            <p>お気に入りに登録されたユーザーはいません。</p>
         <?php else: ?>
             <?php foreach ($favorites as $user): ?>
                 <div class="favorite-card">
                     <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
                          alt="プロフィール画像">
                     <div class="user-info">
-                        <h3><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h3>
+                        <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
                         <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
                         <div class="actions">
                             <!-- プロフィール表示リンク -->
@@ -177,7 +106,7 @@ try {
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
                                 <input type="hidden" name="action" value="remove">
-                                <button class="favorites-button" type="submit">お気に入り解除</button>
+                                <button type="submit">お気に入り解除</button>
                             </form>
                         </div>
                     </div>
