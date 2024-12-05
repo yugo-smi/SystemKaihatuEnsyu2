@@ -60,15 +60,16 @@ try {
             <!-- メニュー -->
             <nav class="menu" id="menu">
                 <ul>
-                    <li><a href="index.php">ホーム</a></li>
+                <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     <li><a href="message.php">スレッド</a></li>
                     <li><a href="chat.php">メッセージ</a></li>
+                    <li><a href="favorites.php">お気に入り</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
-                        <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="logout.php">ログアウト</a></li>
+                        
                     <?php else: ?>
-                        <li><a href="login.php">ログイン</a></li>
+                        <li><a href="logout.php">ログアウト</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
