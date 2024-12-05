@@ -66,10 +66,14 @@ try {
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         exit;
     }
+    
 } catch (PDOException $e) {
     echo json_encode(['error' => $e->getMessage()]);
     exit;
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -125,9 +129,18 @@ try {
                     `;
                     chatBox.appendChild(messageDiv);
                 });
-
+                console.log(document.cookie);
                 // スクロールを最新メッセージに移動
-                chatBox.scrollTop = chatBox.scrollHeight;
+                if(document.cookie.split(";").some((item)=>item.includes("scrollTop="))){
+                    const scrollTop =document.cookie.split("; ").find((row)=>row.startsWith("scrollTop=")).split("=")[1];
+                                    
+                    chatBox.scrollTop = scrollTop;
+                    console.log(scrollTop);
+                }
+                else {
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+        
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
@@ -143,6 +156,21 @@ try {
             setInterval(fetchMessages, 2000); // メッセージを2秒ごとに更新
         });
     </script>
+    <script>
+	    document.addEventListener('DOMContentLoaded', function(){
+
+			document.getElementById('chat-box').addEventListener('scroll', function(){
+				console.log("横スクロール量:"+ document.getElementById('chat-box').scrollX);
+				console.log("縦スクロール量：" + document.getElementById('chat-box').scrollY);
+                console.log("横スクロール位置：" + document.getElementById('chat-box').scrollTop);
+				console.log("縦スクロール位置：" + document.getElementById('chat-box').scrollLeft);
+                document.cookie = "scrollTop="+document.getElementById('chat-box').scrollTop;
+			});
+
+		});
+
+
+	</script>
 </head>
 <header>
          <div id = "header">
@@ -152,7 +180,7 @@ try {
 
              <div class="hamburger" id="hamburger">
                  <img src="image/hamburger.png" alt="ハンバーガーバー">
-                 <script src="js/index_hamburger.js"></script>
+                 
              </div>
 
              <!-- メニュー -->
@@ -186,5 +214,11 @@ try {
             <button id="send-button">送信</button>
         </div>
     </div>
-</body>
+</body><div class="chat-box">
+  <div id="box" class="xhat-box">BOX</div>
+</div>
+<script type="text/javascript" src="js/test.js"></script>
+
+
+
 </html>
