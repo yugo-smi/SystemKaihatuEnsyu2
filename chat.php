@@ -191,11 +191,11 @@ try {
                     <li><a href="message.php">スレッド</a></li>
                     <li><a href="chat.php">メッセージ</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
-                        <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="logout.php">ログアウト</a></li>
+                        
                     <?php else: ?>
-                        <li><a href="login.php">ログイン</a></li>
+                        <li><a href="logout.php">ログアウト</a></li>
                     <?php endif; ?>
                      
                  </ul>
