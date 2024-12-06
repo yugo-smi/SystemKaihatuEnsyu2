@@ -1,123 +1,254 @@
-body{
-  margin: 0px;
-}
-.logotitle{
-  display: flex;
-  justify-content: center; /* 水平方向に中央揃え */
-  align-items: center; /* 垂直方向に中央揃え */
+@charset "utf-8";
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
 }
 
-.logo{
-  float: left;
-  width: 80px;
-  height: 80px;
+.logotitle {
+    display: flex;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
 }
 
+.logo {
+    float: left;
+    width: 80px;
+    height: 80px;
+}
 
-.hamburger{
-  float: right;
-  margin-top:25px;
-  margin-right:25px;
-  width: 30px;
-  height: 30px;
+.hamburger {
+    float: right;
+    margin-top: 25px;
+    margin-right: 25px;
+    width: 30px;
+    height: 30px;
 }
 
 .hamburger span {
-display: block;
-height: 3px;
-background-color: #333;
-border-radius: 3px;
-transition: 0.3s;
+    display: block;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    transition: 0.3s;
 }
 
 /* メニューのスタイル */
 .menu {
-z-index: calc(infinity);
-position: fixed;
-top: 0;
-right: -100%;
-width: 200px;
-height: 100%;
-background-color: #79f4ff;
-color: white;
-display: flex;
-align-items: start;
-justify-content: center;
-transition: right 0.3s;
+    z-index: calc(infinity);
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 200px;
+    height: 100%;
+    background-color: #79f4ff;
+    color: white;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    transition: right 0.3s;
 }
 
 .menu ul {
-list-style: none;
-padding: 0;
-text-align: center;
+    list-style: none;
+    padding: 0;
+    text-align: center;
 }
 
 .menu ul li {
-margin: 15px 0;
+    margin: 15px 0;
 }
 
 .menu ul li a {
-color: rgb(0, 0, 0);
-text-decoration: none;
-font-size: 18px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 18px;
 }
 
 /* メニューの表示 */
-.menu{
-margin-top: 80px;
+.menu {
+    margin-top: 80px;
 }
 .menu.open {
-right: 0;
+    right: 0;
 }
 
-.title{
-  text-align: center;
-}
-
+/* 共通カードデザイン */
 .favorites-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
 }
 
+/* お気に入りカード */
 .favorite-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
-  background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.favorite-card .profile-pic {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+.favorite-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.user-info {
-  margin-top: 10px;
+.favorite-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #007bff;
+}
+
+.user-info h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.user-info p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
 }
 
 .actions {
-  margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
-.actions .view-profile-button,
-.actions .remove-favorite-button {
-  display: inline-block;
-  padding: 8px 12px;
-  text-decoration: none;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
+.actions button,
+.actions a {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.actions .view-profile-button {
-  background-color: #3498db;
+.actions a {
+    color: white;
+    background-color: #3498db;
 }
 
-.actions .remove-favorite-button {
-  background-color: #e74c3c;
+.actions button {
+    color: white;
+    background-color: #e74c3c;
+}
+
+.actions button:hover,
+.actions a:hover {
+    background-color: #007bff;
+    transform: translateY(-2px);
+}
+
+/* チェーンカード */
+.chain-card {
+    border: 2px solid #121111; /* 緑色のボーダー */
+    border-radius: 10px;
+    padding: 15px;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
+    background-color: #b1e3e9; /* 薄い緑色の背景 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chain-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.chain-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #4caf50; /* 緑色の画像ボーダー */
+}
+
+.chain-card .user-info h2 {
+    font-size: 1.2rem;
+    color: #2e7d32; /* 濃い緑色の文字 */
+    margin-bottom: 5px;
+}
+
+.chain-card .user-info p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.chain-card .actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.chain-card .actions button,
+.chain-card .actions a {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.chain-card .actions a {
+    color: white;
+    background-color: #4caf50; /* 緑色のリンクボタン */
+}
+
+.chain-card .actions button {
+    color: white;
+    background-color: #e57373; /* 赤みがかった削除ボタン */
+}
+
+.chain-card .actions button:hover,
+.chain-card .actions a:hover {
+    background-color: #388e3c; /* 濃い緑色 */
+    transform: translateY(-2px);
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    .favorite-card,
+    .chain-card {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .favorite-card img,
+    .chain-card img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .user-info h2 {
+        font-size: 1rem;
+    }
+
+    .user-info p {
+        font-size: 0.8rem;
+    }
+
+    .actions button,
+    .actions a {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
 }
