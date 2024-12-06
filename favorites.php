@@ -118,7 +118,6 @@ try {
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -126,103 +125,87 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style_favorites.css">
     <title>お気に入り一覧</title>
-    <style>
-        .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
-        .favorite-card { border: 1px solid #ddd; padding: 10px; width: 300px; text-align: center; }
-        .favorite-card img { width: 80px; height: 80px; border-radius: 50%; }
-        .user-info { margin-top: 10px; }
-        .actions { margin-top: 10px; }
-        .actions button { margin-right: 5px; }
-    </style>
 </head>
 <body>
 <div id="header">
-            <a href="index.php">
-                <img class="logo" src="image/logo.png" alt="ロゴ">
-            </a>
+    <a href="index.php">
+        <img class="logo" src="image/logo.png" alt="ロゴ">
+    </a>
 
-            <div class="hamburger" id="hamburger">
-                <img src="image/hamburger.png" alt="ハンバーガーバー">
-            </div>
-
-            <!-- メニュー -->
-            <nav class="menu" id="menu">
-                <ul>
-                <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
-                    <li><a href="chat.php">メッセージ</a></li>
-                    <li><a href="favorites.php">お気に入り</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
-                    <?php if ($isLoggedIn): ?>
-                        
-                    <?php else: ?>
-                        <li><a href="logout.php">ログアウト</a></li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-
-            <div class="logotitle">
-                <img src="image/logotitle.png" alt="タイトル">
-            </div>
-        </div>
-        <script src="js/index_hamburger.js"></script>
-
-    <h1>お気に入り一覧</h1>
-
-    <!-- チェーンセクション -->
-    <h2>チェーン（相互お気に入り）</h2>
-    <div class="favorites-container">
-        <?php if (empty($chains)): ?>
-            <p>チェーンはまだありません。</p>
-        <?php else: ?>
-            <?php foreach ($chains as $user): ?>
-                <div class="favorite-card">
-                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
-                         alt="プロフィール画像">
-                    <div class="user-info">
-                        <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                        <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <div class="actions">
-                            <a href="search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">プロフィールを見る</a>
-                            <!-- チェーン解除フォーム -->
-                            <form method="POST" style="display:inline;">
-                                <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="action" value="remove_chain">
-                                <button type="submit">チェーン解除</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+    <div class="hamburger" id="hamburger">
+        <img src="image/hamburger.png" alt="ハンバーガーメニュー">
     </div>
 
-    <!-- 通常のお気に入り一覧 -->
-    <h2>お気に入り一覧</h2>
-    <div class="favorites-container">
-        <?php if (empty($favorites)): ?>
-            <p>お気に入りに登録されたユーザーはいません。</p>
-        <?php else: ?>
-            <?php foreach ($favorites as $user): ?>
-                <div class="favorite-card">
-                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
-                         alt="プロフィール画像">
-                    <div class="user-info">
-                        <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                        <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <div class="actions">
-                            <a href="search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">プロフィールを見る</a>
-                            <form method="POST" style="display:inline;">
-                                <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="action" value="remove">
-                                <button type="submit">お気に入り解除</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+    <!-- メニュー -->
+    <nav class="menu" id="menu">
+        <ul>
+            <li><a href="index.php">ホーム</a></li>
+            <li><a href="kensaku.php">お相手を検索</a></li>
+            <li><a href="message.php">スレッド</a></li>
+            <li><a href="chat.php">メッセージ</a></li>
+            <li><a href="favorites.php">お気に入り</a></li>
+            <li><a href="profile.php">プロフィール</a></li>
+        </ul>
+    </nav>
+
+    <div class="logotitle">
+        <img src="image/logotitle.png" alt="タイトル">
     </div>
+</div>
+<script src="js/index_hamburger.js"></script>
+
+<h1 class="title">お気に入り一覧</h1>
+
+<!-- チェーンセクション -->
+<h2>chain(相互お気に入り)</h2>
+<div class="favorites-container">
+    <?php if (empty($chains)): ?>
+        <p>チェーンはまだありません。</p>
+    <?php else: ?>
+        <?php foreach ($chains as $user): ?>
+            <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                <div class="user-info">
+                    <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
+                <div class="actions">
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
+                        <input type="hidden" name="action" value="remove_chain">
+                        <button type="submit">チェーン解除</button>
+                    </form>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+<!-- 通常のお気に入り一覧 -->
+<h2>お気に入り一覧</h2>
+<div class="favorites-container">
+    <?php if (empty($favorites)): ?>
+        <p>お気に入りに登録されたユーザーはいません。</p>
+    <?php else: ?>
+        <?php foreach ($favorites as $user): ?>
+            <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                <div class="user-info">
+                    <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
+                <div class="actions">
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit">お気に入り解除</button>
+                    </form>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
 </body>
 </html>
+
+
