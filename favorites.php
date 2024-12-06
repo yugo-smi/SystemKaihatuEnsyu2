@@ -133,7 +133,7 @@ try {
     </a>
 
     <div class="hamburger" id="hamburger">
-        <img src="image/hamburger.png" alt="ハンバーガーバー">
+        <img src="image/hamburger.png" alt="ハンバーガーメニュー">
     </div>
 
     <!-- メニュー -->
@@ -163,14 +163,12 @@ try {
         <p>チェーンはまだありません。</p>
     <?php else: ?>
         <?php foreach ($chains as $user): ?>
-            <div class="chain-card">
-                <a href="search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="profile-link">
-                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
-                    <div class="user-info">
-                        <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                        <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                    </div>
-                </a>
+            <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                <div class="user-info">
+                    <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
                 <div class="actions">
                     <form method="POST" style="display:inline;">
                         <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
@@ -190,14 +188,12 @@ try {
         <p>お気に入りに登録されたユーザーはいません。</p>
     <?php else: ?>
         <?php foreach ($favorites as $user): ?>
-            <div class="favorite-card">
-                <a href="search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="profile-link">
-                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
-                    <div class="user-info">
-                        <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                        <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                    </div>
-                </a>
+            <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                <div class="user-info">
+                    <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
                 <div class="actions">
                     <form method="POST" style="display:inline;">
                         <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
@@ -211,4 +207,5 @@ try {
 </div>
 </body>
 </html>
+
 

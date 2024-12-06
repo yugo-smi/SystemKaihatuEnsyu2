@@ -92,6 +92,8 @@ body {
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; /* クリックエリアと解除ボタンを分離 */
+    cursor: pointer; /* マウスホバー時にクリック感を表現 */
 }
 
 .favorite-card:hover {
@@ -123,6 +125,8 @@ body {
     display: flex;
     gap: 10px;
     justify-content: center;
+    position: relative; /* 解除ボタンの優先度を確保 */
+    z-index: 2;
 }
 
 .actions button,
@@ -152,9 +156,21 @@ body {
     transform: translateY(-2px);
 }
 
+/* カード全体クリック可能にするためのスタイル */
+.favorite-card::before,
+.chain-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 50px; /* 解除ボタンのエリアを避ける */
+    z-index: 1;
+}
+
 /* チェーンカード */
 .chain-card {
-    border: 2px solid #121111; /* 緑色のボーダー */
+    border: 2px solid #121111;
     border-radius: 10px;
     padding: 15px;
     width: 90%;
@@ -163,6 +179,8 @@ body {
     background-color: #b1e3e9; /* 薄い緑色の背景 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; /* クリックエリアと解除ボタンを分離 */
+    cursor: pointer;
 }
 
 .chain-card:hover {
@@ -176,12 +194,12 @@ body {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
-    border: 2px solid #4caf50; /* 緑色の画像ボーダー */
+    border: 2px solid #4caf50;
 }
 
 .chain-card .user-info h2 {
     font-size: 1.2rem;
-    color: #2e7d32; /* 濃い緑色の文字 */
+    color: #2e7d32;
     margin-bottom: 5px;
 }
 
@@ -195,6 +213,8 @@ body {
     display: flex;
     gap: 10px;
     justify-content: center;
+    position: relative; /* 解除ボタンの優先度を確保 */
+    z-index: 2;
 }
 
 .chain-card .actions button,
@@ -210,17 +230,17 @@ body {
 
 .chain-card .actions a {
     color: white;
-    background-color: #4caf50; /* 緑色のリンクボタン */
+    background-color: #4caf50;
 }
 
 .chain-card .actions button {
     color: white;
-    background-color: #e57373; /* 赤みがかった削除ボタン */
+    background-color: #e57373;
 }
 
 .chain-card .actions button:hover,
 .chain-card .actions a:hover {
-    background-color: #388e3c; /* 濃い緑色 */
+    background-color: #388e3c;
     transform: translateY(-2px);
 }
 
