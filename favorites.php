@@ -168,7 +168,7 @@ try {
         </div>
         <script src="js/index_hamburger.js"></script>
 
-    <h1>お気に入り一覧</h1>
+    <h1 class="title">お気に入り一覧</h1>
 
     <!-- チェーンセクション -->
     <h2>チェーン（相互お気に入り）</h2>
