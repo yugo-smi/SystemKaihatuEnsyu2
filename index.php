@@ -226,7 +226,6 @@ try {
                         <form method="POST" style="display:inline;">
                             <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
                             <input type="hidden" name="action" value="remove_chain">
-                            <button type="submit">チェーン解除</button>
                         </form>
                     </div>
                 </div>
@@ -250,7 +249,6 @@ try {
                     <form method="POST" style="display:inline;">
                         <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
                         <input type="hidden" name="action" value="remove">
-                        <button type="submit">お気に入り解除</button>
                     </form>
                 </div>
             </div>
