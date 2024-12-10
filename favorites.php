@@ -154,13 +154,13 @@ try {
 </div>
 <script src="js/index_hamburger.js"></script>
 
-<h1 class="title">お気に入り一覧</h1>
+<h1 class="title"></h1>
 
 <!-- チェーンセクション -->
-<h2>chain(相互お気に入り)</h2>
+<h2>チェイン</h2>
 <div class="favorites-container">
     <?php if (empty($chains)): ?>
-        <p>チェーンはまだありません。</p>
+        <p>チェインはまだありません。</p>
     <?php else: ?>
         <?php foreach ($chains as $user): ?>
             <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -182,7 +182,7 @@ try {
 </div>
 
 <!-- 通常のお気に入り一覧 -->
-<h2>お気に入り一覧</h2>
+<h2>リンク</h2>
 <div class="favorites-container">
     <?php if (empty($favorites)): ?>
         <p>お気に入りに登録されたユーザーはいません。</p>

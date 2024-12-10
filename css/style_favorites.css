@@ -117,7 +117,7 @@ body {
 
 .user-info p {
     font-size: 0.9rem;
-    color: #555;
+    color: #6b6a6a;
     margin-bottom: 10px;
 }
 
@@ -173,7 +173,7 @@ body {
     border: 2px solid #121111;
     border-radius: 10px;
     padding: 15px;
-    width: 90%;
+    width: 10%;
     max-width: 300px;
     text-align: center;
     background-color: #b1e3e9; /* 薄い緑色の背景 */
@@ -189,8 +189,8 @@ body {
 }
 
 .chain-card img {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
@@ -199,13 +199,13 @@ body {
 
 .chain-card .user-info h2 {
     font-size: 1.2rem;
-    color: #2e7d32;
+    color: #070707;
     margin-bottom: 5px;
 }
 
 .chain-card .user-info p {
     font-size: 0.9rem;
-    color: #555;
+    color: #0d0d0d;
     margin-bottom: 10px;
 }
 
