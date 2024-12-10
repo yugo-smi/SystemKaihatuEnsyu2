@@ -2,15 +2,8 @@
 // セッション開始
 session_start();
 
-// ログインしているか確認し、していない場合はログインページにリダイレクト
-if (!isset($_SESSION['user_id'])) {
-    // ログインしていない場合、login.php へリダイレクト
-    header("Location: login.php");
-    exit;
-}
-$isLoggedIn = isset($_SESSION['user_id']);
-
-
+// 現在のユーザーIDをセッションから取得
+$currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
 // データベース接続設定
 $servername = "localhost:3306";
@@ -31,7 +24,7 @@ try {
         if (empty($tags) && empty($searchKeyword)) {
             $results = [];
         } else {
-            $query = "SELECT  id,nickname, bio,image_path FROM user_table WHERE 1";
+            $query = "SELECT id, nickname, bio, image_path FROM user_table WHERE 1";
 
             if (!empty($tags)) {
                 foreach ($tags as $index => $tag) {
@@ -55,6 +48,11 @@ try {
 
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // 現在のユーザーを検索結果から除外
+            $results = array_filter($results, function ($user) use ($currentUserId) {
+                return $user['id'] != $currentUserId;
+            });
         }
     }
 } catch (PDOException $e) {
@@ -87,15 +85,13 @@ try {
             <!-- メニュー -->
             <nav class="menu" id="menu">
                 <ul>
-                <li><a href="index.php">ホーム</a></li>
+                    <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     <li><a href="message.php">スレッド</a></li>
                     <li><a href="talk.php">トーク履歴</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
-                    <?php if ($isLoggedIn): ?>
-                        
-                    <?php else: ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
                         <li><a href="logout.php">ログアウト</a></li>
                     <?php endif; ?>
                 </ul>
@@ -110,8 +106,6 @@ try {
 
     <!-- メインコンテンツ -->
     <main>
-
-
         <!-- Search Section -->
         <form method="POST" action="">
             <div class="buttons">
@@ -154,8 +148,7 @@ try {
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
-
-    </div>
+    </main>
     <script src="js/hamburger.js"></script>
     <script src="script.js"></script>
 </body>
