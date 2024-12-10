@@ -218,7 +218,7 @@ try {
                  <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     <li><a href="message.php">スレッド</a></li>
-                    <li><a href="chat.php">メッセージ</a></li>
+                    <li><a href="talk.php">トーク履歴</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
@@ -246,7 +246,7 @@ try {
         <div class="input-area">
             <input type="text" id="message-input" placeholder="メッセージを入力してください">
             <button id="send-button">送信</button>
-            <button id="scroll-to-bottom" class="scroll-to-bottom">下へスクロール</button>
+            <button id="scroll-to-bottom" class="scroll-to-bottom">　↓　　</button>
 
         </div>
     </div>
