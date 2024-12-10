@@ -34,6 +34,16 @@ try {
         $stmt->bindParam(':recipient_user_id', $partner_id, PDO::PARAM_INT);
         $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
         $stmt->execute();
+        // お気に入りに自動追加
+    $stmt = $conn->prepare("
+    INSERT IGNORE INTO favorite_users (user_id, favorite_user_id)
+    VALUES (:current_user_id, :partner_id)
+");
+$stmt->bindParam(':current_user_id', $current_user_id, PDO::PARAM_INT);
+$stmt->bindParam(':partner_id', $partner_id, PDO::PARAM_INT);
+$stmt->execute();
+
+
 
         echo json_encode(['success' => true]);
         exit;
@@ -71,6 +81,7 @@ try {
     echo json_encode(['error' => $e->getMessage()]);
     exit;
 }
+
 
 
 
