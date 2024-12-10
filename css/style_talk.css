@@ -1,4 +1,92 @@
+body{
+    margin: 0px;
+}
 
+.logotitle{
+    display: flex;
+    justify-content: center; /* 水平方向に中央揃え */
+    align-items: center; /* 垂直方向に中央揃え */
+}
 
+.logo{
+    float: left;
+    width: 80px;
+    height: 80px;
+}
 
+.hamburger{
+    float: right;
+    margin-top:25px;
+    margin-right:25px;
+    width: 30px;
+    height: 30px;
+  }
+  
+.hamburger span {
+display: block;
+height: 3px;
+background-color: #333;
+border-radius: 3px;
+transition: 0.3s;
+}
 
+/* メニューのスタイル */
+.menu {
+z-index: calc(infinity);
+position: fixed;
+top: 0;
+right: -100%;
+width: 200px;
+height: 100%;
+background-color: #79f4ff;
+color: white;
+display: flex;
+align-items: start;
+justify-content: center;
+transition: right 0.3s;
+}
+
+.menu ul {
+list-style: none;
+padding: 0;
+text-align: center;
+}
+
+.menu ul li {
+margin: 15px 0;
+}
+
+.menu ul li a {
+color: rgb(0, 0, 0);
+text-decoration: none;
+font-size: 18px;
+}
+
+/* メニューの表示 */
+.menu{
+margin-top: 80px;
+}
+.menu.open {
+right: 0;
+}
+
+#chat-list-container{
+    margin: 5px;
+}
+
+.page-title{
+    text-align: center;
+}
+
+#chat-list{
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+#chat-list li{
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}

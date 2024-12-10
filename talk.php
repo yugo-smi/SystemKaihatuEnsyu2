@@ -61,48 +61,47 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
-
-<div id = "header">
-             <a href="index.php">
-                 <img class = "logo"  src="image/logo.png" alt="ロゴ">
-             </a>
-
-             <div class="hamburger" id="hamburger">
-                 <img src="image/hamburger.png" alt="ハンバーガーバー">
-                 
-             </div>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>トーク履歴</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="css/style_talk.css">
 </head>
-<nav class="menu" id="menu">
-                 <ul>
-                 <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
-                    <li><a href="talk.php">トーク履歴</a></li>
-                    <li><a href="favorites.php">お気に入り</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
-                    <?php if ($isLoggedIn): ?>
-                        
-                    <?php else: ?>
-                        <li><a href="logout.php">ログアウト</a></li>
-                    <?php endif; ?>
-               
-                 </ul>
-                 </head>
-             <div class = "logotitle">
-                 <img src="image/logotitle.png" alt="タイトル">
-             </div>
-         </div>
-     </header>
+
+<div id = "header">
+    <a href="index.php">
+        <img class = "logo"  src="image/logo.png" alt="ロゴ">
+    </a>
+
+    <div class="hamburger" id="hamburger">
+        <img src="image/hamburger.png" alt="ハンバーガーバー">
+    </div>
+
+    <div class = "logotitle">
+        <img src="image/logotitle.png" alt="タイトル">
+    </div>
+
+    <nav class="menu" id="menu">
+        <ul>
+            <li><a href="index.php">ホーム</a></li>
+            <li><a href="kensaku.php">お相手を検索</a></li>
+            <li><a href="talk.php">スレッド</a></li>
+            <li><a href="talk.php">トーク履歴</a></li>
+            <?php if ($isLoggedIn): ?>
+                <li><a href="profile.php">プロフィール</a></li>
+            <?php else: ?>
+                <li class="logout"><a href="logout.php">ログアウト</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+    <script src="js/index_hamburger.js"></script>
+</div>
 <script src="js/talk.js"></script>
 
 <body>
     <div id="chat-list-container">
-        <h1>チャットリスト</h1>
+        <h2 class = "page-title">チャットリスト</h2>
         <?php if (!empty($chatUsers)): ?>
             <ul id="chat-list">
                 <?php foreach ($chatUsers as $user): ?>
