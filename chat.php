@@ -250,11 +250,7 @@ try {
 
         </div>
     </div>
-</body><div class="chat-box">
-  <div id="box" class="xhat-box">BOX</div>
-</div>
-<script type="text/javascript" src="js/test.js"></script>
-
+</body>
 
 
 </html>

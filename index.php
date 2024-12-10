@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $host = 'localhost';
@@ -30,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             if ($action === 'add') {
-                // chain追加
+                // お気に入り追加
                 $stmt = $pdo->prepare("INSERT INTO favorite_users (user_id, favorite_user_id) VALUES (:user_id, :favorite_user_id)");
                 $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
                 $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
                 $stmt->execute();
             } elseif ($action === 'remove') {
-                // chain解除
+                // お気に入り解除
                 $stmt = $pdo->prepare("DELETE FROM favorite_users WHERE user_id = :user_id AND favorite_user_id = :favorite_user_id");
                 $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
                 $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// chain一覧表示
+// お気に入り一覧表示
 try {
     $stmt = $pdo->prepare("
         SELECT u.id, u.nickname, u.bio, u.image_path
@@ -107,14 +108,13 @@ try {
                 <ul>
                     <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
+                    <li><a href="talk.php">スレッド</a></li>
                     <li><a href="chat.php">メッセージ</a></li>
-                    <li><a href="favorites.php">お気に入り</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
-                        
-                    <?php else: ?>
+                        <li><a href="profile.php">プロフィール</a></li>
                         <li><a href="logout.php">ログアウト</a></li>
+                    <?php else: ?>
+                        <li class="logout"><a href="login.php">Logout</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -159,28 +159,26 @@ try {
         <!-- フッター内容 -->
     </footer>
     <!--/フッター -->
-    <h2 class="favorites-title">chain一覧</h2>
+    <h2 class="favorites-title">お気に入り一覧</h2>
     <div class="favorites-container">
         <?php if (empty($favorites)): ?>
-            <p class="nofavorite">chainしたユーザーはいません。</p>
+            <p class="nofavorite">お気に入りに登録されたユーザーはいません。</p>
         <?php else: ?>
             <?php foreach ($favorites as $user): ?>
                 <div class="favorite-card">
-                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
+                         alt="プロフィール画像">
                     <div class="user-info">
                         <h3><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h3>
                         <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
                         <div class="actions">
-                            <!-- プロフィール表示ボタン -->
-                            <form method="GET" action="search_profile.php" style="display:inline;">
-                                <input type="hidden" name="id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                <button class="favorites-button" type="submit">プロフィールを見る</button>
-                            </form>
-                            <!-- chain解除フォーム -->
+                            <!-- プロフィール表示リンク -->
+                            <a href="search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">プロフィールを見る</a>
+                            <!-- お気に入り解除フォーム -->
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
                                 <input type="hidden" name="action" value="remove">
-                                <button class="favorites-button" type="submit">chain解除</button>
+                                <button class="favorites-button" type="submit">お気に入り解除</button>
                             </form>
                         </div>
                     </div>
