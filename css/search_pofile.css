@@ -154,6 +154,31 @@ h1 {
     border: 2px solid #ccc;
 }
 
+.back-to-search {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.back-to-search button {
+    background-color: #52a1aa; /* ボタンの色 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-to-search button:hover {
+    background-color: #52a1aa;
+}
+
+.back-to-search a {
+    text-decoration: none;
+    color: white;
+}
+
 /* ファイル入力ボックスのスタイル */
 input[type="file"] {
     display: none; /* デフォルトのファイル選択ボックスを隠す */

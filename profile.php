@@ -106,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <nav class="menu" id="menu">
             <ul>
                 <li><a href="index.php">ホーム</a></li>
-                <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     <li><a href="message.php">スレッド</a></li>
                     <li><a href="chat.php">メッセージ</a></li>

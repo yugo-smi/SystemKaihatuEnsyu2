@@ -126,6 +126,12 @@ try {
             </div>
         </div>
 
+        <div class="back-to-search">
+            <button>
+                <a href="kensaku.php?<?= http_build_query($_GET) ?>" class="back-to-search-link matching_chat">検索画面に戻る</a>
+            </button>
+        </div>
+
         <?php
         // お気に入り追加/解除処理
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['favorite_user_id'])) {

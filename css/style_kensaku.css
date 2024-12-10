@@ -82,18 +82,35 @@ h1 {
     background-color: #c0e4ffda;
 }
 
+.results-container {
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+.user-card {
+    display: block; /* 全体をリンクとして扱う */
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Profile Cards */
 .profile-card {
     display: flex;
     align-items: center;
-    gap: 16px;
-    border: 1px solid #ddd;
-    margin-bottom: 16px;
-    padding: 16px;
-    border-radius: 8px;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.profile-card:hover {
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .profile-image img {
     width: 100px; /* 画像の幅 */
     height: 100px; /* 画像の高さ */
@@ -118,6 +135,8 @@ h1 {
     overflow-wrap: break-word;
     white-space: pre-wrap;
     max-width: 100%;
+    border: none;
+    text-decoration: none;
 }
 
 .profile-bio {
@@ -128,6 +147,9 @@ h1 {
     overflow-wrap: break-word;
     max-width: 100%;
     white-space: pre-wrap;
+    border: none;
+    text-decoration: none;
+    margin-bottom: 0;
 }
 
 .profile-button {

@@ -139,25 +139,22 @@ try {
                 <p>検索結果はありません。</p>
             <?php elseif (!empty($results)): ?>
                 <?php foreach ($results as $user): ?>
-                    <form method="GET" action="search_profile.php" class="profile-card">
-                    <div class="profile-card">
-                        <!-- プロフィール画像の表示 -->
-                        <div class="profile-image">
-                        <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>"  alt="プロフィール画像">
+                    <!-- カード全体をリンク化 -->
+                    <a href="search_profile.php?id=<?= htmlspecialchars($user['id']) ?>" class="user-card">
+                        <div class="profile-card">
+                            <div class="profile-image">
+                                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                            </div>
+                            <div class="profile-content">
+                                <div class="profile-name"><?= htmlspecialchars($user['nickname']) ?></div>
+                                <div class="profile-bio"><?= htmlspecialchars($user['bio']) ?></div>
+                            </div>
                         </div>
-                        <!-- 名前と自己紹介をまとめたコンテンツ -->
-                        <div class="profle-content">
-                            <div class="profile-name"><?php echo htmlspecialchars($user['nickname']); ?></div>
-                            <div class="profile-bio"><?php echo htmlspecialchars($user['bio']); ?></div> <!-- 自己紹介文を表示 -->
-                        </div>
-                    </div>
-                    <?= htmlspecialchars($user['id']) ?>
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($user['id'])?>">
-                    <button type="submit" class="view-profile-button">詳細を見る</button>
-                </form>
+                    </a>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
+
     </div>
     <script src="js/hamburger.js"></script>
     <script src="script.js"></script>

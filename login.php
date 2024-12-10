@@ -7,6 +7,7 @@ $dbname = "newlink";
 $username = "root";
 $password = "root";
 
+// セッション初期化
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
 }
@@ -14,8 +15,9 @@ if (!isset($_SESSION['last_attempt_time'])) {
     $_SESSION['last_attempt_time'] = time();
 }
 
+// ログイン試行回数とロックアウト設定
 $max_attempts = 2; // 最大試行回数
-$lockout_time = 30; // ロックアウト時間（秒単位、例: 5分）
+$lockout_time = 30; // ロックアウト時間（秒）
 $remaining_time = 0;
 
 if ($_SESSION['login_attempts'] >= $max_attempts) {
@@ -30,6 +32,12 @@ if ($_SESSION['login_attempts'] >= $max_attempts) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // CSRFトークンの検証
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("不正なリクエストです。");
+    }
+
+    // データベース接続
     try {
         $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -40,28 +48,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION["loggedin"] = true;
-        $_SESSION["user_id"] = $user['id'];
-        $_SESSION['login_attempts'] = 0; // 試行回数リセット
-        header("Location: index.php");
-        exit;
+    // メールアドレスの形式を検証
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "無効なメールアドレス形式です。";
     } else {
-        $_SESSION['login_attempts']++;
-        $_SESSION['last_attempt_time'] = time();
+        // ユーザーを検索
+        $stmt = $pdo->prepare("SELECT * FROM user_table WHERE email = :email");
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($_SESSION['login_attempts'] >= $max_attempts) {
-            $remaining_time = $lockout_time;
+        // パスワード検証
+        if ($user && password_verify($password, $user['password'])) {
+            // ログイン成功
+            session_regenerate_id(true); // セッション固定攻撃対策
+            $_SESSION["loggedin"] = true;
+            $_SESSION["user_id"] = $user['id'];
+            $_SESSION['login_attempts'] = 0; // 試行回数リセット
+            header("Location: index.php");
+            exit;
         } else {
-            $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
-            $error = "メールアドレスまたはパスワードが間違っています。残り試行回数: {$remaining_attempts}";
+            // ログイン失敗
+            $_SESSION['login_attempts']++;
+            $_SESSION['last_attempt_time'] = time();
+
+            if ($_SESSION['login_attempts'] >= $max_attempts) {
+                $remaining_time = $lockout_time;
+            } else {
+                $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
+                $error = "メールアドレスまたはパスワードが間違っています。残り試行回数: {$remaining_attempts}";
+            }
         }
     }
+}
+
+// CSRFトークン生成
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 ?>
 <!DOCTYPE html>
@@ -82,10 +105,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if (isset($remaining_time) && $remaining_time > 0): ?>
             <p style="color:red;">現在、ロックされています。<span id="countdown"></span>後に再試行できます。</p>
         <?php elseif (isset($error)): ?>
-            <p style="color:red;"><?php echo $error; ?></p>
+            <p style="color:red;"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
         <?php endif; ?>
 
         <form id="loginForm" action="login.php" method="POST" <?php if (isset($remaining_time) && $remaining_time > 0) echo 'style="display:none;"'; ?>>
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            
             <label for="email">OICメールアドレス</label>
             <input type="email" id="email" name="email" required>
 
@@ -97,7 +122,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span src="js/main.js" id="toggle-password" class="toggle-password">
                     <img src="image/eye-icon.png" alt="目のアイコン">
                 </span>
-                
             </div>
 
             <button type="submit" class="login-button">ログインする</button>
@@ -134,4 +158,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </body>
 </html>
+
 
