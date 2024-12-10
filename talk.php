@@ -58,6 +58,49 @@ try {
     // エラー発生時
     $error_message = $e->getMessage();
 }
+
+try {
+    // PDO接続
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $current_user_id = $_SESSION['user_id']; // ログイン中のユーザーID
+
+    // チャット相手一覧を取得（最新のメッセージ順に並べる）
+    $stmt = $conn->prepare("
+        SELECT DISTINCT 
+            CASE 
+                WHEN private_table.send_user_id = :current_user_id THEN private_table.recipient_user_id
+                ELSE private_table.send_user_id
+            END AS chat_user_id,
+            user_table.nickname,
+            MAX(private_table.sent_time) AS last_message_time
+        FROM 
+            private_table
+        INNER JOIN 
+            user_table 
+        ON 
+            user_table.id = 
+            CASE 
+                WHEN private_table.send_user_id = :current_user_id THEN private_table.recipient_user_id
+                ELSE private_table.send_user_id
+            END
+        WHERE 
+            private_table.send_user_id = :current_user_id 
+            OR private_table.recipient_user_id = :current_user_id
+        GROUP BY chat_user_id, user_table.nickname
+        ORDER BY last_message_time DESC
+    ");
+    $stmt->bindParam(':current_user_id', $current_user_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // 結果を配列に格納
+    $chatUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    // エラー発生時
+    $error_message = $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
