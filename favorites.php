@@ -142,7 +142,7 @@ try {
             <li><a href="index.php">ホーム</a></li>
             <li><a href="kensaku.php">お相手を検索</a></li>
             <li><a href="message.php">スレッド</a></li>
-            <li><a href="chat.php">メッセージ</a></li>
+            <li><a href="talk.php">トーク履歴</a></li>
             <li><a href="favorites.php">お気に入り</a></li>
             <li><a href="profile.php">プロフィール</a></li>
         </ul>
@@ -154,27 +154,19 @@ try {
 </div>
 <script src="js/index_hamburger.js"></script>
 
-<h1 class="title">お気に入り一覧</h1>
+<h1 class="title"></h1>
 
 <!-- チェーンセクション -->
-<h2>chain(相互お気に入り)</h2>
+<h2>チェイン</h2>
 <div class="favorites-container">
     <?php if (empty($chains)): ?>
-        <p>チェーンはまだありません。</p>
+        <p>チェインはまだありません。</p>
     <?php else: ?>
         <?php foreach ($chains as $user): ?>
             <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
                 <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
                 <div class="user-info">
                     <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                </div>
-                <div class="actions">
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                        <input type="hidden" name="action" value="remove_chain">
-                        <button type="submit">チェーン解除</button>
-                    </form>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -182,7 +174,7 @@ try {
 </div>
 
 <!-- 通常のお気に入り一覧 -->
-<h2>お気に入り一覧</h2>
+<h2>リンク</h2>
 <div class="favorites-container">
     <?php if (empty($favorites)): ?>
         <p>お気に入りに登録されたユーザーはいません。</p>
@@ -192,19 +184,12 @@ try {
                 <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
                 <div class="user-info">
                     <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                </div>
-                <div class="actions">
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                        <input type="hidden" name="action" value="remove">
-                        <button type="submit">お気に入り解除</button>
-                    </form>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
+
 </body>
 </html>
 

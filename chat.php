@@ -34,6 +34,16 @@ try {
         $stmt->bindParam(':recipient_user_id', $partner_id, PDO::PARAM_INT);
         $stmt->bindParam(':message_text', $message_text, PDO::PARAM_STR);
         $stmt->execute();
+        // お気に入りに自動追加
+    $stmt = $conn->prepare("
+    INSERT IGNORE INTO favorite_users (user_id, favorite_user_id)
+    VALUES (:current_user_id, :partner_id)
+");
+$stmt->bindParam(':current_user_id', $current_user_id, PDO::PARAM_INT);
+$stmt->bindParam(':partner_id', $partner_id, PDO::PARAM_INT);
+$stmt->execute();
+
+
 
         echo json_encode(['success' => true]);
         exit;
@@ -71,6 +81,7 @@ try {
     echo json_encode(['error' => $e->getMessage()]);
     exit;
 }
+
 
 
 
@@ -218,7 +229,7 @@ try {
                  <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     <li><a href="message.php">スレッド</a></li>
-                    <li><a href="chat.php">メッセージ</a></li>
+                    <li><a href="talk.php">トーク履歴</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
@@ -246,15 +257,11 @@ try {
         <div class="input-area">
             <input type="text" id="message-input" placeholder="メッセージを入力してください">
             <button id="send-button">送信</button>
-            <button id="scroll-to-bottom" class="scroll-to-bottom">下へスクロール</button>
+            <button id="scroll-to-bottom" class="scroll-to-bottom">　↓　　</button>
 
         </div>
     </div>
-</body><div class="chat-box">
-  <div id="box" class="xhat-box">BOX</div>
-</div>
-<script type="text/javascript" src="js/test.js"></script>
-
+</body>
 
 
 </html>

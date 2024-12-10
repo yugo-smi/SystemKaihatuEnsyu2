@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $host = 'localhost';
@@ -30,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             if ($action === 'add') {
-                // chain追加
+                // お気に入り追加
                 $stmt = $pdo->prepare("INSERT INTO favorite_users (user_id, favorite_user_id) VALUES (:user_id, :favorite_user_id)");
                 $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
                 $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
                 $stmt->execute();
             } elseif ($action === 'remove') {
-                // chain解除
+                // お気に入り解除
                 $stmt = $pdo->prepare("DELETE FROM favorite_users WHERE user_id = :user_id AND favorite_user_id = :favorite_user_id");
                 $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
                 $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// chain一覧表示
+// お気に入り一覧表示
 try {
     $stmt = $pdo->prepare("
         SELECT u.id, u.nickname, u.bio, u.image_path
@@ -68,7 +69,61 @@ try {
     echo "エラー: " . $e->getMessage();
     exit();
 }
+try {
+    $stmt = $pdo->prepare("
+        SELECT u.id, u.nickname, u.bio, u.image_path
+        FROM favorite_users f1
+        JOIN favorite_users f2 ON f1.user_id = f2.favorite_user_id AND f2.user_id = f1.favorite_user_id
+        JOIN user_table u ON f1.favorite_user_id = u.id
+        WHERE f1.user_id = :user_id
+    ");
+    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $chains = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // チェーンのユーザーIDを配列で取得
+    $chainUserIds = array_column($chains, 'id');
+} catch (PDOException $e) {
+    echo "エラー: " . $e->getMessage();
+    exit();
+}
+
+// お気に入り一覧表示（チェーンを除外）
+try {
+    $query = "
+        SELECT u.id, u.nickname, u.bio, u.image_path
+        FROM favorite_users f
+        JOIN user_table u ON f.favorite_user_id = u.id
+        WHERE f.user_id = :user_id
+    ";
+
+    // チェーンに含まれるユーザーを除外
+    if (!empty($chainUserIds)) {
+        $namedPlaceholders = [];
+        foreach ($chainUserIds as $index => $id) {
+            $namedPlaceholders[] = ":chain_id_$index";
+        }
+        $query .= " AND u.id NOT IN (" . implode(',', $namedPlaceholders) . ")";
+    }
+
+    $stmt = $pdo->prepare($query);
+    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+
+    // チェーンのIDをバインド
+    if (!empty($chainUserIds)) {
+        foreach ($chainUserIds as $index => $id) {
+            $stmt->bindValue(":chain_id_$index", $id, PDO::PARAM_INT);
+        }
+    }
+
+    $stmt->execute();
+    $favorites = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "エラー: " . $e->getMessage();
+    exit();
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -79,6 +134,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEW LINK</title>
     <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="css/style_favorites.css">
     <style>
         /* 簡易スタイル */
         .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -107,14 +163,13 @@ try {
                 <ul>
                     <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
-                    <li><a href="chat.php">メッセージ</a></li>
-                    <li><a href="favorites.php">お気に入り</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
+                    <li><a href="talk.php">スレッド</a></li>
+                    <li><a href="talk.php">トーク履歴</a></li>
                     <?php if ($isLoggedIn): ?>
-                        
-                    <?php else: ?>
+                        <li><a href="profile.php">プロフィール</a></li>
                         <li><a href="logout.php">ログアウト</a></li>
+                    <?php else: ?>
+                        <li class="logout"><a href="login.php">Logout</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -152,41 +207,63 @@ try {
     <!-- スクリプト -->
     <script src="js/index_hamburger.js"></script>
     <script src="./js/index_slideshow.js"></script>
+
+
+<!-- チェーンセクション -->
+    <h2>チェイン</h2>
+    <div class="favorites-container">
+        <?php if (empty($chains)): ?>
+            <p>チェインはまだありません。</p>
+        <?php else: ?>
+            <?php foreach ($chains as $user): ?>
+                <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
+                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                    <div class="user-info">
+                        <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
+                        <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
+                    </div>
+                    <div class="actions">
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="hidden" name="action" value="remove_chain">
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+    
+    <h2 class="title">リンク</h2>
+    <div class="favorites-container">
+    <?php if (empty($favorites)): ?>
+        <p>リンクに登録されたユーザーはいません。</p>
+    <?php else: ?>
+        <?php foreach ($favorites as $user): ?>
+            <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
+                <div class="user-info">
+                    <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
+                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
+                </div>
+                <div class="actions">
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
+                        <input type="hidden" name="action" value="remove">
+                    </form>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+
+
+
     <!--/メイン -->
 
     <!-- フッター -->
     <footer>
         <!-- フッター内容 -->
     </footer>
-    <!--/フッター -->
-    <h2 class="favorites-title">chain一覧</h2>
-    <div class="favorites-container">
-        <?php if (empty($favorites)): ?>
-            <p class="nofavorite">chainしたユーザーはいません。</p>
-        <?php else: ?>
-            <?php foreach ($favorites as $user): ?>
-                <div class="favorite-card">
-                    <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
-                    <div class="user-info">
-                        <h3><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h3>
-                        <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                        <div class="actions">
-                            <!-- プロフィール表示ボタン -->
-                            <form method="GET" action="search_profile.php" style="display:inline;">
-                                <input type="hidden" name="id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                <button class="favorites-button" type="submit">プロフィールを見る</button>
-                            </form>
-                            <!-- chain解除フォーム -->
-                            <form method="POST" style="display:inline;">
-                                <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                                <input type="hidden" name="action" value="remove">
-                                <button class="favorites-button" type="submit">chain解除</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
+    
 </body>
 </html>
