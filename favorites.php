@@ -167,14 +167,6 @@ try {
                 <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
                 <div class="user-info">
                     <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                </div>
-                <div class="actions">
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                        <input type="hidden" name="action" value="remove_chain">
-                        <button type="submit">チェーン解除</button>
-                    </form>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -192,19 +184,12 @@ try {
                 <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像">
                 <div class="user-info">
                     <h2><?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?></h2>
-                    <p><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></p>
-                </div>
-                <div class="actions">
-                    <form method="POST" style="display:inline;">
-                        <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                        <input type="hidden" name="action" value="remove">
-                        <button type="submit">お気に入り解除</button>
-                    </form>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
+
 </body>
 </html>
 
