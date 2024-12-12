@@ -86,10 +86,10 @@ try {
 
             <!-- メニュー -->
             <nav class="menu" id="menu">
-                <ul>
-                <li><a href="index.php">ホーム</a></li>
+                 <ul>
+                    <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
+                    
                     <li><a href="talk.php">トーク履歴</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
@@ -98,8 +98,8 @@ try {
                     <?php else: ?>
                         <li><a href="logout.php">ログアウト</a></li>
                     <?php endif; ?>
-                </ul>
-            </nav>
+                 </ul>
+             </nav>
 
             <div class="logotitle">
                 <img src="image/logotitle.png" alt="タイトル">

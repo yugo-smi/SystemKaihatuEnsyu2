@@ -86,12 +86,13 @@ try {
         <ul>
             <li><a href="index.php">ホーム</a></li>
             <li><a href="kensaku.php">お相手を検索</a></li>
-            <li><a href="talk.php">スレッド</a></li>
             <li><a href="talk.php">トーク履歴</a></li>
+            <li><a href="favorites.php">お気に入り</a></li>
+            <li><a href="profile.php">プロフィール</a></li>
             <?php if ($isLoggedIn): ?>
-                <li><a href="profile.php">プロフィール</a></li>
+                
             <?php else: ?>
-                <li class="logout"><a href="logout.php">ログアウト</a></li>
+                <li><a href="logout.php">ログアウト</a></li>
             <?php endif; ?>
         </ul>
     </nav>
