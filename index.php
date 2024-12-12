@@ -213,19 +213,29 @@ try {
             </div>
 
             <!-- メニュー -->
-            <nav class="menu" id="menu">
-                <ul>
-                    <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="talk.php">スレッド</a></li>
-                    <li><a href="talk.php">トーク履歴</a></li>
-                    <?php if ($isLoggedIn): ?>
-                        <li><a href="profile.php">プロフィール</a></li>
-                        <li><a href="logout.php">ログアウト</a></li>
-                    <?php else: ?>
-                        <li class="logout"><a href="login.php">Logout</a></li>
-                    <?php endif; ?>
-                </ul>
+            <?php
+        session_start();
+        $isLoggedIn = false; // デフォルト値を設定
+        if (isset($_SESSION['user_id'])) {
+         $isLoggedIn = true;
+        }
+    ?>
+
+<nav class="menu" id="menu">
+    <ul>
+        <li><a href="index.php">ホーム</a></li>
+        <li><a href="kensaku.php">お相手を検索</a></li>
+        <li><a href="talk.php">スレッド</a></li>
+        <li><a href="talk.php">トーク履歴</a></li>
+        <?php if ($isLoggedIn): ?>
+            <li><a href="profile.php">プロフィール</a></li>
+            <li><a href="logout.php">ログアウト</a></li>
+        <?php else: ?>
+            <li class="logout"><a href="login.php">ログイン</a></li>
+        <?php endif; ?>
+    </ul>
+</nav>
+
             </nav>
 
             <div class="logotitle">
