@@ -106,12 +106,17 @@ try {
                 <h3>自己紹介</h3>
                 <textarea readonly><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
+            
             <div class="chat-or-change">
-                <!-- チャットボタン: 抽選されたユーザーのIDをクエリパラメータに含める -->
-                <button><a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="matching_chat">チャットする</a></button>
+    <!-- チャットボタン -->
+    <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" 
+       class="button chat-button">チャットする</a>
 
-                <!-- チェンジボタン -->
-                <button class="matching_change" onclick="reloadPage()">チェンジする</button>
+    <!-- チェンジボタン -->
+    <button class="button change-button" onclick="reloadPage()">チェンジする</button>
+</div>
+
+
                 <script>
                     function reloadPage() {
                         // URLに現在の時刻を追加してキャッシュを回避

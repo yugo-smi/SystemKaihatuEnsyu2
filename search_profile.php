@@ -9,10 +9,14 @@
     <body>
     <?php
 session_start();
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
+
+// セッションに保存された前のURLを取得
+$backURL = isset($_SESSION['previous_url']) ? $_SESSION['previous_url'] : 'index.php';
 
 // データベース接続
 $host = 'localhost'; 
@@ -23,6 +27,7 @@ $password = 'root';
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     if (isset($_GET['id'])) {
         $userId = $_GET['id'];
         $stmt = $pdo->prepare("SELECT * FROM user_table WHERE id = :id");
@@ -109,57 +114,58 @@ try {
             
             <!-- チャットボタン -->
             <div class="chat-or-change">
-                <button><a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="matching_chat">チャットする</a></button>
+                <button class="button chat-button">
+                    <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">チャットする</a>
+                </button>
             </div>
 
             <!-- お気に入りボタン -->
             <div class="favorite-container">
                 <form method="POST" action="search_profile.php?id=<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
-                    <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
-                    <?php if ($isFavorite): ?>
-                        <button type="submit" name="action" value="remove" class="favorite-button remove">お気に入り解除</button>
-                    <?php else: ?>
-                        <button type="submit" name="action" value="add" class="favorite-button add">お気に入り追加</button>
-                    <?php endif; ?>
+                <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
+                <?php if ($isFavorite): ?>
+                <button type="submit" name="action" value="remove" class="button favorite-button">お気に入り解除</button>
+                <?php else: ?>
+                    <button type="submit" name="action" value="add" class="button favorite-button">お気に入り追加</button>
+                <?php endif; ?>
                 </form>
             </div>
-        </div>
 
-        <div class="back-to-search">
-            <button>
-                <a href="kensaku.php?<?= http_build_query($_GET) ?>" class="back-to-search-link matching_chat">検索画面に戻る</a>
-            </button>
-        </div>
+            <div class="back-to-search">
+                <button class="button back-button">
+                    <a href="<?= isset($_GET['back_url']) ? htmlspecialchars($_GET['back_url'], ENT_QUOTES, 'UTF-8') : 'index.php' ?>">
+                        前の画面に戻る
+                    </a>
+                </button>
+            </div>
 
-        <?php
-        // お気に入り追加/解除処理
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['favorite_user_id'])) {
-            $favoriteUserId = $_POST['favorite_user_id'];
-            $action = $_POST['action'];
 
-            try {
-                if ($action === 'add') {
-                    // お気に入り追加
-                    $stmt = $pdo->prepare("INSERT INTO favorite_users (user_id, favorite_user_id) VALUES (:user_id, :favorite_user_id)");
-                    $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-                    $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
-                    $stmt->execute();
-                } elseif ($action === 'remove') {
-                    // お気に入り解除
-                    $stmt = $pdo->prepare("DELETE FROM favorite_users WHERE user_id = :user_id AND favorite_user_id = :favorite_user_id");
-                    $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-                    $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
-                    $stmt->execute();
-                }
-            } catch (PDOException $e) {
-                echo "エラー: " . $e->getMessage();
-                exit;
-            }
+            <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['favorite_user_id'])) {
+    $favoriteUserId = $_POST['favorite_user_id'];
+    $action = $_POST['action'];
 
-            // ページをリロードしてフォーム再送信を防止
-            header("Location: search_profile.php?id=" . htmlspecialchars($userId, ENT_QUOTES, 'UTF-8'));
-            exit();
+    try {
+        if ($action === 'add') {
+            $stmt = $pdo->prepare("INSERT INTO favorite_users (user_id, favorite_user_id) VALUES (:user_id, :favorite_user_id)");
+            $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
+            $stmt->execute();
+        } elseif ($action === 'remove') {
+            $stmt = $pdo->prepare("DELETE FROM favorite_users WHERE user_id = :user_id AND favorite_user_id = :favorite_user_id");
+            $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+            $stmt->bindValue(':favorite_user_id', $favoriteUserId, PDO::PARAM_INT);
+            $stmt->execute();
         }
-        ?>
+    } catch (PDOException $e) {
+        echo "エラー: " . $e->getMessage();
+        exit;
+    }
+
+    // リダイレクト処理
+    header("Location: search_profile.php?id=" . htmlspecialchars($userId, ENT_QUOTES, 'UTF-8'));
+    exit();
+}
+?>
     </body>
 </html>

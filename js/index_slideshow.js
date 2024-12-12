@@ -67,3 +67,24 @@ slides.forEach(slide => {
     slide.addEventListener('mousedown', touchStart);
     slide.addEventListener('mouseup', touchMove);
 });
+async function fetchLatestMessage() {
+    try {
+        const response = await fetch('chat.php?action=fetch_latest&partner_id=' + partnerId);
+        const latestMessage = await response.json();
+
+        const latestMessageBox = document.getElementById('latest-message');
+        if (latestMessage) {
+            latestMessageBox.innerHTML = `
+                <div>
+                    <p><strong>${latestMessage.send_user_id == currentUserId ? 'あなた' : latestMessage.sender_name}:</strong></p>
+                    <p>${latestMessage.message_text}</p>
+                    <p><small>${latestMessage.sent_time}</small></p>
+                </div>
+            `;
+        } else {
+            latestMessageBox.innerHTML = '<p>最新メッセージはありません。</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching the latest message:', error);
+    }
+}

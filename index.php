@@ -122,6 +122,59 @@ try {
     echo "エラー: " . $e->getMessage();
     exit();
 }
+
+try {
+    // PDO接続
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $current_user_id = $_SESSION['user_id']; // ログイン中のユーザーID
+
+    // チャット相手一覧を取得（最新のメッセージ順に並べて、上位3人を取得する）
+    $stmt = $conn->prepare("
+        SELECT DISTINCT 
+            CASE 
+                WHEN private_table.send_user_id = :current_user_id THEN private_table.recipient_user_id
+                ELSE private_table.send_user_id
+            END AS chat_user_id,
+            user_table.nickname,
+            MAX(private_table.sent_time) AS last_message_time
+        FROM 
+            private_table
+        INNER JOIN 
+            user_table 
+        ON 
+            user_table.id = 
+            CASE 
+                WHEN private_table.send_user_id = :current_user_id THEN private_table.recipient_user_id
+                ELSE private_table.send_user_id
+            END
+        WHERE 
+            (private_table.send_user_id = :current_user_id 
+            OR private_table.recipient_user_id = :current_user_id)
+            AND private_table.sent_time >= NOW()-INTERVAL 24 HOUR
+        GROUP BY chat_user_id, user_table.nickname
+        ORDER BY last_message_time DESC
+        
+
+    ");
+    $stmt->bindParam(':current_user_id', $current_user_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // 結果を配列に格納
+    $chatUsers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 結果を出力または利用
+
+
+} catch (PDOException $e) {
+    // エラー発生時
+    $error_message = $e->getMessage();
+    echo "Error: " . $error_message;
+}
+
+
+
 ?>
 
 
@@ -211,10 +264,10 @@ try {
 
 
 <!-- チェーンセクション -->
-    <h2 class="title">チェイン</h2>
+    <h2>chain(相互お気に入り)</h2>
     <div class="favorites-container">
         <?php if (empty($chains)): ?>
-            <p>チェインはまだありません。</p>
+            <p>チェーンはまだありません。</p>
         <?php else: ?>
             <?php foreach ($chains as $user): ?>
                 <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -234,10 +287,10 @@ try {
         <?php endif; ?>
     </div>
     
-    <h2 class="title">リンク</h2>
+    <h2 class="title">お気に入り一覧</h2>
     <div class="favorites-container">
     <?php if (empty($favorites)): ?>
-        <p>リンクに登録されたユーザーはいません。</p>
+        <p>お気に入りに登録されたユーザーはいません。</p>
     <?php else: ?>
         <?php foreach ($favorites as $user): ?>
             <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -257,7 +310,13 @@ try {
     <?php endif; ?>
 
 
+  
 
+
+
+<body>
+
+</body>
 
     <!--/メイン -->
 
@@ -267,4 +326,19 @@ try {
     </footer>
     
 </body>
+<div id="chat-list-container">
+        <h1>最新のメッセージ</h1>
+        <?php if (!empty($chatUsers)): ?>
+            <ul id="chat-list">
+                <?php foreach ($chatUsers as $user): ?>
+                    <li onclick="location.href='chat.php?partner_id=<?= htmlspecialchars($user['chat_user_id']) ?>'">
+                        <strong><?= htmlspecialchars($user['nickname']) ?></strong><br>
+                        <small>最終メッセージ: <?= htmlspecialchars($user['last_message_time']) ?></small>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>まだチャットした相手はいません。</p>
+        <?php endif; ?>
+    </div>
 </html>

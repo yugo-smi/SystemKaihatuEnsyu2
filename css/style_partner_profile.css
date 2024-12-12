@@ -224,27 +224,49 @@ textarea {
     justify-content:center; /* 水平方向に中央揃え */
     align-items: center; /* 垂直方向に中央揃え */
 }
-.submit-btn {
-    display: block;
-    width: 50%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
+/* ボタンの共通スタイル */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-width: 150px; /* サイズを統一 */
 }
 
-.submit-btn:hover {
-    background-color: #0056b3;
+/* チャットするボタン */
+.chat-button {
+    background-color: #ffffff; /* 白背景 */
+    color: #3b73c1; /* 青文字 */
+    border: 2px solid #3b73c1; /* 青い枠線 */
 }
 
-.chat-or-change{
+.chat-button:hover {
+    background-color: #e3f2fd; /* ホバー時の淡い青背景 */
+    color: #1e88e5; /* ホバー時の文字色 */
+}
+
+/* チェンジするボタン */
+.change-button {
+    background-color: #3b73c1; /* 青背景 */
+    color: #ffffff; /* 白文字 */
+    border: none;
+}
+
+.change-button:hover {
+    background-color: #1e88e5; /* ホバー時の濃い青背景 */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* レイアウトの調整 */
+.chat-or-change {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-around; /* ボタンを左右に配置 */
+    margin: 20px 0;
 }
 
 .matching_chat{
