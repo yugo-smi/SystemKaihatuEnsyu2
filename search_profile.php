@@ -133,12 +133,11 @@ try {
 
             <div class="back-to-search">
                 <button class="button back-button">
-                    <a href="<?= isset($_GET['back_url']) ? htmlspecialchars($_GET['back_url'], ENT_QUOTES, 'UTF-8') : 'index.php' ?>">
-                        前の画面に戻る
+                    <a href="<?= htmlspecialchars($backURL, ENT_QUOTES, 'UTF-8') ?>">
+                    前の画面に戻る
                     </a>
                 </button>
             </div>
-
 
             <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['favorite_user_id'])) {

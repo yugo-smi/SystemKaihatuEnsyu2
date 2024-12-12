@@ -1,6 +1,7 @@
 <?php
 // セッション開始
 session_start();
+$_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
 
 // 現在のユーザーIDをセッションから取得
 $currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
@@ -16,10 +17,16 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $results = [];
+    $searchKeyword = isset($_SESSION['search_keyword']) ? $_SESSION['search_keyword'] : '';
+    $tags = isset($_SESSION['tags']) ? $_SESSION['tags'] : [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
         $searchKeyword = isset($_POST['search']) ? $_POST['search'] : '';
+
+        // セッションに保存
+        $_SESSION['tags'] = $tags;
+        $_SESSION['search_keyword'] = $searchKeyword;
 
         if (empty($tags) && empty($searchKeyword)) {
             $results = [];
@@ -53,7 +60,13 @@ try {
             $results = array_filter($results, function ($user) use ($currentUserId) {
                 return $user['id'] != $currentUserId;
             });
+
+            // 検索結果をセッションに保存
+            $_SESSION['results'] = $results;
         }
+    } else {
+        // POSTリクエストでない場合、セッションから結果を取得
+        $results = isset($_SESSION['results']) ? $_SESSION['results'] : [];
     }
 } catch (PDOException $e) {
     echo "データベース接続エラー: " . $e->getMessage();
@@ -108,24 +121,25 @@ try {
     <main>
         <!-- Search Section -->
         <form method="POST" action="">
-            <div class="buttons">
-                <div class="search-input-container">
-                    <input type="text" name="search" placeholder="検索">
-                    <button class="btn search-button"><i class="fas fa-search"></i></button>
-                </div>
-                <div class="search-input-container">
-                    <option>条件を絞って検索</option>
-                    <div class="tag-container">
-                        <label><input type="checkbox" name="tags[]" value="アウトドア"> アウトドア</label>
-                        <label><input type="checkbox" name="tags[]" value="インドア"> インドア</label>
-                        <label><input type="checkbox" name="tags[]" value="旅行"> 旅行</label>
-                        <label><input type="checkbox" name="tags[]" value="読書"> 読書</label>
-                        <label><input type="checkbox" name="tags[]" value="音楽"> 音楽</label>
-                    </div>
-                    <button class="btn search-button"><i class="fas fa-search"></i></button>
-                </div>
+    <div class="buttons">
+        <div class="search-input-container">
+            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($searchKeyword, ENT_QUOTES, 'UTF-8') ?>">
+            <button class="btn search-button"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="search-input-container">
+            <option>条件を絞って検索</option>
+            <div class="tag-container">
+                <label><input type="checkbox" name="tags[]" value="アウトドア" <?= in_array('アウトドア', $tags) ? 'checked' : '' ?>> アウトドア</label>
+                <label><input type="checkbox" name="tags[]" value="インドア" <?= in_array('インドア', $tags) ? 'checked' : '' ?>> インドア</label>
+                <label><input type="checkbox" name="tags[]" value="旅行" <?= in_array('旅行', $tags) ? 'checked' : '' ?>> 旅行</label>
+                <label><input type="checkbox" name="tags[]" value="読書" <?= in_array('読書', $tags) ? 'checked' : '' ?>> 読書</label>
+                <label><input type="checkbox" name="tags[]" value="音楽" <?= in_array('音楽', $tags) ? 'checked' : '' ?>> 音楽</label>
             </div>
-        </form>
+            <button class="btn search-button"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+</form>
+
 
         <!-- Results Container for Displaying Search Results -->
         <div class="results-container">
