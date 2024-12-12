@@ -227,20 +227,15 @@ $stmt->execute();
                  <ul>
                     <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
-                    
                     <li><a href="talk.php">トーク履歴</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
-                    <?php if ($isLoggedIn): ?>
-                        
-                    <?php else: ?>
-                        <li><a href="logout.php">ログアウト</a></li>
-                    <?php endif; ?>
+                    <li><a href="logout.php">ログアウト</a></li>
                  </ul>
              </nav>
-                <head>
-                    <title></title>
-                </head>
+            <head>
+                <title></title>
+            </head>
              <div class = "logotitle">
                  <img src="image/logotitle.png" alt="タイトル">
              </div>
