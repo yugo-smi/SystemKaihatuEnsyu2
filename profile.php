@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>自己紹介文:</label>
         <textarea name="bio"><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea><br>
 
-        <button type="submit">更新</button>
+        <button type="submit" class="submit-btn">更新</button>
        
     </form>
     <script src="js/profile.js"></script>

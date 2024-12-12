@@ -269,6 +269,26 @@ textarea {
     margin: 20px 0;
 }
 
+.submit-btn {
+    display: block;
+    width: auto; /* 幅を自動調整 */
+    padding: 10px 20px; /* 上下10px 左右20pxの余白 */
+    background-color: #ffffff; /* 白背景 */
+    color: #007bff; /* テキストカラー */
+    border: 2px solid #007bff; /* 青い枠線 */
+    border-radius: 5px; /* 角丸 */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #007bff; /* 青い背景 */
+    color: #ffffff; /* 白いテキスト */
+}
+
 .matching_chat{
     margin: 5px;
 }
