@@ -41,16 +41,21 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </a> 
         </div>
         
-        <nav id = "header_items">
-            <ul>
-                <li><a href="index.php">ホーム</a></li>
-                <li><a href="kensaku.php">お相手を検索</a></li>
-                <li><a href="message.php">スレッド</a></li>
-                <li><a href="talk.php">トーク履歴</a></li>
-                <li><a href="profile.php">プロフィール</a></li>
-            </ul>
-        </nav>
-        
+        <nav class="menu" id="menu">
+                 <ul>
+                    <li><a href="index.php">ホーム</a></li>
+                    <li><a href="kensaku.php">お相手を検索</a></li>
+                    
+                    <li><a href="talk.php">トーク履歴</a></li>
+                    <li><a href="favorites.php">お気に入り</a></li>
+                    <li><a href="profile.php">プロフィール</a></li>
+                    <?php if ($isLoggedIn): ?>
+                        
+                    <?php else: ?>
+                        <li><a href="logout.php">ログアウト</a></li>
+                    <?php endif; ?>
+                 </ul>
+             </nav>
     </header>
     <!--/ヘッダー-->
 
@@ -85,12 +90,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     <!-- フッター -->
     <footer>
-        <nav id="footer_items">
-            <ul>
-            <li><a href="index.php">ホーム</a></li>
+    <nav class="menu" id="menu">
+                 <ul>
+                 <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="message.php">スレッド</a></li>
-                    <li><a href="chat.php">メッセージ</a></li>
+                    
+                    <li><a href="talk.php">トーク履歴</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
@@ -98,8 +103,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     <?php else: ?>
                         <li><a href="logout.php">ログアウト</a></li>
                     <?php endif; ?>
-            </ul>
-        </nav>
+                 </ul>
+             </nav>
     </footer>
     <!--/フッター -->
 
