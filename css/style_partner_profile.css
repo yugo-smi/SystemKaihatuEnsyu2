@@ -106,19 +106,17 @@ h1 {
 }
 
 .buttons {
-    text-align: center;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center;    /* 中央揃え */
+    gap: 30px;              /* ボタン間の余白 */
+    margin: 20px 0;         /* 上下の余白 */
 }
 
 .btn {
-    background-color: #d5eaff;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 80%;             /* ボタンの幅を統一 */
+    text-align: center;     /* テキストを中央揃え */
+    padding: 10px 20px;     /* ボタン内の余白 */
 }
 
 /* .btn.heart {
@@ -262,13 +260,6 @@ textarea {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* レイアウトの調整 */
-.chat-or-change {
-    display: flex;
-    justify-content: space-around; /* ボタンを左右に配置 */
-    margin: 20px 0;
-}
-
 .submit-btn {
     display: block;
     width: auto; /* 幅を自動調整 */
@@ -288,6 +279,39 @@ textarea {
     background-color: #007bff; /* 青い背景 */
     color: #ffffff; /* 白いテキスト */
 }
+
+.back-button {
+    background: linear-gradient(135deg, #e67c73, #c4564c); /* グラデーション赤 */
+    color: #ffffff !important; /* 確実に白色 */
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* 見やすくするための影 */
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg, #ee8a82, #cf6658); /* 明るい赤 */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    color: #ffffff; /* ホバー時も白色を保持 */
+}
+
+/* ボタン内のリンクのスタイル */
+.back-button a {
+    color: #ffffff !important; /* テキストカラーを白に変更 */
+    text-decoration: none; /* 下線を消す */
+    display: block; /* ボタン全体をクリック可能にする */
+}
+
+.back-button a:hover {
+    color: #ffffff !important; /* ホバー時も白を維持 */
+    text-decoration: none; /* ホバー時の下線も消す */
+}
+
+
 
 .matching_chat{
     margin: 5px;
