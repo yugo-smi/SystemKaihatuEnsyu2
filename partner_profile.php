@@ -14,6 +14,11 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// セッションに保存された前のURLを取得
+$backURL = isset($_SESSION['previous_url']) ? $_SESSION['previous_url'] : 'index.php';
+
+// partner_profile.php は常に index.php に戻る
+$backURL = 'index.php';
 
 // データベース接続
 $host = 'localhost'; 
@@ -102,22 +107,27 @@ try {
                 <textarea readonly><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
             
-            <div class="chat-or-change">
-    <!-- チャットボタン -->
-    <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" 
-       class="button chat-button">チャットする</a>
+            <div class="buttons">
+                <!-- チャットボタン -->
+                <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" 
+                    class="button chat-button">チャットする
+                </a>
 
-    <!-- チェンジボタン -->
-    <button class="button change-button" onclick="reloadPage()">チェンジする</button>
-</div>
+                <!-- チェンジボタン -->
+                <button class="button change-button" onclick="reloadPage()">チェンジする</button>
 
+                <!-- 前の画面に戻るボタン -->
+                <button class="button back-button">
+                    <a href="index.php">前の画面に戻る</a>
+                </button>
+            </div>
 
-                <script>
-                    function reloadPage() {
-                        // URLに現在の時刻を追加してキャッシュを回避
-                        location.href = location.pathname + "?t=" + new Date().getTime();
-                    }
-                </script>
+            <script>
+                function reloadPage() {
+                // URLに現在の時刻を追加してキャッシュを回避
+                location.href = location.pathname + "?t=" + new Date().getTime();
+                }
+            </script>
             </div>  
         </div>
     </body>

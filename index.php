@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+
 $host = 'localhost';
 $dbname = 'newlink';
 $username = 'root';
@@ -173,12 +174,7 @@ try {
     $error_message = $e->getMessage();
     echo "Error: " . $error_message;
 }
-
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">

@@ -1,6 +1,23 @@
 <?php
 // セッション開始
 session_start();
+// 検索結果の保持時間（秒単位、例: 1分=60秒）
+$session_lifetime = 30;
+
+// 検索タイムスタンプを確認
+if (isset($_SESSION['search_timestamp'])) {
+    // 現在時刻と比較
+    if (time() - $_SESSION['search_timestamp'] > $session_lifetime) {
+        // 一定時間が経過していたら検索結果をクリア
+        unset($_SESSION['search_keyword'], $_SESSION['tags'], $_SESSION['results'], $_SESSION['search_timestamp']);
+    }
+}
+
+// 新たな検索が行われた場合、タイムスタンプを更新
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['search_timestamp'] = time();
+}
+
 $_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
 
 // 現在のユーザーIDをセッションから取得
