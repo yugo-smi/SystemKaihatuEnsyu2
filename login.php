@@ -16,8 +16,8 @@ if (!isset($_SESSION['last_attempt_time'])) {
 }
 
 // ログイン試行回数とロックアウト設定
-$max_attempts = 2; // 最大試行回数
-$lockout_time = 30; // ロックアウト時間（秒）
+$max_attempts = 5; // 最大試行回数
+$lockout_time = 300; // ロックアウト時間（秒）
 $remaining_time = 0;
 
 if ($_SESSION['login_attempts'] >= $max_attempts) {
