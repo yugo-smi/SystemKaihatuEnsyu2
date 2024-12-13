@@ -255,3 +255,8 @@ h1 {
 .menu.open {
     right: 0;
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}

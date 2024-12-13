@@ -37,49 +37,55 @@ try {
     $searchKeyword = isset($_SESSION['search_keyword']) ? $_SESSION['search_keyword'] : '';
     $tags = isset($_SESSION['tags']) ? $_SESSION['tags'] : [];
 
+    // 検索フォームが送信された場合
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
         $searchKeyword = isset($_POST['search']) ? $_POST['search'] : '';
 
-        // セッションに保存
-        $_SESSION['tags'] = $tags;
-        $_SESSION['search_keyword'] = $searchKeyword;
-
-        if (empty($tags) && empty($searchKeyword)) {
-            $results = [];
+        // 12文字以上の検索キーワードを制限
+        if (strlen($searchKeyword) > 12) {
+            $errorMessage = "検索キーワードは12文字以内で入力してください。";
         } else {
-            $query = "SELECT id, nickname, bio, image_path FROM user_table WHERE 1";
+            // セッションに保存
+            $_SESSION['tags'] = $tags;
+            $_SESSION['search_keyword'] = $searchKeyword;
 
-            if (!empty($tags)) {
-                foreach ($tags as $index => $tag) {
-                    $query .= " AND tags LIKE :tag$index";
+            if (empty($tags) && empty($searchKeyword)) {
+                $results = [];
+            } else {
+                $query = "SELECT id, nickname, bio, image_path FROM user_table WHERE 1";
+
+                if (!empty($tags)) {
+                    foreach ($tags as $index => $tag) {
+                        $query .= " AND tags LIKE :tag$index";
+                    }
                 }
+
+                if (!empty($searchKeyword)) {
+                    $query .= " AND nickname LIKE :search";
+                }
+
+                $stmt = $pdo->prepare($query);
+
+                foreach ($tags as $index => $tag) {
+                    $stmt->bindValue(":tag$index", '%' . $tag . '%');
+                }
+
+                if (!empty($searchKeyword)) {
+                    $stmt->bindValue(':search', '%' . $searchKeyword . '%');
+                }
+
+                $stmt->execute();
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                // 現在のユーザーを検索結果から除外
+                $results = array_filter($results, function ($user) use ($currentUserId) {
+                    return $user['id'] != $currentUserId;
+                });
+
+                // 検索結果をセッションに保存
+                $_SESSION['results'] = $results;
             }
-
-            if (!empty($searchKeyword)) {
-                $query .= " AND nickname LIKE :search";
-            }
-
-            $stmt = $pdo->prepare($query);
-
-            foreach ($tags as $index => $tag) {
-                $stmt->bindValue(":tag$index", '%' . $tag . '%');
-            }
-
-            if (!empty($searchKeyword)) {
-                $stmt->bindValue(':search', '%' . $searchKeyword . '%');
-            }
-
-            $stmt->execute();
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            // 現在のユーザーを検索結果から除外
-            $results = array_filter($results, function ($user) use ($currentUserId) {
-                return $user['id'] != $currentUserId;
-            });
-
-            // 検索結果をセッションに保存
-            $_SESSION['results'] = $results;
         }
     } else {
         // POSTリクエストでない場合、セッションから結果を取得
@@ -90,6 +96,8 @@ try {
     exit;
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -137,7 +145,7 @@ try {
         <form method="POST" action="">
     <div class="buttons">
         <div class="search-input-container">
-            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($searchKeyword, ENT_QUOTES, 'UTF-8') ?>">
+            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($searchKeyword, ENT_QUOTES, 'UTF-8') ?>" maxlength="12">
             <button class="btn search-button"><i class="fas fa-search"></i></button>
         </div>
         <div class="search-input-container">
@@ -152,7 +160,12 @@ try {
             <button class="btn search-button"><i class="fas fa-search"></i></button>
         </div>
     </div>
+    <!-- エラーメッセージを表示 -->
+    <?php if (isset($errorMessage)): ?>
+        <div class="error-message"><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></div>
+    <?php endif; ?>
 </form>
+
 
 
         <!-- Results Container for Displaying Search Results -->
@@ -178,6 +191,6 @@ try {
         </div>
     </main>
     <script src="js/hamburger.js"></script>
-    <script src="script.js"></script>
+    <script src="js/kensaku.js"></script>
 </body>
 </html>
