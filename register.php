@@ -27,6 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // パスワードをハッシュ化して保存
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+    if(mb_strlen($nickname)<1 | mb_strlen($nickname) >= 12){
+        $error = 'ニックネームは1文字以上12文字以下で入力してください。';
+    }
+
+
     // タグが選択されているかチェック
     if (empty($_POST['tags'])) {
         $error = "少なくとも1つのタグを選択してください。";
@@ -80,7 +85,8 @@ ob_end_flush();
 
         <form id="registerForm" action="register.php" method="POST">
             <label for="nickname">ニックネーム</label>
-            <input type="text" id="nickname" name="nickname" required>
+            <input type="text" minlength="1" maxlength="12"  id="nickname" name="nickname" required pattern="{1,12}">
+
 
             <label for="email">メールアドレス</label>
             <input type="email" id="email" name="email" required
