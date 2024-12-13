@@ -115,11 +115,78 @@ ob_end_flush();
 
             <label>タグを選んで</label>
             <div class="tag-container">
-                <label><input type="checkbox" name="tags[]" value="アウトドア"> アウトドア</label>
-                <label><input type="checkbox" name="tags[]" value="インドア"> インドア</label>
-                <label><input type="checkbox" name="tags[]" value="旅行"> 旅行</label>
-                <label><input type="checkbox" name="tags[]" value="読書"> 読書</label>
-                <label><input type="checkbox" name="tags[]" value="音楽"> 音楽</label>
+                <h4>資格</h4>
+                <h5>情報処理IT系</h5>
+                <label><input type="checkbox" name="tags[]" value="">ITパスポート</label>
+                <label><input type="checkbox" name="tags[]" value="">基本情報技術者試験</label>
+                <label><input type="checkbox" name="tags[]" value="">応用情報技術者試験</label>
+                <label><input type="checkbox" name="tags[]" value="">情報セキュリティマネジメント試験</label>
+                <label><input type="checkbox" name="tags[]" value="">ネットワークスペシャリスト試験</label>
+                <label><input type="checkbox" name="tags[]" value="">情報処理安全確保支援士試験</label>
+                <label><input type="checkbox" name="tags[]" value="">データベーススペシャリスト試験</label>
+                <label><input type="checkbox" name="tags[]" value="">システムアーキテクト試験</label>
+                <label><input type="checkbox" name="tags[]" value="">プロジェクトマネージャ試験</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフト認定技術者</label>
+                <label><input type="checkbox" name="tags[]" value="">シスコ認定ネットワーク技術者</label>
+                <label><input type="checkbox" name="tags[]" value="">オラクル認定ネットワーク技術者</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフトオフィススペシャリストマスター</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフトオフィススペシャリスト</label>
+                <label><input type="checkbox" name="tags[]" value="">word Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">word expert</label>
+                <label><input type="checkbox" name="tags[]" value="">Excel Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">Excel expert</label>
+                <label><input type="checkbox" name="tags[]" value="">Access Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">Access expert</label>
+                <label><input type="checkbox" name="tags[]" value="">PowerPoint Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">PowerPoint expert</label>
+                <h5>ビジネス系</h5>
+                <label><input type="checkbox" name="tags[]" value="">ITパスポート</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフトオフィススペシャリストマスター</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフトオフィススペシャリスト</label>
+                <label><input type="checkbox" name="tags[]" value="">word Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">word expert</label>
+                <label><input type="checkbox" name="tags[]" value="">Excel Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">Excel expert</label>
+                <label><input type="checkbox" name="tags[]" value="">Access Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">Access expert</label>
+                <label><input type="checkbox" name="tags[]" value="">PowerPoint Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">PowerPoint expert</label>                
+                <label><input type="checkbox" name="tags[]" value="">ビジネス能力ジョブパス２級</label>
+                <label><input type="checkbox" name="tags[]" value="">ビジネス能力ジョブパス３級</label>
+                <label><input type="checkbox" name="tags[]" value="">日商簿記２級</label>
+                <label><input type="checkbox" name="tags[]" value="">日商簿記３級</label>
+                <label><input type="checkbox" name="tags[]" value="">会計ソフト実務能力試験</label>
+                <label><input type="checkbox" name="tags[]" value="">秘書技能検定試験</label>
+                <h5>ゲーム系</h5>
+                <label><input type="checkbox" name="tags[]" value="">応用情報技術者試験</label>
+                <label><input type="checkbox" name="tags[]" value="">基本情報技術者試験</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフトオフィススペシャリストマスター</label>
+                <label><input type="checkbox" name="tags[]" value="">マイクロソフトオフィススペシャリスト</label>
+                <label><input type="checkbox" name="tags[]" value="">word Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">word expert</label>
+                <label><input type="checkbox" name="tags[]" value="">Excel Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">Excel expert</label>
+                <label><input type="checkbox" name="tags[]" value="">Access Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">Access expert</label>
+                <label><input type="checkbox" name="tags[]" value="">PowerPoint Specialist</label>
+                <label><input type="checkbox" name="tags[]" value="">PowerPoint expert</label>                
+                <label><input type="checkbox" name="tags[]" value="">CGクリエイター試験</label>
+                <label><input type="checkbox" name="tags[]" value="">色彩検定</label>
+                <label><input type="checkbox" name="tags[]" value="">マルチメディア検定</label>
+                <label><input type="checkbox" name="tags[]" value="">Webデザイナー検定</label>
+                <label><input type="checkbox" name="tags[]" value="">画像処理エンジニア検定</label>
+                <h5>アニメーション・イラスト系</h5>
+                <label><input type="checkbox" name="tags[]" value="">CGクリエイター検定</label>
+                <label><input type="checkbox" name="tags[]" value="">色彩検定</label>
+                <label><input type="checkbox" name="tags[]" value="">Webクリエイター検定</label>
+                <h5>CG・映像系</h5>
+                <label><input type="checkbox" name="tags[]" value="">CGクリエイター検定</label>
+                <label><input type="checkbox" name="tags[]" value="">色彩検定</label>
+                <label><input type="checkbox" name="tags[]" value="">Webクリエイター検定</label>
+                <h5>デザイン・Web系</h5>
+                <label><input type="checkbox" name="tags[]" value="">CGクリエイター検定</label>
+                <label><input type="checkbox" name="tags[]" value="">色彩検定</label>
+                <label><input type="checkbox" name="tags[]" value="">Webクリエイター検定</label>
             </div>
 
             <button type="submit" class="register-button">登録する</button>
