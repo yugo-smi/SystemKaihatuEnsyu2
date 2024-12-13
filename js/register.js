@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("registerForm").addEventListener("submit", function (event) {
       const tags = document.querySelectorAll("input[name='tags[]']:checked");
       if (tags.length === 0) {
-          alert("少なくとも1つのタグを選択してください。");
+          alert("少なくとも1つの趣味を選択してください。");
           event.preventDefault();
       }
   });
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("registerForm").addEventListener("submit", function (event) {
     const license = document.querySelectorAll("input[name='license[]']:checked");
     if (license.length === 0) {
-        alert("少なくとも1つのタグを選択してください。");
+        alert("少なくとも1つの資格を選択してください。");
         event.preventDefault();
     }
 });

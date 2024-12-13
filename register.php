@@ -217,7 +217,7 @@ ob_end_flush();
                         <label><input type="checkbox" name="license[]" value="Webクリエイター検定">Webクリエイター検定</label><br>
                     </div>
                 </div>
-                <label><input id = 'none' type="checkbox" name="license[]" value="なし">勉強中！！！！！！！！！</label><br>
+                <label><input id = 'none' type="checkbox" name="license[]" value="勉強中">勉強中</label><br>
                 <label>※趣味を選んでください</label>
                 <div class="dropdown">
                     <h5 class="dropdown-header">趣味</h5>
