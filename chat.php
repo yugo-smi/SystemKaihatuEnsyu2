@@ -165,7 +165,7 @@ $stmt->execute();
                 event.preventDefault();
                 sendMessage();
             });
-            setInterval(fetchMessages, 2000); // メッセージを2秒ごとに更新
+            setInterval(fetchMessages, 1000); // メッセージを2秒ごとに更新
         });
 
 
