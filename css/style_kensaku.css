@@ -260,3 +260,49 @@ h1 {
     font-size: 14px;
     margin-top: 10px;
 }
+/* 全体のスタイル */
+.dropdown {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+  
+  /* ヘッダーのスタイル */
+  .dropdown-header {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  /* チェックボックス群のスタイル */
+  .dropdown-content {
+    display: none; /* デフォルトで非表示 */
+    padding: 10px;
+    background-color: #fff;
+    text-align: left;
+  }
+  
+  /* ドロップダウンを開いたときのスタイル */
+  .dropdown.open .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content > label {
+    padding-bottom: 20px;
+  }
+  /* タグ選択エリアのスタイル */
+.tag-container {
+    display: inline-block;
+    width: max-content;
+  }
+  
+  .tag-container label {
+    font-size: 14px;
+  }
+  
