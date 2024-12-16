@@ -38,9 +38,40 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("registerForm").addEventListener("submit", function (event) {
       const tags = document.querySelectorAll("input[name='tags[]']:checked");
       if (tags.length === 0) {
-          alert("少なくとも1つのタグを選択してください。");
+          alert("少なくとも1つの趣味を選択してください。");
           event.preventDefault();
       }
   });
   
   
+  document.getElementById("registerForm").addEventListener("submit", function (event) {
+    const license = document.querySelectorAll("input[name='license[]']:checked");
+    if (license.length === 0) {
+        alert("少なくとも1つの資格を選択してください。");
+        event.preventDefault();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const noneCheckbox = document.getElementById("none");
+    const licenseCheckboxes = document.querySelectorAll('input[name="license[]"]:not(#none)');
+
+    // "なし"がチェックされた場合、他のチェックボックスを外す
+    noneCheckbox.addEventListener("change", function () {
+        if (this.checked) {
+            licenseCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+    });
+
+    // 他のチェックボックスがチェックされた場合、"なし"を外す
+    licenseCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function () {
+            if (this.checked) {
+                noneCheckbox.checked = false;
+            }
+        });
+    });
+});
+

@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // セッションに保存された前のURLを取得
-$backURL = isset($_SESSION['previous_url']) ? $_SESSION['previous_url'] : 'index.php';
+$backURL = isset($_SESSION['previous_url']) ? $_SESSION['previous_url'] : 'index.php'; // デフォルトはindex.php
 
 // データベース接続
 $host = 'localhost'; 
@@ -133,12 +133,9 @@ try {
 
             <div class="back-to-search">
                 <button class="button back-button">
-                    <a href="<?= isset($_GET['back_url']) ? htmlspecialchars($_GET['back_url'], ENT_QUOTES, 'UTF-8') : 'index.php' ?>">
-                        前の画面に戻る
-                    </a>
+                    <a href="<?= htmlspecialchars($backURL, ENT_QUOTES, 'UTF-8') ?>">前の画面に戻る</a>
                 </button>
             </div>
-
 
             <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['favorite_user_id'])) {

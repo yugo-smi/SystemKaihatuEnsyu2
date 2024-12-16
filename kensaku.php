@@ -1,6 +1,24 @@
 <?php
 // セッション開始
 session_start();
+// 検索結果の保持時間（秒単位、例: 1分=60秒）
+$session_lifetime = 30;
+
+// 検索タイムスタンプを確認
+if (isset($_SESSION['search_timestamp'])) {
+    // 現在時刻と比較
+    if (time() - $_SESSION['search_timestamp'] > $session_lifetime) {
+        // 一定時間が経過していたら検索結果をクリア
+        unset($_SESSION['search_keyword'], $_SESSION['tags'], $_SESSION['results'], $_SESSION['search_timestamp']);
+    }
+}
+
+// 新たな検索が行われた場合、タイムスタンプを更新
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['search_timestamp'] = time();
+}
+
+$_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
 
 // 現在のユーザーIDをセッションから取得
 $currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
@@ -16,50 +34,70 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $results = [];
+    $searchKeyword = isset($_SESSION['search_keyword']) ? $_SESSION['search_keyword'] : '';
+    $tags = isset($_SESSION['tags']) ? $_SESSION['tags'] : [];
 
+    // 検索フォームが送信された場合
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
         $searchKeyword = isset($_POST['search']) ? $_POST['search'] : '';
 
-        if (empty($tags) && empty($searchKeyword)) {
-            $results = [];
+        // 12文字以上の検索キーワードを制限
+        if (strlen($searchKeyword) > 12) {
+            $errorMessage = "検索キーワードは12文字以内で入力してください。";
         } else {
-            $query = "SELECT id, nickname, bio, image_path FROM user_table WHERE 1";
+            // セッションに保存
+            $_SESSION['tags'] = $tags;
+            $_SESSION['search_keyword'] = $searchKeyword;
 
-            if (!empty($tags)) {
-                foreach ($tags as $index => $tag) {
-                    $query .= " AND tags LIKE :tag$index";
+            if (empty($tags) && empty($searchKeyword)) {
+                $results = [];
+            } else {
+                $query = "SELECT id, nickname, bio, image_path FROM user_table WHERE 1";
+
+                if (!empty($tags)) {
+                    foreach ($tags as $index => $tag) {
+                        $query .= " AND tags LIKE :tag$index";
+                    }
                 }
+
+                if (!empty($searchKeyword)) {
+                    $query .= " AND nickname LIKE :search";
+                }
+
+                $stmt = $pdo->prepare($query);
+
+                foreach ($tags as $index => $tag) {
+                    $stmt->bindValue(":tag$index", '%' . $tag . '%');
+                }
+
+                if (!empty($searchKeyword)) {
+                    $stmt->bindValue(':search', '%' . $searchKeyword . '%');
+                }
+
+                $stmt->execute();
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                // 現在のユーザーを検索結果から除外
+                $results = array_filter($results, function ($user) use ($currentUserId) {
+                    return $user['id'] != $currentUserId;
+                });
+
+                // 検索結果をセッションに保存
+                $_SESSION['results'] = $results;
             }
-
-            if (!empty($searchKeyword)) {
-                $query .= " AND nickname LIKE :search";
-            }
-
-            $stmt = $pdo->prepare($query);
-
-            foreach ($tags as $index => $tag) {
-                $stmt->bindValue(":tag$index", '%' . $tag . '%');
-            }
-
-            if (!empty($searchKeyword)) {
-                $stmt->bindValue(':search', '%' . $searchKeyword . '%');
-            }
-
-            $stmt->execute();
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            // 現在のユーザーを検索結果から除外
-            $results = array_filter($results, function ($user) use ($currentUserId) {
-                return $user['id'] != $currentUserId;
-            });
         }
+    } else {
+        // POSTリクエストでない場合、セッションから結果を取得
+        $results = isset($_SESSION['results']) ? $_SESSION['results'] : [];
     }
 } catch (PDOException $e) {
     echo "データベース接続エラー: " . $e->getMessage();
     exit;
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -105,24 +143,30 @@ try {
     <main>
         <!-- Search Section -->
         <form method="POST" action="">
-            <div class="buttons">
-                <div class="search-input-container">
-                    <input type="text" name="search" placeholder="検索">
-                    <button class="btn search-button"><i class="fas fa-search"></i></button>
-                </div>
-                <div class="search-input-container">
-                    <option>条件を絞って検索</option>
-                    <div class="tag-container">
-                        <label><input type="checkbox" name="tags[]" value="アウトドア"> アウトドア</label>
-                        <label><input type="checkbox" name="tags[]" value="インドア"> インドア</label>
-                        <label><input type="checkbox" name="tags[]" value="旅行"> 旅行</label>
-                        <label><input type="checkbox" name="tags[]" value="読書"> 読書</label>
-                        <label><input type="checkbox" name="tags[]" value="音楽"> 音楽</label>
-                    </div>
-                    <button class="btn search-button"><i class="fas fa-search"></i></button>
-                </div>
+    <div class="buttons">
+        <div class="search-input-container">
+            <input type="text" name="search" placeholder="検索" value="<?= htmlspecialchars($searchKeyword, ENT_QUOTES, 'UTF-8') ?>" maxlength="12">
+            <button class="btn search-button"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="search-input-container">
+            <option>条件を絞って検索</option>
+            <div class="tag-container">
+                <label><input type="checkbox" name="tags[]" value="アウトドア" <?= in_array('アウトドア', $tags) ? 'checked' : '' ?>> アウトドア</label>
+                <label><input type="checkbox" name="tags[]" value="インドア" <?= in_array('インドア', $tags) ? 'checked' : '' ?>> インドア</label>
+                <label><input type="checkbox" name="tags[]" value="旅行" <?= in_array('旅行', $tags) ? 'checked' : '' ?>> 旅行</label>
+                <label><input type="checkbox" name="tags[]" value="読書" <?= in_array('読書', $tags) ? 'checked' : '' ?>> 読書</label>
+                <label><input type="checkbox" name="tags[]" value="音楽" <?= in_array('音楽', $tags) ? 'checked' : '' ?>> 音楽</label>
             </div>
-        </form>
+            <button class="btn search-button"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <!-- エラーメッセージを表示 -->
+    <?php if (isset($errorMessage)): ?>
+        <div class="error-message"><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></div>
+    <?php endif; ?>
+</form>
+
+
 
         <!-- Results Container for Displaying Search Results -->
         <div class="results-container">
@@ -147,6 +191,6 @@ try {
         </div>
     </main>
     <script src="js/hamburger.js"></script>
-    <script src="script.js"></script>
+    <script src="js/kensaku.js"></script>
 </body>
 </html>

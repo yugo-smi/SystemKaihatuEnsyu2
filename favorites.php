@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['previous_url'] = $_SERVER['REQUEST_URI'];
+
 $host = 'localhost';
 $dbname = 'newlink';
 $username = 'root';
@@ -125,6 +127,17 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style_favorites.css">
     <title>お気に入り一覧</title>
+    <style>
+        /* 簡易スタイル */
+        .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
+        .favorite-card { border: 1px solid #ddd; padding: 10px; width: 100px; text-align: center; }
+        .favorite-card img { width: 50px; height: 50px; border-radius: 50%; }
+        .chain-card { border: 1px solid #ddd; padding: 10px; width: 100px; text-align: center; }
+        .chain-card img { width: 50px; height: 50px; border-radius: 50%; }
+        .user-info { margin-top: 10px; }
+        .actions { margin-top: 10px; }
+        .actions button { margin-right: 5px; }
+    </style>
 </head>
 <body>
 <div id="header">

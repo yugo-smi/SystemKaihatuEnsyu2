@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+      #wrapper{
+        width: 240px;;
+      }
+      label > input[type=checkbox]{
+        width: 0em;
+        height: 0em;
+      }
+      label{
+        background-color: #777777;
+        box-shadow: #555555 2px inset;
+        display: inline-block;
+        padding: 0.5em;
+        border-radius: 5px;
+        width: 100px;
+        margin-bottom:0.2em;
+        border: 2px solid #555555;
+      }
+      label:has( > input:checked){
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ
+      </label>
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ
+      </label>
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ
+      </label>
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ
+      </label>
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ
+      </label>
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ ああああああああああ
+      </label>
+      <label>
+        <input type="checkbox" name="hoge" id="">あああああ
+      </label>
+  
+    </div>
+  </body>
+</html>

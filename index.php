@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+
 $host = 'localhost';
 $dbname = 'newlink';
 $username = 'root';
@@ -173,12 +174,7 @@ try {
     $error_message = $e->getMessage();
     echo "Error: " . $error_message;
 }
-
-
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -194,6 +190,8 @@ try {
         .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
         .favorite-card { border: 1px solid #ddd; padding: 10px; width: 100px; text-align: center; }
         .favorite-card img { width: 50px; height: 50px; border-radius: 50%; }
+        .chain-card { border: 1px solid #ddd; padding: 10px; width: 100px; text-align: center; }
+        .chain-card img { width: 50px; height: 50px; border-radius: 50%; }
         .user-info { margin-top: 10px; }
         .actions { margin-top: 10px; }
         .actions button { margin-right: 5px; }
@@ -267,10 +265,10 @@ try {
 
 
 <!-- チェーンセクション -->
-    <h2>chain(相互お気に入り)</h2>
+    <h2 class="title">chain</h2>
     <div class="favorites-container">
         <?php if (empty($chains)): ?>
-            <p>チェーンはまだありません。</p>
+            <p>チェインはまだありません。</p>
         <?php else: ?>
             <?php foreach ($chains as $user): ?>
                 <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -290,10 +288,10 @@ try {
         <?php endif; ?>
     </div>
     
-    <h2 class="title">お気に入り一覧</h2>
+    <h2 class="title">リンク</h2>
     <div class="favorites-container">
     <?php if (empty($favorites)): ?>
-        <p>お気に入りに登録されたユーザーはいません。</p>
+        <p>リンクしたユーザーはいません。</p>
     <?php else: ?>
         <?php foreach ($favorites as $user): ?>
             <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
