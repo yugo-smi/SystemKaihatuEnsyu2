@@ -122,7 +122,7 @@ ob_end_flush();
                 </span>
             </div>
 
-            <label>※保有資格を選んでください</label>
+            <label>※保有資格</label>
             <div class="tag-container">
                 <div class="dropdown">
                     <h5 class="dropdown-header">情報処理IT系</h5>
@@ -218,7 +218,8 @@ ob_end_flush();
                     </div>
                 </div>
                 <label><input id = 'none' type="checkbox" name="license[]" value="勉強中">勉強中</label><br>
-                <label>※趣味を選んでください</label>
+                <br>
+                <label>※趣味</label>
                 <div class="dropdown">
                     <h5 class="dropdown-header">趣味</h5>
                     <div class="dropdown-content">

@@ -261,7 +261,10 @@ try {
     </div>
 
     <!-- ランダムマッチングボタン -->
-    <a href="./partner_profile.php" class="random_matching_button">ランダムマッチングボタン</a>
+   <div class="random_matching">
+    <a href="./partner_profile.php" class="random_matching_button">ランダムマッチング</a>
+</div>
+
 
     <!-- スクリプト -->
     <script src="js/index_hamburger.js"></script>
