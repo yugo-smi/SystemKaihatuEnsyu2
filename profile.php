@@ -125,9 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- 画像選択機能を追加 -->
         <div class="profile-info">
                 <div class="profile-pic-container">
-                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" 
-     alt="プロフィール画像" id="profile-pic" class="profile-pic">
-
+                <img src="<?= htmlspecialchars($user['image_path'] ?: 'image/default-pic.png', ENT_QUOTES, 'UTF-8') ?>" alt="プロフィール画像" id="profile-pic" class="profile-pic">
                     <label for="profile-pic-input" class="file-label">プロフィール画像を選択</label>
                     <input type="file" name="image" id="profile-pic-input" aria-label="プロフィール画像を選択">
                 </div>
@@ -141,10 +139,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="dropdown-content">
                 <div class="tag-container">
                     <?php
+                        include('tags_data.php');
+                            $selected_tags = explode(",", $user['tags']);
+                            echo "<div>";
+                                foreach ($tags_default_license as $tag) {
+                                $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                                echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
+                            }
+                            echo "</div>"
+                    ?>
+
+                    <?php
                     include('tags_data.php');
                         $selected_tags = explode(",", $user['tags']);
                         echo "<div>";
-                            foreach ($tags_license as $tag) {
+                            foreach ($tags_IT_common as $tag) {
+                            $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                            echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
+                        }
+                        echo "</div>"
+                    ?>
+
+                    <?php
+                    include('tags_data.php');
+                        $selected_tags = explode(",", $user['tags']);
+                        echo "<div>";
+                            foreach ($tags_design_common as $tag) {
+                            $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                            echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
+                        }
+                        echo "</div>"
+                    ?>
+
+
+                    <?php
+                    include('tags_data.php');
+                        $selected_tags = explode(",", $user['tags']);
+                        echo "<div>";
+                            foreach ($tags_ALL_common as $tag) {
                             $checked = in_array($tag, $selected_tags) ? "checked" : "";
                             echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
                         }
