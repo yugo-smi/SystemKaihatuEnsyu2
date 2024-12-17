@@ -135,26 +135,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>ニックネーム:</label>
         <input type="text" name="nickname" value="<?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
-        <label>タグ:</label>
-        <div class="tag-container">
-            <?php 
-            // チェックボックス形式でタグを表示
-            $tags = ["アウトドア", "インドア", "旅行", "読書", "音楽"];
-            $selected_tags = explode(",", $user['tags']);
-            foreach ($tags as $tag) {
-                $checked = in_array($tag, $selected_tags) ? "checked" : "";
-                echo "<label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label> ";
-            }
-            ?>
+        <label>※保有資格</label>
+        <div class="dropdown">
+            <h5 class="dropdown-header">資格</h5>
+            <div class="dropdown-content">
+                <div class="tag-container">
+                    <?php
+                    include('tags_data.php');
+                        $selected_tags = explode(",", $user['tags']);
+                        echo "<div>";
+                            foreach ($tags_license as $tag) {
+                            $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                            echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
+                        }
+                        echo "</div>"
+                    ?>
+                </div>
+            </div>
+        </div>
+        <label>※趣味</label>
+        <div class="dropdown">
+            <h5 class="dropdown-header">趣味</h5>
+            <div class="dropdown-content">
+                <div class="tag-container">
+                    <?php
+                        include('tags_data.php');
+                        $selected_tags = explode(",", $user['tags']);
+                        echo "<div>";
+                            foreach ($tags_hobby as $tag) {
+                                $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                                echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div>";
+                            }
+                        echo "</div>";
+                    ?>
+                </div>
+            </div>
         </div>
 
         <label>自己紹介文:</label>
         <textarea name="bio"><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea><br>
-
         <button type="submit" class="submit-btn">更新</button>
-       
     </form>
     <script src="js/profile.js"></script>
+    <script src="js/tag.js"></script>
 </body>
 </html>
 

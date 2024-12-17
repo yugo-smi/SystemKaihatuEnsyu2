@@ -41,6 +41,10 @@ try {
         exit;
     }
 
+    // 資格と趣味を取得
+    $licenses = explode(",", $user['license']); // 資格を配列に変換
+    $tags = explode(",", $user['tags']); // 趣味を配列に変換
+
     // お気に入り状態を確認
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM favorite_users WHERE user_id = :current_user_id AND favorite_user_id = :profile_user_id");
     $stmt->bindValue(':current_user_id', $_SESSION['user_id'], PDO::PARAM_INT);
@@ -93,18 +97,20 @@ try {
             <label>ニックネーム:</label>
             <input type="text" name="nickname" value="<?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?>" readonly><br>
 
-            <label>タグ:</label>
+            <!-- 保有資格 -->
+            <label>保有資格:</label>
+            <div class="license-container">
+                <?php foreach ($licenses as $license): ?>
+                    <span class="license-item"><?= htmlspecialchars($license, ENT_QUOTES, 'UTF-8') ?></span>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- 趣味 -->
+            <label>趣味:</label>
             <div class="tag-container">
-                <?php 
-                // タグを選択済み状態で表示
-                $tags = ["アウトドア", "インドア", "旅行", "読書", "音楽"];
-                $selected_tags = explode(",", $user['tags']);
-                foreach ($tags as $tag) {
-                    if (in_array($tag, $selected_tags)) {
-                        echo "<span class='tag'>$tag</span> ";
-                    }
-                }
-                ?>
+                <?php foreach ($tags as $tag): ?>
+                    <span class="tag-item"><?= htmlspecialchars($tag, ENT_QUOTES, 'UTF-8') ?></span>
+                <?php endforeach; ?>
             </div>
 
             <div class="bio">

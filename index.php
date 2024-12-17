@@ -185,6 +185,8 @@ try {
     <title>NEW LINK</title>
     <link rel="stylesheet" href="css/style_index.css">
     <link rel="stylesheet" href="css/style_favorites.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         /* 簡易スタイル */
         .favorites-container { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -222,8 +224,8 @@ try {
             <nav class="menu" id="menu">
                 <ul>
                     <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="talk.php">トーク履歴</a></li>
+                    <li><a href="kensaku.php">検索</a></li>
+                    <li><a href="talk.php">トーク</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <li><a href="logout.php">ログアウト</a></li>
@@ -262,13 +264,29 @@ try {
     <!-- スクリプト -->
     <script src="js/index_hamburger.js"></script>
     <script src="./js/index_slideshow.js"></script>
+    </body>
+<div id="chat-list-container">
+        <h1>最新のメッセージ</h1>
+        <?php if (!empty($chatUsers)): ?>
+            <ul id="chat-list">
+                <?php foreach ($chatUsers as $user): ?>
+                    <li onclick="location.href='chat.php?partner_id=<?= htmlspecialchars($user['chat_user_id']) ?>'">
+                        <strong><?= htmlspecialchars($user['nickname']) ?></strong><br>
+                        <small>最終メッセージ: <?= htmlspecialchars($user['last_message_time']) ?></small>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>まだチャットした相手はいません。</p>
+        <?php endif; ?>
+    </div>
 
 
 <!-- チェーンセクション -->
-    <h2 class="title">chain</h2>
+    <h2 class="title1">chain</h2>
     <div class="favorites-container">
         <?php if (empty($chains)): ?>
-            <p>チェインはまだありません。</p>
+            <p>chainはまだありません。</p>
         <?php else: ?>
             <?php foreach ($chains as $user): ?>
                 <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -288,10 +306,10 @@ try {
         <?php endif; ?>
     </div>
     
-    <h2 class="title">リンク</h2>
+    <h2 class="title2">link</h2>
     <div class="favorites-container">
     <?php if (empty($favorites)): ?>
-        <p>リンクしたユーザーはいません。</p>
+        <p>linkしたユーザーはいません。</p>
     <?php else: ?>
         <?php foreach ($favorites as $user): ?>
             <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -326,20 +344,5 @@ try {
         <!-- フッター内容 -->
     </footer>
     
-</body>
-<div id="chat-list-container">
-        <h1>最新のメッセージ</h1>
-        <?php if (!empty($chatUsers)): ?>
-            <ul id="chat-list">
-                <?php foreach ($chatUsers as $user): ?>
-                    <li onclick="location.href='chat.php?partner_id=<?= htmlspecialchars($user['chat_user_id']) ?>'">
-                        <strong><?= htmlspecialchars($user['nickname']) ?></strong><br>
-                        <small>最終メッセージ: <?= htmlspecialchars($user['last_message_time']) ?></small>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php else: ?>
-            <p>まだチャットした相手はいません。</p>
-        <?php endif; ?>
-    </div>
+
 </html>
