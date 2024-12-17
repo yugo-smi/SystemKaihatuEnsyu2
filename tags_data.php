@@ -7,9 +7,7 @@ $tags_hobby = ["アウトドア",
              "音楽"];
 
              
-$tags_license = ["ITパスポート",
-             "基本情報技術者試験",
-             "応用情報技術者試験",
+$tags_default_license = [
              "情報セキュリティマネジメント試験",
              "ネットワークスペシャリスト試験",
              "情報処理安全確保支援士試験",
@@ -19,31 +17,41 @@ $tags_license = ["ITパスポート",
              "マイクロソフト認定技術者",
              "シスコ認定ネットワーク技術者",
              "オラクル認定ネットワーク技術者",
-             "マイクロソフトオフィススペシャリストマスター",
-             "マイクロソフトオフィススペシャリスト",
-             "word expert",
-             "word Specialist",
-             "Excel expert",
-             "Excel Specialist",
-             "Access expert",
-             "Access Specialist",
-             "PowerPoint expert",
-             "PowerPoint Specialist",
-             "マイクロソフトオフィススペシャリスト",
              "ビジネス能力ジョブパス２級",
              "ビジネス能力ジョブパス３級",
              "日商簿記２級",
              "日商簿記３級",
              "会計ソフト実務能力試験",
              "秘書技能検定試験",
-             "CGクリエイター試験",
-             "色彩検定",
              "マルチメディア検定",
              "Webデザイナー検定",
-             "画像処理エンジニア検定",
-             "CGクリエイター検定",
-             "Webクリエイター検定",
+             "画像処理エンジニア検定",             
             ];
 
-    $tags = array_merge($tags_hobby,$tags_license)              
+    $tags_ALL_common = [                
+            "マイクロソフトオフィススペシャリストマスター",
+            "マイクロソフトオフィススペシャリスト",
+            "word expert",
+            "word Specialist",
+            "Excel expert",
+            "Excel Specialist",
+            "Access expert",
+            "Access Specialist",
+            "PowerPoint expert",
+            "PowerPoint Specialist",
+];
+
+    $tags_IT_common = [
+            "ITパスポート",
+            "基本情報技術者試験",
+            "応用情報技術者試験"
+    ];
+
+    $tags_design_common =[
+        "CGクリエイター試験",
+        "色彩検定",
+        "Webクリエイター検定"
+    ];
+
+    $tags = array_merge($tags_hobby,$tags_default_license,$tags_ALL_common,$tags_IT_common,$tags_design_common)              
 ?>
