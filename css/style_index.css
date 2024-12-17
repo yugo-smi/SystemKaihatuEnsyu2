@@ -210,7 +210,15 @@ right: 0;
   font-size: 10px;
 }
 
-.title {
+.title1 {
+  text-align: center;
+  font-family: 'Lobster', cursive; /* Google FontsのLobsterを使用 */
+  font-size: 2rem; /* 文字のサイズを調整 */
+  color: #0000007d; /* 好みの色に変更 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* おしゃれな影を追加 */
+  margin: 20px 0; /* 上下に適度な余白を追加 */
+}
+.title2 {
   text-align: center;
   font-family: 'Lobster', cursive; /* Google FontsのLobsterを使用 */
   font-size: 2rem; /* 文字のサイズを調整 */

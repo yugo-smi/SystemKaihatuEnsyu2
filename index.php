@@ -283,7 +283,7 @@ try {
 
 
 <!-- チェーンセクション -->
-    <h2 class="title">chain</h2>
+    <h2 class="title1">chain</h2>
     <div class="favorites-container">
         <?php if (empty($chains)): ?>
             <p>chainはまだありません。</p>
@@ -306,7 +306,7 @@ try {
         <?php endif; ?>
     </div>
     
-    <h2 class="title">link</h2>
+    <h2 class="title2">link</h2>
     <div class="favorites-container">
     <?php if (empty($favorites)): ?>
         <p>linkしたユーザーはいません。</p>
