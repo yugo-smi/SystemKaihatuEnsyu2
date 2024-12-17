@@ -141,7 +141,7 @@ try {
 
 <body>
     <div id="chat-list-container">
-        <h2 class = "page-title">チャットリスト</h2>
+        <h2 class = "page-title">トークリスト</h2>
         <?php if (!empty($chatUsers)): ?>
             <ul id="chat-list">
                 <?php foreach ($chatUsers as $user): ?>
