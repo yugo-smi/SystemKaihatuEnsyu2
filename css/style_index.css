@@ -277,3 +277,36 @@ right: 0;
   font-size: 0.9rem; /* 時間を小さく */
   color: #666; /* 薄いグレー */
 }
+/* ランダムマッチングボタンのスタイル */
+.random_matching_button {
+  display: inline-block; /* インラインブロックで調整 */
+  font-family: 'Poppins', sans-serif; /* スタイリッシュなフォント */
+  font-weight: 600; /* 少し太めのフォントウェイト */
+  font-size: 1.2rem; /* ボタンの文字サイズを調整 */
+  color: #ffffff; /* ボタン文字の色 */
+  text-decoration: none; /* 下線を消す */
+  background-color: #52a1aa; /* ボタンの背景色 */
+  padding: 15px 40px; /* 内側の余白 */
+  border-radius: 30px; /* 丸みを帯びたボタン */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 立体感を出す影 */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* アニメーション効果 */
+  text-align: center; /* テキスト中央揃え */
+  cursor: pointer; /* クリック可能に見せる */
+  margin-top: 20px; /* ボタン上部のスペース */
+}
+
+/* ホバー時のエフェクト */
+.random_matching_button:hover {
+  background-color: #0078a1; /* 背景色を濃い青に変更 */
+  transform: translateY(-3px); /* ホバーで少し上に浮く */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 影を強調 */
+}
+
+/* 携帯画面向けの調整 */
+@media (max-width: 480px) {
+  .random_matching_button {
+      font-size: 1rem; /* フォントサイズを調整 */
+      padding: 10px 30px; /* コンパクトなサイズに */
+  }
+}
+
