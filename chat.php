@@ -135,7 +135,7 @@ $stmt->execute();
                     const messageDiv = document.createElement('div');
                     messageDiv.className = `chat-message ${msg.send_user_id == currentUserId ? 'sent' : 'received'}`;
                     messageDiv.innerHTML = `
-                        <p class="chat-sender">${msg.send_user_id == currentUserId ? 'あなた' : msg.sender_name}:</p>
+                        <p class="chat-sender">${msg.send_user_id == currentUserId ? 'me' : msg.sender_name}:</p>
                         <p class="chat-text">${msg.message_text}</p>
                         <span class="chat-time">${msg.sent_time}</span>
                     `;
@@ -226,8 +226,8 @@ $stmt->execute();
              <nav class="menu" id="menu">
                  <ul>
                     <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">お相手を検索</a></li>
-                    <li><a href="talk.php">トーク履歴</a></li>
+                    <li><a href="kensaku.php">検索</a></li>
+                    <li><a href="talk.php">トーク</a></li>
                     <li><a href="favorites.php">お気に入り</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <li><a href="logout.php">ログアウト</a></li>
@@ -243,7 +243,7 @@ $stmt->execute();
      </header>
      <!-- スクリプト -->
     <script src="js/index_hamburger.js"></script>
-
+    <script src="js/chat.js"></script>
 <body>
     <div class="chat-container">
         <div id="chat-box" class="chat-box"></div>

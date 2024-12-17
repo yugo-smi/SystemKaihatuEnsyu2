@@ -153,8 +153,8 @@ try {
     <nav class="menu" id="menu">
         <ul>
             <li><a href="index.php">ホーム</a></li>
-            <li><a href="kensaku.php">お相手を検索</a></li>
-            <li><a href="talk.php">トーク履歴</a></li>
+            <li><a href="kensaku.php">検索</a></li>
+            <li><a href="talk.php">トーク</a></li>
             <li><a href="favorites.php">お気に入り</a></li>
             <li><a href="profile.php">プロフィール</a></li>
             <li><a href="logout.php">ログアウト</a></li>
@@ -170,10 +170,10 @@ try {
 <h1 class="title"></h1>
 
 <!-- チェーンセクション -->
-<h2>チェイン</h2>
+<h2 class="title1">chain</h2>
 <div class="favorites-container">
     <?php if (empty($chains)): ?>
-        <p>チェインはまだありません。</p>
+        <p>chainはまだありません。</p>
     <?php else: ?>
         <?php foreach ($chains as $user): ?>
             <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -187,7 +187,7 @@ try {
 </div>
 
 <!-- 通常のお気に入り一覧 -->
-<h2>リンク</h2>
+<h2 class="title2">link</h2>
 <div class="favorites-container">
     <?php if (empty($favorites)): ?>
         <p>お気に入りに登録されたユーザーはいません。</p>

@@ -210,6 +210,70 @@ right: 0;
   font-size: 10px;
 }
 
-.title{
+.title1 {
   text-align: center;
+  font-family: 'Lobster', cursive; /* Google FontsのLobsterを使用 */
+  font-size: 2rem; /* 文字のサイズを調整 */
+  color: #0000007d; /* 好みの色に変更 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* おしゃれな影を追加 */
+  margin: 20px 0; /* 上下に適度な余白を追加 */
+}
+.title2 {
+  text-align: center;
+  font-family: 'Lobster', cursive; /* Google FontsのLobsterを使用 */
+  font-size: 2rem; /* 文字のサイズを調整 */
+  color: #2b99ae; /* 好みの色に変更 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* おしゃれな影を追加 */
+  margin: 20px 0; /* 上下に適度な余白を追加 */
+}
+
+/* 最新のメッセージタイトル */
+#chat-list-container > h1 {
+  font-family: 'Poppins', sans-serif; /* スタイリッシュなフォントを適用 */
+  font-size: 2rem; /* タイトルサイズを大きめに */
+  color: #333; /* 濃いグレーで上品に */
+  text-align: center; /* 中央揃え */
+  margin-bottom: 20px; /* 下部にスペース */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* ほのかな影を追加 */
+}
+
+/* メッセージリスト全体 */
+#chat-list {
+  list-style: none; /* デフォルトのリストスタイルを削除 */
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px; /* コンテンツ幅を調整 */
+  font-family: 'Roboto', sans-serif; /* 読みやすいフォントを適用 */
+}
+
+/* 各メッセージアイテム */
+#chat-list li {
+  background-color: #f9f9f9; /* 明るい背景色 */
+  border: 1px solid #ddd; /* 薄い枠線 */
+  border-radius: 10px; /* 柔らかい印象を与える角丸 */
+  padding: 15px; /* 内側余白 */
+  margin-bottom: 15px; /* 下部にスペース */
+  transition: background-color 0.3s, transform 0.2s; /* ホバーアニメーション用 */
+  cursor: pointer; /* クリック可能な感じを出す */
+}
+
+/* メッセージアイテムのホバー効果 */
+#chat-list li:hover {
+  background-color: #e8f8ff; /* ホバー時の色変更 */
+  transform: scale(1.02); /* 少し拡大 */
+}
+
+/* メッセージの強調表示（ニックネーム） */
+#chat-list li strong {
+  font-weight: 700; /* 強調 */
+  font-size: 1.2rem; /* 目立つサイズ */
+  color: #0078a1; /* 落ち着いた青色 */
+  display: block;
+  margin-bottom: 5px; /* 名前とメッセージ時間の間隔 */
+}
+
+/* メッセージの時間部分 */
+#chat-list li small {
+  font-size: 0.9rem; /* 時間を小さく */
+  color: #666; /* 薄いグレー */
 }
