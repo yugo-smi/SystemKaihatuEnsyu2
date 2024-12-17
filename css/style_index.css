@@ -278,21 +278,23 @@ right: 0;
   color: #666; /* 薄いグレー */
 }
 /* ランダムマッチングボタンのスタイル */
+/* ランダムマッチングボタン（横いっぱいに広げる） */
 .random_matching_button {
-  display: inline-block; /* インラインブロックで調整 */
-  font-family: 'Poppins', sans-serif; /* スタイリッシュなフォント */
-  font-weight: 600; /* 少し太めのフォントウェイト */
+  display: block; /* ブロック要素にして横幅を制御 */
+  font-family: 'Poppins', sans-serif; /* おしゃれなフォント */
+  font-weight: 600; /* 太字で強調 */
   font-size: 1.2rem; /* ボタンの文字サイズを調整 */
   color: #ffffff; /* ボタン文字の色 */
   text-decoration: none; /* 下線を消す */
   background-color: #52a1aa; /* ボタンの背景色 */
-  padding: 15px 40px; /* 内側の余白 */
-  border-radius: 30px; /* 丸みを帯びたボタン */
+  padding: 15px 0; /* 高さを調整 */
+  width: 100%; /* 横幅を画面いっぱいに */
+  border-radius: 30px; /* 丸みを帯びたデザイン */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 立体感を出す影 */
   transition: background-color 0.3s ease, transform 0.2s ease; /* アニメーション効果 */
-  text-align: center; /* テキスト中央揃え */
+  text-align: center; /* テキストを中央揃え */
   cursor: pointer; /* クリック可能に見せる */
-  margin-top: 20px; /* ボタン上部のスペース */
+  margin: 20px auto; /* 上下の余白を設定、中央揃え */
 }
 
 /* ホバー時のエフェクト */
@@ -306,7 +308,8 @@ right: 0;
 @media (max-width: 480px) {
   .random_matching_button {
       font-size: 1rem; /* フォントサイズを調整 */
-      padding: 10px 30px; /* コンパクトなサイズに */
+      padding: 10px 0; /* コンパクトな高さ */
   }
 }
+
 

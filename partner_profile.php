@@ -62,6 +62,10 @@ try {
                 <li><a href="logout.php">ログアウト</a></li>
             </ul>
         </nav>
+        <div class="logotitle">
+            <img src="image/logotitle.png" alt="タイトル">
+        </div>
+
     </div>
     <script src="js/index_hamburger.js"></script>
 
