@@ -122,7 +122,7 @@ ob_end_flush();
                 </span>
             </div>
 
-            <label>※保有資格を選んでください</label>
+            <label>※保有資格</label>
             <div class="tag-container">
                 <div class="dropdown">
                     <h5 class="dropdown-header">情報処理IT系</h5>
@@ -218,7 +218,8 @@ ob_end_flush();
                     </div>
                 </div>
                 <label><input id = 'none' type="checkbox" name="license[]" value="勉強中">勉強中</label><br>
-                <label>※趣味を選んでください</label>
+                <br>
+                <label>※趣味</label>
                 <div class="dropdown">
                     <h5 class="dropdown-header">趣味</h5>
                     <div class="dropdown-content">
@@ -227,6 +228,19 @@ ob_end_flush();
                         <label><input type="checkbox" name="tags[]" value="旅行">旅行</label><br>
                         <label><input type="checkbox" name="tags[]" value="読書">読書</label><br>
                         <label><input type="checkbox" name="tags[]" value="音楽">音楽</label><br>
+                        <label><input type="checkbox" name="tags[]" value="料理">料理</label><br>
+                        <label><input type="checkbox" name="tags[]" value="ゲーム">ゲーム</label><br>
+                        <label><input type="checkbox" name="tags[]" value="釣り">釣り</label><br>
+                        <label><input type="checkbox" name="tags[]" value="旅行">旅行</label><br>
+                        <label><input type="checkbox" name="tags[]" value="麻雀">麻雀</label><br>
+                        <label><input type="checkbox" name="tags[]" value="パチンコ・スロット">パチンコ・スロット</label><br>
+                        <label><input type="checkbox" name="tags[]" value="スポーツ">スポーツ</label><br>
+                        <label><input type="checkbox" name="tags[]" value="漫画">漫画</label><br>
+                        <label><input type="checkbox" name="tags[]" value="アイドル好き">アイドル好き</label><br>
+                        <label><input type="checkbox" name="tags[]" value="BL好き">BL好き</label><br>
+                        <label><input type="checkbox" name="tags[]" value="絵を描く">絵を描く</label><br>
+                        <label><input type="checkbox" name="tags[]" value="外食">外食</label><br>
+
                     </div>
                 </div>
             </div>

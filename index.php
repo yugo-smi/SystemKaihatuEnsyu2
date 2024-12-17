@@ -186,6 +186,8 @@ try {
     <link rel="stylesheet" href="css/style_index.css">
     <link rel="stylesheet" href="css/style_favorites.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 
     <style>
         /* 簡易スタイル */
@@ -259,7 +261,10 @@ try {
     </div>
 
     <!-- ランダムマッチングボタン -->
-    <a href="./partner_profile.php" class="random_matching_button">ランダムマッチングボタン</a>
+   <div class="random_matching">
+    <a href="./partner_profile.php" class="random_matching_button">ランダムマッチング</a>
+</div>
+
 
     <!-- スクリプト -->
     <script src="js/index_hamburger.js"></script>

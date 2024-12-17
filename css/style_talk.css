@@ -83,15 +83,3 @@ right: 0;
     margin: 20px 0;
   }
 
-#chat-list{
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-#chat-list li{
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
