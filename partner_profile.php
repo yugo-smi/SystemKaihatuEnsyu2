@@ -51,6 +51,9 @@ try {
 <body>
     <div id="header">
         <a href="index.php"><img class="logo" src="image/logo.png" alt="ロゴ"></a>
+        <div class="logotitle">
+                <img src="image/logotitle.png" alt="タイトル">
+            </div>
         <div class="hamburger" id="hamburger"><img src="image/hamburger.png" alt="ハンバーガーメニュー"></div>
         <nav class="menu" id="menu">
             <ul>
