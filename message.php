@@ -37,7 +37,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <a class="header-logo" href="./index.html">
                     <img class = "logo"  src="image/logo.png" alt="ロゴ"></h1>
                 <a class="header-connect" href="./connect.html"></a>
-                    <img class = "connect" image/connect.png" alt="お問い合わせ"></h1>
+                    <img class = "connect" image="/connect.png" alt="お問い合わせ"></h1>
             </a> 
         </div>
         
