@@ -173,7 +173,7 @@ try {
 <h2 class="title1">chain</h2>
 <div class="favorites-container">
     <?php if (empty($chains)): ?>
-        <p>chainはまだありません。</p>
+        <p>chainがいません</p>
     <?php else: ?>
         <?php foreach ($chains as $user): ?>
             <div class="chain-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
@@ -190,7 +190,7 @@ try {
 <h2 class="title2">link</h2>
 <div class="favorites-container">
     <?php if (empty($favorites)): ?>
-        <p>お気に入りに登録されたユーザーはいません。</p>
+        <p>linkがいません</p>
     <?php else: ?>
         <?php foreach ($favorites as $user): ?>
             <div class="favorite-card" onclick="location.href='search_profile.php?id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>'">
