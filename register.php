@@ -126,8 +126,7 @@ ob_end_flush();
             <div class="tag-container">
                 <div class="dropdown">
                     <h5 class="dropdown-header">情報処理IT系</h5>
-                    <div class="dropdown-content">
-                        <label><input type="checkbox" name="license[]" value="ITパスポート">ITパスポート</label><br>
+                    <div class="dropdown-content">                       
                         <label><input type="checkbox" name="license[]" value="基本情報技術者試験">基本情報技術者試験</label><br>
                         <label><input type="checkbox" name="license[]" value="応用情報技術者試験">応用情報技術者試験</label><br>
                         <label><input type="checkbox" name="license[]" value="情報セキュリティマネジメント試験">情報セキュリティマネジメント試験</label><br>
@@ -138,34 +137,13 @@ ob_end_flush();
                         <label><input type="checkbox" name="license[]" value="プロジェクトマネージャ試験">プロジェクトマネージャ試験</label><br>
                         <label><input type="checkbox" name="license[]" value="マイクロソフト認定技術者">マイクロソフト認定技術者</label><br>
                         <label><input type="checkbox" name="license[]" value="シスコ認定ネットワーク技術者">シスコ認定ネットワーク技術者</label><br>
-                        <label><input type="checkbox" name="license[]" value="オラクル認定ネットワーク技術者">オラクル認定ネットワーク技術者</label><br>
-                        <label><input type="checkbox" name="license[]" value="マイクロソフトオフィススペシャリストマスター">マイクロソフトオフィススペシャリストマスター</label><br>
-                        <label><input type="checkbox" name="license[]" value="マイクロソフトオフィススペシャリスト">マイクロソフトオフィススペシャリスト</label><br>
-                        <label><input type="checkbox" name="license[]" value="word expert">word expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="word Specialist">word Specialist</label><br>
-                        <label><input type="checkbox" name="license[]" value="Excel expert">Excel expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="Excel Specialist">Excel Specialist</label><br>
-                        <label><input type="checkbox" name="license[]" value="Access expert">Access expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="Access Specialist">Access Specialist</label><br>
-                        <label><input type="checkbox" name="license[]" value="PowerPoint expert">PowerPoint expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="PowerPoint Specialist">PowerPoint Specialist</label><br>
+                        <label><input type="checkbox" name="license[]" value="オラクル認定ネットワーク技術者">オラクル認定ネットワーク技術者</label><br>                    
                     </div>
                 </div>
 
                 <div class="dropdown">
                     <h5 class="dropdown-header">ビジネス系</h5>
-                    <div class="dropdown-content">
-                        <label><input type="checkbox" name="license[]" value="ITパスポート">ITパスポート</label><br>
-                        <label><input type="checkbox" name="license[]" value="マイクロソフトオフィススペシャリストマスター">マイクロソフトオフィススペシャリストマスター</label><br>
-                        <label><input type="checkbox" name="license[]" value="マイクロソフトオフィススペシャリスト">マイクロソフトオフィススペシャリスト</label><br>
-                        <label><input type="checkbox" name="license[]" value="word expert">word expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="word Specialist">word Specialist</label><br>
-                        <label><input type="checkbox" name="license[]" value="Excel expert">Excel expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="Excel Specialist">Excel Specialist</label><br>
-                        <label><input type="checkbox" name="license[]" value="Access expert">Access expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="Access Specialist">Access Specialist</label><br>
-                        <label><input type="checkbox" name="license[]" value="PowerPoint expert">PowerPoint expert</label><br>
-                        <label><input type="checkbox" name="license[]" value="PowerPoint Specialist">PowerPoint Specialist</label><br>
+                    <div class="dropdown-content">            
                         <label><input type="checkbox" name="license[]" value="ビジネス能力ジョブパス２級">ビジネス能力ジョブパス２級</label><br>
                         <label><input type="checkbox" name="license[]" value="ビジネス能力ジョブパス３級">ビジネス能力ジョブパス３級</label><br>
                         <label><input type="checkbox" name="license[]" value="日商簿記２級">日商簿記２級</label><br>
@@ -179,9 +157,7 @@ ob_end_flush();
                     <h5 class="dropdown-header">ゲーム系</h5>
                     <div class="dropdown-content">
                         <label><input type="checkbox" name="license[]" value="応用情報技術者試験">応用情報技術者試験</label><br>
-                        <label><input type="checkbox" name="license[]" value="基本情報技術者試験">基本情報技術者試験</label><br>
-                        <label><input type="checkbox" name="license[]" value="CGクリエイター試験">CGクリエイター試験</label><br>
-                        <label><input type="checkbox" name="license[]" value="色彩検定">色彩検定</label><br>
+                        <label><input type="checkbox" name="license[]" value="基本情報技術者試験">基本情報技術者試験</label><br>                       
                         <label><input type="checkbox" name="license[]" value="マルチメディア検定">マルチメディア検定</label><br>
                         <label><input type="checkbox" name="license[]" value="Webデザイナー検定">Webデザイナー検定</label><br>
                         <label><input type="checkbox" name="license[]" value="画像処理エンジニア検定">画像処理エンジニア検定</label><br>
@@ -193,6 +169,7 @@ ob_end_flush();
                 <div class="dropdown">
                     <h5 class="dropdown-header">全分野共通資格</h5><br>
                     <div class="dropdown-content">
+                    <label><input type="checkbox" name="license[]" value="ITパスポート">ITパスポート</label><br>
                         <label><input type="checkbox" name="license[]" value="マイクロソフトオフィススペシャリストマスター">マイクロソフトオフィススペシャリストマスター</label><br>
                         <label><input type="checkbox" name="license[]" value="マイクロソフトオフィススペシャリスト">マイクロソフトオフィススペシャリスト</label><br>
                         <label><input type="checkbox" name="license[]" value="word expert">word expert</label><br>
@@ -213,7 +190,9 @@ ob_end_flush();
                     デザイン・Web系</h5><br>
                     <div class="dropdown-content">
                         <label><input type="checkbox" name="license[]" value="CGクリエイター検定">CGクリエイター検定</label><br>
-                        <label><input type="checkbox" name="license[]" value="色彩検定">色彩検定</label><br>
+                        <label><input type="checkbox" name="license[]" value="色彩検定">色彩検定１級</label><br>
+                        <label><input type="checkbox" name="license[]" value="色彩検定">色彩検定２級</label><br>
+                        <label><input type="checkbox" name="license[]" value="色彩検定">色彩検定３級</label><br>
                         <label><input type="checkbox" name="license[]" value="Webクリエイター検定">Webクリエイター検定</label><br>
                     </div>
                 </div>

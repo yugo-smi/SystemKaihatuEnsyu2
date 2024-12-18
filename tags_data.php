@@ -61,7 +61,9 @@ $tags_default_license = [
 
     $tags_design_common =[
         "CGクリエイター試験",
-        "色彩検定",
+        "色彩検定１級",
+        "色彩検定２級",
+        "色彩検定３級",
         "Webクリエイター検定"
     ];
 
