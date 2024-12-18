@@ -91,7 +91,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     <li><a href="kensaku.php">お相手を検索</a></li>
                     
                     <li><a href="talk.php">トーク履歴</a></li>
-                    <li><a href="favorites.php">お気に入り</a></li>
+                    <li><a href="favorites.php">つながり</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <?php if ($isLoggedIn): ?>
                         

@@ -228,7 +228,7 @@ try {
                     <li><a href="index.php">ホーム</a></li>
                     <li><a href="kensaku.php">検索</a></li>
                     <li><a href="talk.php">トーク</a></li>
-                    <li><a href="favorites.php">お気に入り</a></li>
+                    <li><a href="favorites.php">つながり</a></li>
                     <li><a href="profile.php">プロフィール</a></li>
                     <li><a href="logout.php">ログアウト</a></li>
                 </ul>
