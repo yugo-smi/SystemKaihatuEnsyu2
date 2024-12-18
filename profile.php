@@ -130,10 +130,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="file" name="image" id="profile-pic-input" aria-label="プロフィール画像を選択">
                 </div>
 
-        <label>ニックネーム:</label>
+        <label>ニックネーム</label>
         <input type="text" name="nickname" value="<?= htmlspecialchars($user['nickname'], ENT_QUOTES, 'UTF-8') ?>" required><br>
 
-        <label>※保有資格</label>
+        <label></label>
         <div class="dropdown">
             <h5 class="dropdown-header">資格</h5>
             <div class="dropdown-content">
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
-        <label>※趣味</label>
+        <label></label>
         <div class="dropdown">
             <h5 class="dropdown-header">趣味</h5>
             <div class="dropdown-content">
@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
 
-        <label>自己紹介文:</label>
+        <label>自己紹介文</label>
         <textarea name="bio"><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea><br>
         <button type="submit" class="submit-btn">更新</button>
     </form>

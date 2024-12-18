@@ -163,7 +163,7 @@ try {
             <button class="btn search-button"><i class="fas fa-search"></i></button>
         </div>
         <div class="search-input-container">
-        <label>※保有資格を選んでください</label>          
+              
                 <div class="dropdown">
                     <h5 class="dropdown-header">情報処理IT系</h5>
                     <div class="dropdown-content">
@@ -238,7 +238,7 @@ try {
                     </div>
                 </div>
                 <label><input id = 'none' type="checkbox" name="license[]" value="勉強中">勉強中</label><br>
-                <label>※趣味を選んでください</label>
+                
                 <div class="dropdown">
                     <h5 class="dropdown-header">趣味</h5>
                     <div class="dropdown-content">
