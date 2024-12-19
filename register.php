@@ -97,7 +97,7 @@ ob_end_flush();
             <input type="text" minlength="1" maxlength="12"  id="nickname" name="nickname" required pattern="{1,12}">
 
 
-            <label for="email">※メールアドレス</label>
+            <label for="email">※oicメールアドレス</label>
             <input type="email" id="email" name="email" required
                    pattern="^[A-Za-z]{1}\d{4}@oic\.jp$"
                    title="メールアドレスは英単語1文字+4桁の数字@oic.jpの形式で入力してください">
