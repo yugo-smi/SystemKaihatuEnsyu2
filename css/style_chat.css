@@ -9,14 +9,13 @@ body, html {
     width: 100%;
     font-family: Arial, sans-serif;
     display: flex;
-    flex-direction: column; /* 縦方向にレイアウト */
+    flex-direction: column;
     background-color: #ffffff;
 }
 
 /* チャットコンテナ */
 .chat-container {
     width: 100%;
-    max-width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -26,84 +25,68 @@ body, html {
 
 /* チャットボックス */
 .chat-box {
+    flex: 1;
     padding: 10px;
     background-color: #ffffff;
-    flex: 1; /* ヘッダー以外の全てを埋める */
-    overflow-y: auto;
     display: flex;
-    flex-direction: column; /* 時系列順にメッセージを並べる */
-    justify-content: flex-start; /* 新しいメッセージが下に追加される */
+    flex-direction: column; /* 縦方向にメッセージを並べる */
+    overflow-y: auto; /* 縦スクロール可能 */
+    justify-content: flex-start; /* 上から順に表示 */
 }
 
 /* メッセージスタイル */
 .chat-message {
-    margin: 10px 0;
+    max-width: 70%; /* メッセージの最大幅 */
+    margin: 10px; /* 上下左右の余白 */
+    padding: 10px; /* 内側余白 */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 8px; /* 角丸 */
+    background-color: #f9f9f9; /* 背景色 */
     display: flex;
-    flex-direction: column; /* 名前をメッセージの上に配置 */
-    position: relative;
+    flex-direction: column; /* 子要素を縦並び */
+    position: relative; /* 日時や名前の位置調整用 */
+    word-wrap: break-word; /* 単語の折り返しを許可 */
 }
 
-/* メッセージ間のスペース調整（文字2列分） */
-.chat-message {
-    margin-bottom: 30px; /* フォントサイズに基づいて調整 */
-}
-
+/* 送信メッセージ */
 .chat-message.sent {
-    justify-content: flex-end;
+    align-self: flex-end; /* 右寄せ */
+    background-color: #e1ffe1; /* 背景色 */
+    border-color: #c6e6c6; /* 枠線色 */
 }
 
+/* 受信メッセージ */
 .chat-message.received {
-    justify-content: flex-start;
+    align-self: flex-start; /* 左寄せ */
+    background-color: #e6f3ff; /* 背景色 */
+    border-color: #b3d8ff; /* 枠線色 */
 }
 
-.message-bubble {
-    max-width: 70%;
-    padding: 10px;
-    border-radius: 15px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-}
-
-.chat-message.sent .message-bubble {
-    background-color: #dcf8c6;
-    border-color: #b2eab3;
-}
-
-.chat-message.received .message-bubble {
-    background-color: #fff;
-    border-color: #ddd;
-}
-
-/* 名前（me:）を枠外に表示 */
+/* 名前 */
 .chat-sender {
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
-    position: absolute;
-    top: -20px; /* メッセージ枠の上に名前を配置 */
-    left: 0;
-    font-size: 14px;
 }
 
+/* メッセージのテキスト */
 .chat-text {
     font-size: 14px;
     color: #000;
-    margin-bottom: 5px;
 }
 
+/* 日時 */
 .chat-time {
     font-size: 12px;
-    color: #666;
-    text-align: right;
-    display: block;
+    color: #999;
+    text-align: right; /* 右揃え */
     margin-top: 5px;
 }
 
 /* 入力エリア */
 .input-area {
     display: flex;
-    padding: 5%;
+    padding: 10px;
     background-color: #f4f4f9;
 }
 
@@ -145,167 +128,24 @@ body, html {
     background-color: #f9f9f9;
 }
 
-/* ヘッダー */
-.header {
-    display: flex;
-    align-items: center;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-}
+/* レスポンシブ対応 */
 
-.logo {
+.back-button{
     float: left;
     width: 80px;
     height: 80px;
+    color: #010101;;
+    background-color: rgb(255, 255, 255);
+    border: #ffffff;
+    font-size: 200%;
+    
 }
-
-.logotitle {
+.back-button:hover
+{
+cursor: pointer;
+}
+.logotitle{
     display: flex;
     justify-content: center; /* 水平方向に中央揃え */
     align-items: center; /* 垂直方向に中央揃え */
-}
-
-/* ハンバーガーメニュー */
-.hamburger {
-    float: right;
-    margin-top: 25px;
-    margin-right: 25px;
-    width: 30px;
-    height: 30px;
-}
-
-.hamburger span {
-    display: block;
-    height: 3px;
-    background-color: #333;
-    border-radius: 3px;
-    transition: 0.3s;
-}
-
-/* メニューのスタイル */
-.menu {
-    z-index: calc(infinity);
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 200px;
-    height: 100%;
-    background-color: #79f4ff;
-    color: white;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    transition: right 0.3s;
-}
-
-.menu ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-.menu ul li {
-    margin: 15px 0;
-}
-
-.menu ul li a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* メニューの表示 */
-.menu {
-    margin-top: 80px;
-}
-
-.menu.open {
-    right: 0;
-}
-
-/* メッセージの枠 */
-.chat-message {
-    max-width: 60%; /* メッセージの幅 */
-    margin: 10px; /* 上下左右の余白 */
-    padding: 10px; /* 内側余白 */
-    border: 1px solid #ddd; /* 枠線 */
-    border-radius: 8px; /* 角丸 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 影を追加 */
-    font-size: 16px; /* フォントサイズ */
-    word-wrap: break-word; /* 単語の折り返しを許可 */
-    background-color: #f9f9f9; /* 背景色 */
-    display: inline-block; /* インラインブロックで表示 */
-    position: relative; /* 日時の位置調整用 */
-}
-
-/* 送信メッセージ */
-.chat-message.sent {
-    align-self: flex-end; /* 右寄せ */
-    float: right;
-    background-color: #e1ffe1; /* 背景色 */
-    border-color: #c6e6c6; /* 枠線色 */
-}
-
-/* 受信メッセージ */
-.chat-message.received {
-    align-self: flex-start; /* 左寄せ */
-    background-color: #e6f3ff; /* 背景色 */
-    border-color: #b3d8ff; /* 枠線色 */
-}
-
-/* メッセージの日時（枠外に表示） */
-.chat-time {
-    font-size: 12px; /* フォントサイズ */
-    color: #999; /* 色 */
-    text-align: right; /* 右寄せ */
-    margin-top: 5px; /* 上部に余白 */
-    position: absolute; /* メッセージ枠外に配置 */
-    top: 100%; /* メッセージのすぐ下に表示 */
-    left: 0; /* 左端揃え */
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .header {
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-    }
-
-    .logo {
-        width: 50px;
-        height: 50px;
-    }
-
-    .hamburger {
-        width: 25px;
-        height: 25px;
-        margin-top: 20px;
-        margin-right: 20px;
-    }
-
-    .menu {
-        width: 100%;
-    }
-
-    .menu ul li {
-        font-size: 16px;
-    }
-
-    /* チャットメッセージの枠 */
-    .chat-message {
-        max-width: 100%;
-    }
-
-    /* 入力エリア */
-    .input-area {
-        padding: 5% 2%;
-    }
-
-    #message-input {
-        font-size: 14px;
-    }
-
-    #send-button {
-        font-size: 14px;
-    }
 }
