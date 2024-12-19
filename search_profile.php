@@ -130,9 +130,9 @@ try {
                 <form method="POST" action="search_profile.php?id=<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
                 <input type="hidden" name="favorite_user_id" value="<?= htmlspecialchars($userId, ENT_QUOTES, 'UTF-8') ?>">
                 <?php if ($isFavorite): ?>
-                <button type="submit" name="action" value="remove" class="button favorite-button">お気に入り解除</button>
+                <button type="submit" name="action" value="remove" class="button favorite-button">リンク解除</button>
                 <?php else: ?>
-                    <button type="submit" name="action" value="add" class="button favorite-button">お気に入り追加</button>
+                    <button type="submit" name="action" value="add" class="button favorite-button">リンク追加</button>
                 <?php endif; ?>
                 </form>
             </div>
