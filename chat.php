@@ -214,7 +214,7 @@ $stmt->execute();
 
 <header>
          <div id = "header">
-            <input type="back-button" onclick="history.back()" value="<" class="back-button">
+            <input type="back-button" onclick="history.back()" value="←" class="back-button">
 
              <!-- メニュー -->
              
