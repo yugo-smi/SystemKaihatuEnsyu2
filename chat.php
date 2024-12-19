@@ -214,25 +214,10 @@ $stmt->execute();
 
 <header>
          <div id = "header">
-             <a href="index.php">
-                 <img class = "logo"  src="image/logo.png" alt="ロゴ">
-             </a>
-
-             <div class="hamburger" id="hamburger">
-                <img src="image/hamburger.png" alt="ハンバーガーバー">
-             </div>
+            <input type="back-button" onclick="history.back()" value="<" class="back-button">
 
              <!-- メニュー -->
-             <nav class="menu" id="menu">
-                 <ul>
-                    <li><a href="index.php">ホーム</a></li>
-                    <li><a href="kensaku.php">検索</a></li>
-                    <li><a href="talk.php">トーク</a></li>
-                    <li><a href="favorites.php">つながり</a></li>
-                    <li><a href="profile.php">プロフィール</a></li>
-                    <li><a href="logout.php">ログアウト</a></li>
-                 </ul>
-             </nav>
+             
             <head>
                 <title></title>
             </head>
