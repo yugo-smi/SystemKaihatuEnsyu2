@@ -210,6 +210,10 @@ right: 0;
   font-size: 10px;
 }
 
+.message1{
+  text-align: center;
+}
+
 .title1 {
   text-align: center;
   font-family: 'Lobster', cursive; /* Google FontsのLobsterを使用 */

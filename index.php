@@ -282,7 +282,7 @@ try {
                 <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <p>まだチャットした相手はいません。</p>
+            <p class="message1">まだチャットした相手はいません。</p>
         <?php endif; ?>
     </div>
 
