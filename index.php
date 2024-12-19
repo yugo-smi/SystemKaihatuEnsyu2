@@ -244,13 +244,13 @@ try {
     <div class="main-container">
         <div class="slideshow-container">
             <div class="slide">
-                <img src="./image/deai.png" alt="Slide 1">
+                <img src="./image/akasi.jpg" alt="Slide 1">
             </div>
             <div class="slide">
-                <img src="./image/akasi.png" alt="Slide 2">
+                <img src="./image/usj.png" alt="Slide 2">
             </div>
             <div class="slide">
-                <img src="./image/default-pic.png" alt="Slide 3">
+                <img src="./image/christmas.png" alt="Slide 3">
             </div>
         </div>
         <div class="dots-container">
