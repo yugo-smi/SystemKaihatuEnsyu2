@@ -19,7 +19,10 @@ $tags_hobby = ["アウトドア",
              ,"外食",];
 
              
-$tags_default_license = [
+$tags_license = [
+            "ITパスポート",
+            "基本情報技術者試験",
+            "応用情報技術者試験",
              "情報セキュリティマネジメント試験",
              "ネットワークスペシャリスト試験",
              "情報処理安全確保支援士試験",
@@ -38,9 +41,11 @@ $tags_default_license = [
              "マルチメディア検定",
              "Webデザイナー検定",
              "画像処理エンジニア検定",             
-            ];
-
-    $tags_ALL_common = [                
+            "CGクリエイター試験",
+            "色彩検定１級",
+            "色彩検定２級",
+            "色彩検定３級",
+            "Webクリエイター検定",
             "マイクロソフトオフィススペシャリストマスター",
             "マイクロソフトオフィススペシャリスト",
             "word expert",
@@ -51,21 +56,8 @@ $tags_default_license = [
             "Access Specialist",
             "PowerPoint expert",
             "PowerPoint Specialist",
-];
+            ];
 
-    $tags_IT_common = [
-            "ITパスポート",
-            "基本情報技術者試験",
-            "応用情報技術者試験"
-    ];
 
-    $tags_design_common =[
-        "CGクリエイター試験",
-        "色彩検定１級",
-        "色彩検定２級",
-        "色彩検定３級",
-        "Webクリエイター検定"
-    ];
-
-    $tags = array_merge($tags_hobby,$tags_default_license,$tags_ALL_common,$tags_IT_common,$tags_design_common)              
+            $tags = array_merge($tags_hobby,$tags_license)          
 ?>
