@@ -67,6 +67,28 @@ slides.forEach(slide => {
     slide.addEventListener('mousedown', touchStart);
     slide.addEventListener('mouseup', touchMove);
 });
+// モーダルを開く関数
+function openModal(imageSrc) {
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    modal.style.display = 'block';
+    modalImage.src = imageSrc;
+}
+
+// モーダルを閉じる関数
+function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'none';
+}
+
+// モーダル外をクリックしたら閉じる
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    if (event.target === modal) {
+        closeModal();
+    }
+};
+
 async function fetchLatestMessage() {
     try {
         const response = await fetch('chat.php?action=fetch_latest&partner_id=' + partnerId);

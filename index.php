@@ -242,14 +242,19 @@ try {
 
     <!-- メイン -->
     <div class="main-container">
+        <div id="modal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
         <div class="slideshow-container">
-            <div class="slide">
+            <div class="slide" onclick="openModal('./image/akasi.jpg')">
                 <img src="./image/akasi.jpg" alt="Slide 1">
             </div>
-            <div class="slide">
+            <div class="slide" onclick="openModal('./image/usj.png')">
                 <img src="./image/usj.png" alt="Slide 2">
             </div>
-            <div class="slide">
+            <div class="slide" onclick="openModal('./image/christmas.png')">
                 <img src="./image/christmas.png" alt="Slide 3">
             </div>
         </div>
@@ -282,7 +287,7 @@ try {
                 <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <p>まだチャットした相手はいません。</p>
+            <p class="message1">まだチャットした相手はいません。</p>
         <?php endif; ?>
     </div>
 

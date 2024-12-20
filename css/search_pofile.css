@@ -258,6 +258,21 @@ textarea {
     align-items: center; /* 垂直方向に中央揃え */
 }
 
+.license-container, .tag-container {
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.license-item, .tag-item {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
 .favorite-button {
     background-color: #3b73c1; /* 青背景 */
     color: #ffffff; /* 白文字 */
