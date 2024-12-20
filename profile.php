@@ -145,10 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="tag-container">
                     <?php
                     [$tags_hobby,$tags_license] = require 'tags_data.php';
-                            $selected_tags = explode(",", $user['tags']);
+                            $selected_license = explode(",", $user['license']);
                             echo "<div>";
                                 foreach ($tags_license as $tag) {
-                                $checked = in_array($tag, $selected_tags) ? "checked" : "";
+                                $checked = in_array($tag, $selected_license) ? "checked" : "";
                                 echo "<div><label><input type='checkbox' name='license[]' value='$tag' $checked> $tag</label></div> ";
                             }
                             echo "</div>"
