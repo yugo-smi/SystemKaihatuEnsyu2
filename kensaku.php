@@ -163,9 +163,9 @@ try {
             <button class="btn search-button"><i class="fas fa-search"></i></button>
         </div>
         <div class="search-input-container">
-              
+              <div class="buttons">
                 <div class="dropdown">
-                    <h5 class="dropdown-header">情報処理IT系</h5>
+                    <div class="dropdown-header">情報処理IT系</div>
                     <div class="dropdown-content">
                         <label><input type="checkbox" name="license[]" value="基本情報技術者試験">基本情報技術者試験</label><br>
                         <label><input type="checkbox" name="license[]" value="応用情報技術者試験">応用情報技術者試験</label><br>
@@ -237,7 +237,6 @@ try {
                         <label><input type="checkbox" name="license[]" value="Webクリエイター検定">Webクリエイター検定</label><br>
                     </div>
                 </div>
-                <label><input id = 'none' type="checkbox" name="license[]" value="勉強中">勉強中</label><br>
                 
                 <div class="dropdown">
                     <h5 class="dropdown-header">趣味</h5>
@@ -261,8 +260,9 @@ try {
                         <label><input type="checkbox" name="tags[]" value="外食">外食</label><br>
                     </div>
                 </div>
+                </div>
             </div>
-            <button class="btn search-button"><i class="fas fa-search"></i></button>
+        </div>
         </div>
     </div>
     <!-- エラーメッセージを表示 -->
