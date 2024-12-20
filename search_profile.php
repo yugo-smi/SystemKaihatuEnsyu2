@@ -121,7 +121,7 @@ try {
             <!-- チャットボタン -->
             <div class="chat-or-change">
                 <button class="button chat-button">
-                    <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">チャットする</a>
+                    <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">チャット</a>
                 </button>
             </div>
 
@@ -139,7 +139,7 @@ try {
 
             <div class="back-to-search">
                 <button class="button back-button">
-                    <a href="<?= htmlspecialchars($backURL, ENT_QUOTES, 'UTF-8') ?>">前の画面に戻る</a>
+                    <a href="<?= htmlspecialchars($backURL, ENT_QUOTES, 'UTF-8') ?>">戻る</a>
                 </button>
             </div>
 

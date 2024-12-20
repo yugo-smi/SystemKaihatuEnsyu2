@@ -124,7 +124,7 @@ if (empty($_SESSION['csrf_token'])) {
                 </span>
             </div>
 
-            <button type="submit" class="login-button">ログインする</button>
+            <button type="submit" class="login-button">ログイン</button>
         </form>
 
         <div class="register-link">
