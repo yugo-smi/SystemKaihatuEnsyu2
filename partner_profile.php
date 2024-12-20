@@ -98,9 +98,9 @@ try {
         </div>
         
         <div class="buttons">
-            <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="button chat-button">チャットする</a>
+            <a href="chat.php?partner_id=<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>" class="button chat-button">チャット</a>
             <button class="button change-button" onclick="reloadPage()">探す</button>
-            <button class="button back-button"><a href="index.php">前の画面に戻る</a></button>
+            <button class="button back-button"><a href="index.php">戻る</a></button>
         </div>
 
         <script>

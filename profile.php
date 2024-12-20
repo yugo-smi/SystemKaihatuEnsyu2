@@ -28,7 +28,7 @@ try {
 $user_id = $_SESSION['user_id'];
 
 // ユーザー情報の取得
-$sql = "SELECT nickname, tags, bio,image_path FROM user_table WHERE id = :id";
+$sql = "SELECT nickname, license,tags, bio,image_path FROM user_table WHERE id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
@@ -39,7 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 入力データを取得
     $nickname = !empty($_POST['nickname']) ? $_POST['nickname'] : $user['nickname'];
     $tags = !empty($_POST['tags']) ? implode(",", $_POST['tags']) : $user['tags']; // 選択されたタグをカンマ区切りに
+    $license = !empty($_POST['license']) ? implode(",", $_POST['license']) : $user['license']; 
     $bio = !empty($_POST['bio']) ? $_POST['bio'] : $user['bio'];
+
 
     // 古い画像の削除用パス
     $current_image_path = $user['image_path'];
@@ -62,13 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // データベース更新
-    $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio, image_path = :image_path WHERE id = :id";
+    // var_dump($tags);exit;
+    $update_sql = "UPDATE user_table SET nickname = :nickname, tags = :tags, bio = :bio, image_path = :image_path ,license = :license WHERE id = :id";
     $update_stmt = $pdo->prepare($update_sql);
     $update_stmt->bindParam(':nickname', $nickname);
     $update_stmt->bindParam(':tags', $tags);
     $update_stmt->bindParam(':bio', $bio);
     $update_stmt->bindParam(':image_path', $imagepath, PDO::PARAM_STR);
     $update_stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+    $update_stmt->bindParam('license',$license);
     $update_stmt->execute();
 
     // 更新メッセージ表示とリロード
@@ -135,53 +139,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label></label>
         <div class="dropdown">
-            <h5 class="dropdown-header">資格</h5>
+            <h5 class="dropdown-header">資格
+            </h5>
             <div class="dropdown-content">
                 <div class="tag-container">
                     <?php
-                        include('tags_data.php');
+                    [$tags_hobby,$tags_license] = require 'tags_data.php';
                             $selected_tags = explode(",", $user['tags']);
                             echo "<div>";
-                                foreach ($tags_default_license as $tag) {
+                                foreach ($tags_license as $tag) {
                                 $checked = in_array($tag, $selected_tags) ? "checked" : "";
-                                echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
+                                echo "<div><label><input type='checkbox' name='license[]' value='$tag' $checked> $tag</label></div> ";
                             }
                             echo "</div>"
                     ?>
 
-                    <?php
-                    include('tags_data.php');
-                        $selected_tags = explode(",", $user['tags']);
-                        echo "<div>";
-                            foreach ($tags_IT_common as $tag) {
-                            $checked = in_array($tag, $selected_tags) ? "checked" : "";
-                            echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
-                        }
-                        echo "</div>"
-                    ?>
-
-                    <?php
-                    include('tags_data.php');
-                        $selected_tags = explode(",", $user['tags']);
-                        echo "<div>";
-                            foreach ($tags_design_common as $tag) {
-                            $checked = in_array($tag, $selected_tags) ? "checked" : "";
-                            echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
-                        }
-                        echo "</div>"
-                    ?>
 
 
-                    <?php
-                    include('tags_data.php');
-                        $selected_tags = explode(",", $user['tags']);
-                        echo "<div>";
-                            foreach ($tags_ALL_common as $tag) {
-                            $checked = in_array($tag, $selected_tags) ? "checked" : "";
-                            echo "<div><label><input type='checkbox' name='tags[]' value='$tag' $checked> $tag</label></div> ";
-                        }
-                        echo "</div>"
-                    ?>
+  
                 </div>
             </div>
         </div>
