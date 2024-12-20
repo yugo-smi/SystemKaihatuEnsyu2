@@ -59,5 +59,11 @@ $tags_license = [
             ];
 
 
-            $tags = array_merge($tags_hobby,$tags_license)          
+            $tags = array_merge($tags_hobby,$tags_license);
+
+
+return [
+    $tags_hobby,
+    $tags_license
+];
 ?>
