@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="./css/style_partner_profile.css">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィール編集</title>
+    <title>編集</title>
 </head>
 
 <body>
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </header>
     <script src="js/kensaku_hamburger.js"></script>
-    <h2>プロフィール編集</h2>
+    <h2>編集</h2>
     <form method="POST" action="profile.php" enctype="multipart/form-data">
         <!-- 画像選択機能を追加 -->
         <div class="profile-info">
