@@ -27,10 +27,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // パスワードをハッシュ化して保存
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    if(mb_strlen($nickname)<1 | mb_strlen($nickname) >= 12){
-        $error = 'ニックネームは1文字以上12文字以下で入力してください。';
+    function calculateLength($str) {
+        $length = 0;
+        for ($i = 0; $i < mb_strlen($str, 'UTF-8'); $i++) {
+            $char = mb_substr($str, $i, 1, 'UTF-8');
+            // 全角文字を1、半角文字を0.5としてカウント
+            $length += (strlen($char) > 1) ? 1 : 0.5;
+        }
+        return $length;
     }
-
+    
+    // ニックネームのバリデーション
+    $nicknameLength = calculateLength($nickname);
+    
+    if ($nicknameLength < 1 || $nicknameLength > 12) {
+        $error = 'ニックネームは1文字以上12文字以内で入力してください。（半角は0.5文字としてカウントされます）';
+    }
+    
 
     // タグが選択されているかチェック
 
@@ -94,8 +107,7 @@ ob_end_flush();
 
         <form id="registerForm" action="register.php" method="POST">
             <label for="nickname">※ニックネーム</label>
-            <input type="text" minlength="1" maxlength="12"  id="nickname" name="nickname" required pattern="{1,12}">
-
+            <input type="text" id="nickname" name="nickname" required>
 
             <label for="email">※oicメールアドレス</label>
             <input type="email" id="email" name="email" required
