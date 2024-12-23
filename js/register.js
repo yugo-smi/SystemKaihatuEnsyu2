@@ -75,3 +75,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function calculateLength(str) {
+    let length = 0;
+    for (let char of str) {
+        // 全角文字は2バイト以上、半角文字は1バイト
+        length += char.match(/[^\x01-\x7E\xA1-\xDF]/) ? 1 : 0.5;
+    }
+    return length;
+}
+
+document.getElementById('nickname').addEventListener('input', function () {
+    const maxLength = 12;
+    const inputField = this;
+    const value = inputField.value;
+    let length = calculateLength(value);
+
+    // 制限を超えたら切り詰め
+    while (length > maxLength) {
+        inputField.value = value.slice(0, -1);
+        length = calculateLength(inputField.value);
+    }
+});
+
