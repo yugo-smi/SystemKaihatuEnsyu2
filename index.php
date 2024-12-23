@@ -275,8 +275,8 @@ try {
     <script src="js/index_hamburger.js"></script>
     <script src="./js/index_slideshow.js"></script>
     </body>
-<div id="chat-list-container">
-        <h1>最新のメッセージ</h1>
+    <div class="chat-list-container">
+        <h2 class="message">new messege</h2>
         <?php if (!empty($chatUsers)): ?>
             <ul id="chat-list">
                 <?php foreach ($chatUsers as $user): ?>
