@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </header>
     <script src="js/kensaku_hamburger.js"></script>
-    <h2>編集</h2>
+    <h2></h2>
     <form method="POST" action="profile.php" enctype="multipart/form-data">
         <!-- 画像選択機能を追加 -->
         <div class="profile-info">
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
 
-        <label>自己紹介文</label>
+        <label>自己紹介</label>
         <textarea name="bio"><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea><br>
         <button type="submit" class="submit-btn">更新</button>
     </form>
