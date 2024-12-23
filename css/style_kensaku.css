@@ -1,276 +1,4 @@
-/* Basic reset and styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-} */
-
-/* Profile container */
-/* .profile-container {
-    width: 90%;
-    max-width: 400px;
-    margin: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-} */
-
-/* Header with Logo and Title */
-.header {
-    display: flex;
-    align-items: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 15px;
-}
-
-.logo {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-h1 {
-    color: #333;
-    font-size: 1.6em;
-}
-
-/* Search Section */
-.buttons {
-    margin: 20px;
-    text-align: center;
-}
-
-.search-input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.search-input-container input[type="text"],
-.search-input-container select {
-    width: calc(100% - 40px);
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.search-button {
-    width: 34px;
-    height: 34px;
-    margin-left: 8px;
-    background-color: #d5eaff;
-    border: none;
-    border-radius: 5px;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.search-button:hover {
-    background-color: #c0e4ffda;
-}
-
-.results-container {
-    padding: 10px;
-    background-color: #f5f5f5;
-}
-
-.user-card {
-    display: block; /* 全体をリンクとして扱う */
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Profile Cards */
-.profile-card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.profile-card:hover {
-    background-color: #f0f8ff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.profile-image img {
-    width: 100px; /* 画像の幅 */
-    height: 100px; /* 画像の高さ */
-    border-radius: 50%; /* 丸くする */
-    object-fit: cover; /* 枠内に収める */
-    border: 2px solid #ccc; /* 外枠 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ホバー時のアニメーション */
-}
-
-.profile-concent {
-    flex: 1; /* コンテンツが広がるように設定 */
-    min-width: 200px;
-}
-
-.profile-name {
-    font-weight: bold;
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 8px;
-    word-break: break-all;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    max-width: 100%;
-    border: none;
-    text-decoration: none;
-}
-
-.profile-bio {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.5;
-    word-break: break-all;
-    overflow-wrap: break-word;
-    max-width: 100%;
-    white-space: pre-wrap;
-    border: none;
-    text-decoration: none;
-    margin-bottom: 0;
-}
-
-.profile-button {
-    padding: 10px 20px;
-    font-size: 14px;
-    text-align: center;
-    background-color: #d5eaff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.profile-button:hover {
-    background-color: #c0e4ffda;
-}
-
-/* ロゴ */
-.logo {
-    width: 80px;
-    height: auto;
-    float: left;
-}
-
-/* ボタンホバー時の効果 */
-.prev:hover,
-.next:hover {
-    background-color: rgba(0, 162, 255, 0.8);
-}
-
-
-.random_matching {
-    text-align: center;
-}
-
-/* タイトル */
-.logotitle {
-    display: flex;
-    justify-content: center;
-    /* 水平方向に中央揃え */
-    align-items: center;
-    /* 垂直方向に中央揃え */
-}
-
-.logo {
-    float: left;
-    width: 80px;
-    height: 80px;
-}
-
-.hamburger {
-    float: right;
-    margin-top: 25px;
-    margin-right: 25px;
-    width: 30px;
-    height: 30px;
-}
-
-.hamburger span {
-    display: block;
-    height: 3px;
-    background-color: #333;
-    border-radius: 3px;
-    transition: 0.3s;
-}
-
-/* メニューのスタイル */
-.menu {
-    z-index: calc(infinity);
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 200px;
-    height: 100%;
-    background-color: #79f4ff;
-    color: white;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    transition: right 0.3s;
-}
-
-.menu ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-.menu ul li {
-    margin: 15px 0;
-}
-
-.menu ul li a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* メニューの表示 */
-.menu {
-    margin-top: 80px;
-}
-
-.menu.open {
-    right: 0;
-}
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-/* 全体のスタイル */
-.dropdown {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-  }
-  
-  /* ヘッダーのスタイル */
+   /* ヘッダーのスタイル */
 /* Basic reset and styling */
 * {
     margin: 0;
@@ -329,7 +57,6 @@ h1 {
     align-items: center;
     margin-bottom: 10px;
     width: 100%;
-    justify-content: space-between; /* 左右に要素を配置 */
 }
 
 .search-input-container input[type="text"],
@@ -361,6 +88,7 @@ h1 {
 .results-container {
     padding: 10px;
     background-color: #f5f5f5;
+    margin-top: -60px;
 }
 
 .user-card {
@@ -541,20 +269,15 @@ h1 {
 .dropdown {
     position: relative; /* ポップアップ位置調整のために必要 */
     overflow: visible;
-    width: 100%;
-    margin-bottom: 20px;
+    margin-top: -20px;
+    margin-bottom: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f5f5f5;
+    width: 300px;
+    text-align: center;
   }
 
-  /* ドロップダウンの2列配置 */
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px; /* 各ドロップダウン間のスペース */
-}
-  
   /* ヘッダーのスタイル */
   .dropdown-header {
     display: inline-block;
@@ -563,7 +286,7 @@ h1 {
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
-    margin: 0;
+    font-size: 16px;
   }
   
   /* チェックボックス群のスタイル */
@@ -587,8 +310,8 @@ h1 {
   
   /* チェックボックスラベル */
 .dropdown-content label {
-    display: block;
-    padding: 5px 0;
+    padding: 0;
+    margin: 0;
     font-size: 14px;
     color: #555;
     cursor: pointer;
