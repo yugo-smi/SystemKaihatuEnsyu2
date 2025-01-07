@@ -114,7 +114,7 @@ ob_end_flush();
                    pattern="^[A-Za-z]{1}\d{4}@oic\.jp$"
                    title="メールアドレスは英単語1文字+4桁の数字@oic.jpの形式で入力してください">
 
-            <label for="password">※パスワード</label>
+            <label for="password">※パスワード（英数字８文字以上）</label>
             <div class="password-container">
                 <input type="password" id="password" name="password" required
                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
