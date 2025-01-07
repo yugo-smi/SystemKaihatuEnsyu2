@@ -81,6 +81,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
+$BIO = $_POST['BIO'];
+function calculateLength($str) {
+    $length = 0;
+    for ($i = 0; $i < mb_strlen($str, 'UTF-8'); $i++) {
+        $char = mb_substr($str, $i, 1, 'UTF-8');
+        // 全角文字を1、半角文字を0.5としてカウント
+        $length += (strlen($char) > 1) ? 1 : 0.5;
+    }
+    return $length;
+}
+
+// ニックネームのバリデーション
+$BIOLength = calculateLength($BIO);
+if ($nicknameLength > 400) {
+    $error = 'ニックネームは1文字以上12文字以内で入力してください。（半角は0.5文字としてカウントされます）';
+}
+
 
 ?>
 
@@ -183,6 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <textarea name="bio"><?= htmlspecialchars($user['bio'], ENT_QUOTES, 'UTF-8') ?></textarea><br>
         <button type="submit" class="submit-btn">更新</button>
     </form>
+    <script src="js/register.js"></script>
     <script src="js/profile.js"></script>
     <script src="js/tag.js"></script>
 </body>
